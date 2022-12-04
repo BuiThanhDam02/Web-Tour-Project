@@ -27,12 +27,12 @@ public class Login extends HttpServlet {
         User user = UserService.getInstance().checkLogin(username, password);
         if(user==null){
             request.setAttribute("error", "Tên người dùng hoặc mật khẩu không chính xác");
-            request.getRequestDispatcher("/public/views/sign.jsp").forward(request, response);
+            request.getRequestDispatcher("sign.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", user);
 //            session.setAttribute("login","Bạn đã đăng nhập");
-            response.sendRedirect("/public/views/index.jsp");
+            response.sendRedirect("index.jsp");
         }
     }
 }

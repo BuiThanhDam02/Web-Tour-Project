@@ -3,42 +3,44 @@ package vn.edu.hcmuaf.fit.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
-/*
-Class Voucher chứa những thông tin về Voucher của 1 Tour du lịch
-Tạo bởi Nguyễn Hữu Đạt 20130224
-Cập nhật bởi Nguyễn Hữu Đạt 20130224
- */
-
 public class Voucher implements Serializable {
-    //Khai báo biến
-    private String voucher_id;
-    private int voucher_value;
-    private Date NgayBatDau;
-    private Date NgayKetThuc;
-    private int trangThai;
-    //Tạo constructor
-    public Voucher(String voucher_id, int voucher_value, Date ngayBatDau, Date ngayKetThuc, int trangThai) {
-        this.voucher_id = voucher_id;
-        this.voucher_value = voucher_value;
-        NgayBatDau = ngayBatDau;
-        NgayKetThuc = ngayKetThuc;
-        this.trangThai = trangThai;
-    }
-    //Tạo getter và setter
-    public String getVoucher_id() {
-        return voucher_id;
+
+    private String VOUCHER_ID ;
+    private int VOUCHER_VALUE ;
+    private Date NgayBatDau ;
+    private Date NgayKetThuc ;
+   private int TRANGTHAI ;
+
+   public Voucher(){
+
+   }
+
+    public Voucher( String VOUCHER_ID, int VOUCHER_VALUE, Date ngayBatDau, Date ngayKetThuc, int TRANGTHAI) {
+
+        this.VOUCHER_ID = VOUCHER_ID;
+        this.VOUCHER_VALUE = VOUCHER_VALUE;
+        this.NgayBatDau = ngayBatDau;
+        this.NgayKetThuc = ngayKetThuc;
+        this.TRANGTHAI = TRANGTHAI;
     }
 
-    public void setVoucher_id(String voucher_id) {
-        this.voucher_id = voucher_id;
+    //getter setter
+
+
+    public String getVOUCHER_ID() {
+        return VOUCHER_ID;
     }
 
-    public int getVoucher_value() {
-        return voucher_value;
+    public void setVOUCHER_ID(String VOUCHER_ID) {
+        this.VOUCHER_ID = VOUCHER_ID;
     }
 
-    public void setVoucher_value(int voucher_value) {
-        this.voucher_value = voucher_value;
+    public int getVOUCHER_VALUE() {
+        return VOUCHER_VALUE;
+    }
+
+    public void setVOUCHER_VALUE(int VOUCHER_VALUE) {
+        this.VOUCHER_VALUE = VOUCHER_VALUE;
     }
 
     public Date getNgayBatDau() {
@@ -57,22 +59,25 @@ public class Voucher implements Serializable {
         NgayKetThuc = ngayKetThuc;
     }
 
-    public int getTrangThai() {
-        return trangThai;
+    public int getTRANGTHAI() {
+        return TRANGTHAI;
     }
 
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
+    public void setTRANGTHAI(int TRANGTHAI) {
+        this.TRANGTHAI = TRANGTHAI;
     }
-    //Hàm toString
+
+    //
+
     @Override
     public String toString() {
         return "Voucher{" +
-                "voucher_id='" + voucher_id + '\'' +
-                ", voucher_value=" + voucher_value +
+
+                ", VOUCHER_ID='" + VOUCHER_ID + '\'' +
+                ", VOUCHER_VALUE=" + VOUCHER_VALUE +
                 ", NgayBatDau=" + NgayBatDau +
                 ", NgayKetThuc=" + NgayKetThuc +
-                ", trangThai=" + trangThai +
+                ", TRANGTHAI=" + TRANGTHAI +
                 '}';
     }
 }

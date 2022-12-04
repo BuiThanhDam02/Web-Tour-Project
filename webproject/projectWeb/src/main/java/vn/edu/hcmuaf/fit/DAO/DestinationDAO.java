@@ -23,7 +23,8 @@ public class DestinationDAO {
      */
     public Destination getOneDestination(String Des_id){
         List<Destination> des = JDBIConnector.get().withHandle(h ->
-                h.createQuery("SELECT * FROM DIADIEM WHERE DIADIEM.DiaDiem_ID  = ?")
+                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID WHERE DIADIEM.DiaDiem_ID  = ? \n" +
+                                "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL ")
                         .bind(0, Des_id)
                         .mapToBean(Destination.class)
                         .stream()
@@ -37,14 +38,34 @@ public class DestinationDAO {
     /*
    Phương thức lấy dữ liệu tất cả địa điểm có trong cơ sở dữ liệu
     */
-    public List<Destination> getOneDestination(){
+    public List<Destination> getDestination(){
         List<Destination> des = JDBIConnector.get().withHandle(h ->
-                h.createQuery("SELECT * FROM DIADIEM")
+                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID\n" +
+                                "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL")
                         .mapToBean(Destination.class)
                         .stream()
                         .collect(Collectors.toList())
         );
 
         return des;
+    }
+
+    public List<Destination> getPopularDestination(){
+        List<Destination> des = JDBIConnector.get().withHandle(h ->
+                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID\n" +
+                                "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL")
+                        .mapToBean(Destination.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+        des.sort((o1, o2) -> o2.getSoluong() - o1.getSoluong());
+        List<Destination> popudes = des.subList(0,9);
+        return popudes;
+    }
+
+    public static void main(String[] args) {
+        List<Destination> des = DestinationDAO.getInstance().getDestination();
+        System.out.println(des.toString());
     }
 }

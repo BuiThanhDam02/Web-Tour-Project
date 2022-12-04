@@ -3,9 +3,13 @@ package vn.edu.hcmuaf.fit.DAO;
 
 import vn.edu.hcmuaf.fit.bean.Tour;
 import vn.edu.hcmuaf.fit.bean.TourDetail;
+import vn.edu.hcmuaf.fit.bean.Voucher;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -54,7 +58,7 @@ public class TourDAO {
     }
     /*
    phương thức tiềm kiếm nhanh dữ liệu tour thông qua 1 đoạn text nhập vào
-   từ ô tìm kiến trên thanh header hoặc trong rightNav trang package
+   từ ô tìm kiến trên thanh header
     */
     public List<Tour> getListBySearchText(String textSearch){
 
@@ -70,9 +74,88 @@ public class TourDAO {
         );
         return list ;
     }
+    /*
+  phương thức tiềm kiếm dữ liệu tour thông qua 1 đoạn text nhập vào và các lựa chọn lọc
+  từ ô tìm kiến của thanh rightNav trang package
+   */
+    public List<Tour> findListTourBySearchFilter(String searchText,List<String> liststring){
+        String query = "";
+        for (String string:
+                liststring) {
+            query += " and "+string;
+        }
+        String  textSearchquery = "";
+        if (searchText != "") textSearchquery = " and TourName LIKE '%"+searchText+"%' OR TourName LIKE '"+searchText+"%' or TourName LIKE '%"+searchText+"' ";
+
+        String finalQuery = query;
+
+        String finalTextSearchquery = textSearchquery;
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe" +
+                                " from Tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                "where tour_type.Type =1 and tour.TrangThai =1  " +
+                                finalTextSearchquery + finalQuery
+                            )
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list ;
+    }
+    public List<Tour> getListPopularTour(){
+
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =1")
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        list.sort((o1, o2) -> o2.getSoLuong() - o1.getSoLuong());
+        List<Tour> listPopular = list.subList(0,7);
+        return listPopular ;
+    }
+    public List<Tour> getListIncomingTour(){
+
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =2")
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+
+        return list ;
+    }
+    public Map<Integer,List<Tour>> getMapVoucherTour(){
+        Map<Integer,List<Tour>> map = new LinkedHashMap<Integer, List<Tour>>();
+
+        List<Voucher> listV = VoucherDAO.getInstance().getVoucherList();
+        for (Voucher v:
+             listV) {
+            List<Tour> list = JDBIConnector.get().withHandle(h ->
+                    h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
+                                    " where tour_type.Type =1 and tour.TrangThai =1 and TOUR_VOUCHER.VOUCHER_ID = ?")
+                            .bind(0,v.getVOUCHER_ID())
+                            .mapToBean(Tour.class)
+                            .stream()
+                            .collect(Collectors.toList())
+            );
+            if (!list.isEmpty()) {
+                map.put(v.getVOUCHER_VALUE(), list);
+            }
+        }
+
+        return map ;
+    }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getListBySearchText("chùa").toString());
+        Map<Integer,List<Tour>> map = new LinkedHashMap<Integer, List<Tour>>();
+        map = getInstance().getMapVoucherTour();
+
+        Set<Integer> set = map.keySet();
+        for (Integer i:
+             set) {
+            System.out.println(i + map.get(i).toString());
+        }
     }
 
 }
