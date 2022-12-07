@@ -64,4 +64,11 @@ public class UserService {
        return UserDAO.getInstance().register(username, email, hashPassword(password), confirm);
 
     }
+    public List<User> getListGuide(){
+        return UserDAO.getInstance().getListGuide();
+    }
+    public User getGuideById(String user_id){
+        return UserDAO.getInstance().getGuideById(user_id);
+    }
+
 }

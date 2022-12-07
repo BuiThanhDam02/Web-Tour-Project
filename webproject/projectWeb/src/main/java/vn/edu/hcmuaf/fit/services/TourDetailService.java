@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.services;
 
 
 import vn.edu.hcmuaf.fit.DAO.DestinationDAO;
+import vn.edu.hcmuaf.fit.DAO.ReviewDAO;
 import vn.edu.hcmuaf.fit.DAO.TourDAO;
 import vn.edu.hcmuaf.fit.DAO.TourDetailDAO;
 import vn.edu.hcmuaf.fit.bean.*;
@@ -36,7 +37,7 @@ public class TourDetailService {
         return TourDetailDAO.getInstance().getListType(tour_id);
     }
     public List<Review> getListReview(String tour_id){
-        return TourDetailDAO.getInstance().getListReview(tour_id);
+        return ReviewDAO.getInstance().getListReview(tour_id);
     }
     public List<TourGuide> getListGuide(String tour_id){
         return TourDetailDAO.getInstance().getListGuide(tour_id);

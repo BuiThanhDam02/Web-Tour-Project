@@ -1,3 +1,6 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Blog" %>
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.Destination" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -38,7 +41,7 @@
 
 
     <%@include file="./components/header.jsp"%>
-
+    <%List<Blog> list = (List<Blog>) request.getAttribute("blogs");%>
 
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
@@ -66,11 +69,15 @@
                 
                 <div class="col-lg-8" >
                     <div class="row" id="group-item">
+                        <%
+                            for (Blog blog:
+                                 list) {
 
+                            %>
                         <div class="blog-card-gamma-full">
                             <div class="blog-thumb">
-                                <a href="blog-details.jsp">
-                                <img src="./assets/images/package/pac_003-compressed.jpg" alt="">
+                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>">
+                                <img src="<%=blog.getImageURL()%>" alt="">
                                 </a>
                                 <!-- <div class="blog-lavel">
                                     <a href="#">Tourist</a>
@@ -78,62 +85,14 @@
                             </div>
                             <div class="blog-content">
                                 <div class="blog-body-top">
-                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: Trần Quốc Bảo </a>
-                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i>2022-11-10</a>
-                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (3)</a>
+                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: <%=blog.getFullName()%> </a>
+                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i><%=blog.getNgayVietBai().toString()%></a>
+                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (<%=blog.getSumComment()%>)</a>
                                 </div>
-                                <h4 class="blog-title"><a href="blog-details.jsp">Hà Giang mùa hoa Tam Giác Mạch không thể bỏ lỡ.</a></h4>
+                                <h4 class="blog-title"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h4>
                             </div>
                         </div>
-                        <div class="blog-card-gamma-full">
-                            <div class="blog-thumb">
-                                <a href="blog-details.jsp">
-    <img src="./assets/images/package/pac_006-compressed.jpg" alt="">
-    </a>
-                               
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-body-top">
-                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác Giả: Nguyễn Bích Ngọc </a>
-                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i>2022-11-13</a>
-                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (2)</a>
-                                </div>
-                                <h4 class="blog-title"><a href="blog-details.jsp">5 bãi biển siêu đẹp ở Việt Nam không phải ai cũng biết.</a></h4>
-                            </div>
-                        </div>
-                        <div class="blog-card-gamma-full">
-                            <div class="blog-thumb">
-                                <a href="blog-details.jsp">
-    <img src="./assets/images/package/pac_008-compressed.jpg" alt="">
-    </a>
-                                
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-body-top">
-                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác Giả: Trần Khánh Vy </a>
-                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i>2022-11-27</a>
-                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (8)</a>
-                                </div>
-                                <h4 class="blog-title"><a href="blog-details.jsp">Kinh nghiệm du lịch đảo Bình Ba.</a></h4>
-                            </div>
-                        </div>
-                        <div class="blog-card-gamma-full">
-                            <div class="blog-thumb">
-                                <a href="blog-details.jsp">
-                                <img src="./assets/images/package/pac_011-compressed.jpg" alt="">
-                                </a>
-                               
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-body-top">
-                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác Giả: Nguyễn Bảo Đặng </a>
-                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i>2022-10-09</a>
-                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (8)</a>
-                                </div>
-                                <h4 class="blog-title"><a href="blog-details.jsp">
-                                    6 bãi biển đẹp nhất Phú Quốc.</a></h4>
-                            </div>
-                        </div>
+                        <%}%>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -151,112 +110,102 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
+                    <form action="/projectWeb_war/user/views/blog" method="post" id="blog-sidebar-search">
                     <div class="blog-sidebar ">
                         <aside class="blog-widget widget-search">
                             <div class="widget-title">
                                 <h4>Tìm Kiếm</h4>
                             </div>
                             <div class="widget-body">
-                                <form action="#" method="post" id="blog-sidebar-search">
+
                                     <div class="search-input-group">
-                                        <input type="search" placeholder="Điểm Đến">
+                                        <input type="text" name="searchBlogText" placeholder="Tìm kiếm tin tức">
                                         <button type="submit">Tìm</button>
                                     </div>
-                                </form>
+
                             </div>
                         </aside>
                         <aside class="blog-widget widget-categories mt-30">
                             <div class="widget-title">
-                                <h4>Thể loại</h4>
+                                <h4>Điểm đến</h4>
                             </div>
                             <ul class="widget-body">
                                 <li>
-                                    <a href="#">
-                                        <h6><i class="bi bi-chevron-double-right"></i> Hà Nội</h6> <span>(20)</span></a>
+                                    <select
+                                            class="form-select"
+                                            id="CountryId"
+                                            name="searchBlogDiaDiem"
+                                    >
+                                        <option value="" >Chọn điểm đến</option>
+                                        <% List<Destination> desList  = (List<Destination>) request.getAttribute("destinationList");
+                                            for (Destination des:desList
+                                            ) {
+
+                                        %>
+
+                                        <option value="<%=des.getDiaDiem_ID()%>" ><%=des.getTenDiaDiem()%></option>
+
+                                        <%}%>
+                                    </select>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <h6><i class="bi bi-chevron-double-right"></i> TP. Hồ Chí Minh</h6> <span>(08)</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <h6><i class="bi bi-chevron-double-right"></i> Đà Nẵng</h6> <span>(18)</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <h6><i class="bi bi-chevron-double-right"></i> Phú Quốc</h6> <span>(21)</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <h6><i class="bi bi-chevron-double-right"></i> Nha Trang</h6> <span>(09)</span></a>
-                                </li>
+
                             </ul>
                         </aside>
 
+                        <aside class="blog-widget widget-tag-cloud mt-30">
+                            <div class="widget-title">
+                                <h4>Hạng mục</h4>
+                            </div>
+                            <div class="tag-cloud widget-body">
+                                <ul>
+                                    <li>
+                                        <select
+                                                class="form-select"
+                                                id="CategoryId"
+                                                name="searchBlogCategory"
+                                        >
+                                            <option value="" >Chọn hạng mục</option>
+                                            <option value="Phiêu Lưu" >Phiêu Lưu</option>
+                                            <option value="Du Lịch" >Du Lịch</option>
+                                            <option value="Du Lịch Đôi">Du Lịch Đôi</option>
+                                            <option value="Du Lịch Đơn Thân" >Du Lịch Đơn Thân</option>
+                                            <option value="Tuần Trăng Mật" >Tuần Trăng Mật</option>
+                                            <option value="Bãi Biển" >Bãi Biển</option>
+                                            <option value="Thám Hiểm Núi" >Tuần Trăng Mật</option>
+
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
                         <aside class="blog-widget widget-recent-entries-custom mt-30">
                             <div class="widget-title">
                                 <h4>Bài Viết Mới</h4>
                             </div>
                             <ul class="widget-body">
+                                <%List<Blog> ran = (List<Blog>) request.getAttribute("ranBlogs");
+                                    for (Blog blog:
+                                         ran) {
+
+
+                                %>
                                 <li class="clearfix">
-                                    <div class="wi"><a href="blog-details.jsp"><img src="./assets/images/package/pac-098.jpg" alt=""></a></div>
+                                    <div class="wi"><a href="blog-details.jsp"><img src="<%=blog.getImageURL()%>" alt=""></a></div>
                                     <div class="wb">
-                                        <h6><a href="blog-details.jsp">Nơi bạn đến luôn là nơi tuyệt đẹp.</a></h6>
+                                        <h6><a href="blog-details.jsp"><%=blog.getBLOG_TITLE()%></a></h6>
                                         <div class="wb-info">
-                                            <span class="post-date"> <i class="bi bi-person-circle"></i>Nguyễn văn trỗi </span>
-                                            <span class="post-date"> <i class="bi bi-calendar3"></i> 8/5/2022</span>
+                                            <span class="post-date"> <i class="bi bi-person-circle"></i><%=blog.getFullName()%> </span>
+                                            <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blog.getNgayVietBai().toString()%></span>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="clearfix">
-                                    <div class="wi"><a href="blog-details.jsp"><img src="./assets/images/package/pac-099.jpg" alt=""></a></div>
-                                    <div class="wb">
-                                        <h6><a href="blog-details.jsp">Ếch,cá là nhưng thứ bạn nên thử.</a></h6>
-                                        <div class="wb-info">
-                                            <span class="post-date"> <i class="bi bi-person-circle"></i>Nguyễn văn trỗi </span>
-                                            <span class="post-date"> <i class="bi bi-calendar3"></i> 8/5/2022</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="wi"><a href="blog-details.jsp"><img src="./assets/images/package/pac-097.jpg" alt=""></a></div>
-                                    <div class="wb">
-                                        <h6><a href="blog-details.jsp">Cùng khám phá nơi chốn thân thương
-</a></h6>
-                                        <div class="wb-info">
-                                            <span class="post-date"> <i class="bi bi-person-circle"></i>Nguyễn văn trỗi </span>
-                                            <span class="post-date"> <i class="bi bi-calendar3"></i> 8/5/2022</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="wi"><a href="blog-details.jsp"><img src="./assets/images/package/pac-096.jpg" alt=""></a></div>
-                                    <div class="wb">
-                                        <h6><a href="blog-details.jsp">Mùa thu trữ tình
-</a></h6>
-                                        <div class="wb-info">
-                                            <span class="post-date"> <i class="bi bi-person-circle"></i>Nguyễn văn trỗi </span>
-                                            <span class="post-date"> <i class="bi bi-calendar3"></i> 8/5/2022</span>
-                                        </div>
-                                    </div>
-                                </li>
+                                <%}%>
                             </ul>
-                        </aside>
-                        <aside class="blog-widget widget-tag-cloud mt-30">
-                            <div class="widget-title">
-                                <h4>Thẻ</h4>
-                            </div>
-                            <div class="tag-cloud widget-body">
-                                <a href="#">Phiêu Lưu</a>
-                                <a href="#">Chuyến Đi</a>
- 
-                                <a href="#">Lịch Sử</a>
-                                <a href="#">Chuyến Đi Dài</a>
-                                <a href="#">Du Lịch</a>
-                            </div>
-                        </aside>
+                                </aside>
+
                        
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

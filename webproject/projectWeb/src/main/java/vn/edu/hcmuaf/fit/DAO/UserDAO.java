@@ -86,4 +86,16 @@ cập nhật bởi Bùi Thanh Đảm
         );
         return list;
     }
+
+    public User getGuideById(String user_id){
+        List<User> users = JDBIConnector.get().withHandle(h ->
+                h.createQuery("SELECT * FROM user WHERE user.USER_ID = ? and user.USER_Role=1")
+                        .bind(0, user_id)
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (users.size() != 1) return null;
+        return users.get(0);
+    }
 }

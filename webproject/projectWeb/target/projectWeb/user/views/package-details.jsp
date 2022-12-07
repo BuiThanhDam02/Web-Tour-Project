@@ -1,5 +1,8 @@
-<%@ page import="java.util.List" %>
 <%@ page import="vn.edu.hcmuaf.fit.bean.*" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -54,7 +57,10 @@
             </div>
         </div>
     </div>
-<% TourPackage tp = (TourPackage) request.getAttribute("tourdetail");
+<%
+    User currentUser = (User) session.getAttribute("auth");
+    List<Tour> ranList = (List<Tour>) request.getAttribute("tourrandom");
+    TourPackage tp = (TourPackage) request.getAttribute("tourdetail");
     TourDetail td = tp.getTourDetail();
         long dateLong = td.getNgayKetThuc().getTime() - td.getNgayKhoiHanh().getTime();
         String dateString = ""+dateLong;
@@ -67,6 +73,31 @@
      List<TourGuide> guideList = tp.getGuideList();
      List<Voucher> voucherList = tp.getVoucherList();
 %>
+    <%Map<String,Double> map = new HashMap<String,Double>();
+        map.put("Chất lượng",0.0);
+        map.put("Thoải mái",0.0);
+        map.put("Lòng hiếu khách",0.0);
+        map.put("Đồ Ăn",0.0);
+
+
+        for (Review r:
+                reviewList) {
+            if (map.containsKey(r.getCategory())){
+                double oldPoint = map.get(r.getCategory()) ;
+                double newPoint = oldPoint==0.0?r.getStars() :(oldPoint + r.getStars())/2;
+                map.replace(r.getCategory(),newPoint);
+            }
+
+        }
+        Set<String> set = map.keySet();
+        int count = set.size();
+        double countvalue = 0;
+        for (String st:
+                set) {
+            countvalue += map.get(st);
+        }
+        double result = countvalue/count;
+    %>
     <div class="package-details-wrapper pt-76">
         <div class="container">
             <div class="row ">
@@ -120,21 +151,38 @@
                                 </div>
                             </div>
                             <div class="pd-thumb">
-                                <img src="<%=td.getImageURL()%>>" alt="">
+                                <img src="<%=td.getImageURL()%>" alt="">
                             </div>
                             <div class="header-bottom">
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
                                     <h5 class="location"><i class="bi bi-geo-alt"></i> <%=destination.getTenDiaDiem()%></h5>
                                     <ul class="d-flex align-items-center rating">
+                                        <% int countStar = (int) Math.floor(result);
+                                            int halfStar = (int) Math.ceil(result-countStar);
+                                            int emptyStar = 5 - countStar - halfStar;
+                                        %>
+                                        <% for (int i = 0; i < emptyStar; i++) {
+
+                                         %>
+                                        <li><i class="bi bi-star"></i></li>
+                                        <%}%>
+                                        <% for (int i = 0; i < halfStar; i++) {
+
+                                        %>
+                                        <li><i class="bi bi-star-half"></i></li>
+                                        <%}%>
+                                                <% for (int i = 0; i < countStar; i++) {
+
+                                        %>
+
                                         <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
+                                                    <%}%>
+
+
                                     </ul>
                                 </div>
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
-                                    <h2 class="pd-title"><%=td.getTourName()%>></h2>
+                                    <h2 class="pd-title"><%=td.getTourName()%></h2>
                                     <div title="Thêm vào yêu thích" style="color: red;font-size: 2rem;cursor: pointer;"><i class='bx bxs-heart'></i></div>
                                 </div>
                                 <span>Số còn nhận <span style="color: var(--c-primary);">6</span></span>
@@ -224,34 +272,24 @@
                                     <div class="rating-overview">
                                         <h3 class="d-subtitle">Tổng quan</h3>
                                         <div class="rating-overview-row row g-0">
+
                                             <div class="col-lg-4 col-md-5 col-sm-5">
                                                 <div class="total-rating d-flex justify-content-center align-items-center flex-column h-100 ">
-                                                    <h3>10.00</h3>
-                                                    <h5>Xuất Sắc</h5>
+                                                    <h3><%=result%></h3>
+                                                    <h5>Điểm Đánh Giá</h5>
                                                 </div>
                                             </div>
                                             <div class="col-lg-8 col-md-7 col-sm-7">
                                                 <div class="rating-info">
+                                                    <% for (String st:
+                                                            set) {
+
+                                                    %>
                                                     <div class="rating-box">
-                                                        <h6>Khách Sạn <span>5.0</span></h6>
+                                                        <h6><%=st%><span><%=map.get(st)%></span></h6>
                                                         <div class="rating-bar"></div>
                                                     </div>
-                                                    <div class="rating-box">
-                                                        <h6>Phương tiện vận chuyển <span>5.0</span></h6>
-                                                        <div class="rating-bar"></div>
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <h6>Thoải mái <span>5.0</span></h6>
-                                                        <div class="rating-bar"></div>
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <h6>Lòng hiếu khách <span>5.0</span></h6>
-                                                        <div class="rating-bar"></div>
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <h6>Đồ Ăn <span>5.0</span></h6>
-                                                        <div class="rating-bar"></div>
-                                                    </div>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,29 +302,36 @@
 
                                                 %>
                                             <div class="single-comment " >
-                                                <div>
-                                                    <div class="commmentor">
+                                                <div >
+                                                    <div class="commmentor"  >
                                                         <img src="<%=r.getImageURL()%>" alt="">
                                                     </div>
-                                                    <div class="comment mt-4 mt-sm-0">
+                                                    <div class="comment mt-4 mt-sm-0" style="width: 650px">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div class="info">
                                                                 <h6><%=r.getFullName()%></h6>
                                                                 <span><%=r.getNgayTao()%></span>
                                                             </div>
-                                                            <ul class="rating d-flex ">
-                                                                <%
-                                                                    for (int i = 0; i < r.getStars(); i++) {
+                                                            <div>
+                                                                <ul class="rating d-flex ">
+                                                                    <%
+                                                                        for (int i = 0; i < r.getStars(); i++) {
 
                                                                     %>
-                                                                <li><i class="bi bi-star-fill"></i></li>
-                                                                <%}%>
-                                                            </ul>
+                                                                    <li><i class="bi bi-star-fill"></i></li>
+                                                                    <%}%>
+                                                                </ul>
+                                                            </div>
                                                         </div>
+
                                                         <p><%=r.getComment()%></p>
 
                                                     </div>
+
+
+
                                                 </div>
+
                                             </div>
                                             <%}%>
 
@@ -297,34 +342,51 @@
                                             <!-- <span id="show-more-button" style="font-weight: 500;color: var(--c-primary);cursor: pointer;">Xem Thêm Bình Luận</span> -->
                                         </div>
                                     </div>
-                                    <form action="#" id="comment_form" method="post">
+                                    <form action="/projectWeb_war/user/views/review" id="comment_form" method="post">
                                         <div class="comment-form mt-110">
                                             <h4>Để Lại Bình Luận Của Bạn</h4>
                                             <div class="row">
                                                 <div class="col-lg-6">
+
                                                     <div class="custom-input-group">
-                                                        <input type="text" placeholder="Họ Tên" id="nameComment">
+                                                    <select
+                                                            id="type"
+                                                            name="categoryComment"
+                                                    >
+                                                        <option value="Chất lượng" >Chất lượng</option>
+                                                        <option value="Thoải mái" >Thoải mái</option>
+                                                        <option value="Lòng hiếu khách" >Lòng hiếu khách</option>
+                                                        <option value="Đồ Ăn" >Đồ Ăn</option>
+                                                    </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
+
                                                     <div class="custom-input-group">
-                                                        <input type="text" placeholder="Email" id="emailComment">
+                                                    <select
+                                                            id="typeStar"
+                                                            name="starComment"
+                                                    >
+                                                        <option value="1" >1 Sao</option>
+                                                        <option value="2" >2 Sao</option>
+                                                        <option value="3" >3 Sao</option>
+                                                        <option value="4" >4 Sao</option>
+                                                        <option value="5" >5 Sao</option>
+                                                    </select>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <input type="text" style="display: none" name="userIdComment" value="<%=currentUser ==null?"123":currentUser.getUser_Id()%>" id="nameComment">
+
+                                            <input type="text" style="display: none" name="tourIdComment" value="<%=td.getTOUR_ID()%>" id="emailComment">
+                                            <%Date currentDate = Date.valueOf(LocalDate.now());%>
+                                            <input type="date" name="dateComment" style="display: none" value="<%=currentDate.toString()%>">
+
                                             <div class="custom-input-group">
-                                                <input type="text" name="categoryComment" placeholder="Loại Hình Du Lịch" id="type">
+                                                <textarea cols="20" rows="7" name="Comment" placeholder="Viết Bình Luận"></textarea>
                                             </div>
-                                            <div class="custom-input-group">
-                                                <textarea cols="20" rows="7" name="comment" placeholder="Viết Bình Luận"></textarea>
-                                            </div>
-                                            <ul class="form-rating d-flex">
-                                                <li><i class="bi bi-star"></i></li>
-                                                <li><i class="bi bi-star"></i></li>
-                                                <li><i class="bi bi-star"></i></li>
-                                                <li><i class="bi bi-star"></i></li>
-                                                <li><i class="bi bi-star"></i></li>
-                                            </ul>
+
                                             <div class="custom-input-group">
                                                 <div class="submite-btn">
                                                     <button type="submit">Bình Luận</button>
@@ -354,7 +416,7 @@
                                                         <h4><%=dayList.get(i).getNgay()%></h4>
                                                     </div>
                                                     <div class="plan-title">
-                                                        <h5>Ngày <%=dayList.get(i).getNgay()%> : <%=dayList.get(i).getTitle()%>></h5>
+                                                        <h5>Ngày <%=dayList.get(i).getNgay()%> : <%=dayList.get(i).getTitle()%></h5>
                                                         <h6>08:00 - 18:00</h6>
                                                     </div>
                                                 </div>
@@ -399,12 +461,23 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4">
                     <div class="package-sidebar">
                         <aside class="package-widget-style-2 widget-form mt-30">
                             <div class="widget-title text-center d-flex justify-content-between">
                                 <h4>Giá Từ</h4>
-                                <h3 class="widget-lavel">2.990.000 ₫ <span>1 Người</span></h3>
+                                <%
+                                    TourDetailType tdt1 = new TourDetailType();
+                                    for (TourDetailType tdt:
+                                            typeList) {
+                                        if (tdt.getType() == 1) tdt1 = tdt;
+                                    }
+                                    float giaVe= tdt1.getGiaVe();
+                                    Locale locale = new Locale("vi");
+                                    NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                    String giaVeString = format.format(giaVe).split(",")[0];%>
+                                <h3 class="widget-lavel"><%=giaVeString%> ₫ <span>1 Người</span></h3>
                             </div>
                             <div class="widget-body">
                                 <form action="Booking-Tour.jsp" id="booking-form">
@@ -426,62 +499,29 @@
                             </div>
                             <div class="widget-body">
                                 <ul>
-                                    <li class="package-sm">
+                                    <%
+                                        for (Tour tour:
+                                             ranList) {
+                                            float giaVeRandom= tour.getGiaVe();
+                                            Locale localeRandom = new Locale("vi");
+                                            NumberFormat formatRandom =  NumberFormat.getCurrencyInstance(locale);
+                                            String giaVeStringRandom = format.format(giaVe).split(",")[0];
+                                    %>
+                                        <li class="package-sm">
                                         <div class="thumb">
-                                            <a href="package-details.jsp">
-                                                <img src="./assets/images/sidebar/sb-sapa.jpg" alt="">
-</a>
+                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
+                                                <img src="<%=tour.getImageURL()%>" alt="">
+                                            </a>
                                         </div>
                                         <div class="info">
-                                            <h6><a href="package-details.jsp">DU LỊCH TÂY BẮC: NGHĨA LỘ - TÚ LỆ - MÙ CANG CHẢI - SAPA</a></h6>
+                                            <h6><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
                                             <div class="price">
                                                 <span>Chỉ Từ</span>
-                                                <h6>5.990.000 ₫ <span>1 Người</span></h6>
+                                                <h6><%=giaVeStringRandom%> ₫ <span>1 Người</span></h6>
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="package-sm">
-                                        <div class="thumb">
-                                            <a href="package-details.jsp">
-                                                <img src="./assets/images/sidebar/sb-hanoi.jpg" alt="">
-</a>
-                                        </div>
-                                        <div class="info">
-                                            <h6><a href="package-details.jsp">DU LỊCH ĐÔNG BẮC - TÂY BẮC: HÀ NỘI - TRÀNG AN - BÁI ĐÍNH - HẠ LONG - KDL YÊN TỬ - SAPA </a></h6>
-                                            <div class="price">
-                                                <span>Chỉ Từ</span>
-                                                <h6>7.990.000 ₫ <span>1 Người</span></h6>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="package-sm">
-                                        <div class="thumb">
-                                            <a href="package-details.jsp">
-                                                <img src="./assets/images/sidebar/sb-binhhung.jpg" alt="">
-</a>
-                                        </div>
-                                        <div class="info">
-                                            <h6><a href="package-details.jsp">DU LỊCH ĐẢO BÌNH HƯNG</a></h6>
-                                            <div class="price">
-                                                <span>Chỉ Từ</span>
-                                                <h6>1.490.000 ₫ <span>1 Người</span></h6>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="package-sm">
-                                        <div class="thumb">
-                                            <a href="package-details.jsp">
-                                                <img src="./assets/images/sidebar/sb-namdu.jpg" alt="">
-</a>
-                                        </div>
-                                        <div class="info">
-                                            <h6><a href="package-details.jsp">DU LỊCH: KHÁM PHÁ QUẦN ĐẢO NAM DU</a></h6>
-                                            <div class="price">
-                                                <span>Chỉ Từ</span>
-                                                <h6>2.190.000 ₫ <span>1 Người</span></h6>
-                                            </div>
-                                        </div>
-                                    </li>
+                                 <%}%>
                                 </ul>
                             </div>
                         </aside>

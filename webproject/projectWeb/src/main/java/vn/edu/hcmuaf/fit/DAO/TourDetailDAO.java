@@ -61,17 +61,7 @@ public class TourDetailDAO {
 
         return list ;
     }
-    public List<Review> getListReview(String tour_id){
-        List<Review> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select REVIEW.TOUR_ID,User.USER_ID ,user.FullName ,user.ImageURL ,REVIEW.Comment , REVIEW.NgayTao ,REVIEW.Stars  from REVIEW inner join User on User.USER_ID =REVIEW.USER_ID where REVIEW.TOUR_ID  = ?")
-                        .bind(0, tour_id)
-                        .mapToBean(Review.class)
-                        .stream()
-                        .collect(Collectors.toList())
-        );
 
-        return list ;
-    }
 
     public List<TourGuide> getListGuide(String tour_id){
         List<TourGuide> list = JDBIConnector.get().withHandle(h ->

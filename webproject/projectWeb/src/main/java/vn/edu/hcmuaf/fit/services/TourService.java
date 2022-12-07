@@ -6,11 +6,9 @@ import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /*
@@ -48,6 +46,18 @@ public class TourService {
         return TourDAO.getInstance().getListIncomingTour();
     }
 
+    public List<Tour> getRandomListTour(){
+        Random random = new Random();
+        List<Tour> list = TourDAO.getInstance().getListTour();
+        List<Tour> ranlist = new ArrayList<Tour>();
+        for (int i = 0; i < 4; i++) {
+            int j = random.nextInt(list.size());
+            ranlist.add(list.get(j));
+        }
+
+        return ranlist;
+    }
+
     public List<Tour> findListTourBySearchFilter(String searchText,String searchDiaDiem
         ,String searchCategory,String searchDay,String searchPrice,String searchPersons
         ,String searchDate){
@@ -70,8 +80,9 @@ public class TourService {
     }
 
     public static void main(String[] args) {
-       List<Tour> list = getInstance().findListTourBySearchFilter("","","","","3000000","","");
-        System.out.println(list.toString());
+//       List<Tour> list = getInstance().findListTourBySearchFilter("","","","","3000000","","");
+        Date date = Date.valueOf(LocalDate.now());
+       System.out.println(date.toString());
     }
 
 }

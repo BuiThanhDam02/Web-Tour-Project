@@ -60,12 +60,12 @@ public class DestinationDAO {
         );
 
         des.sort((o1, o2) -> o2.getSoluong() - o1.getSoluong());
-        List<Destination> popudes = des.subList(0,9);
+        List<Destination> popudes = des.subList(0,6);
         return popudes;
     }
 
     public static void main(String[] args) {
-        List<Destination> des = DestinationDAO.getInstance().getDestination();
-        System.out.println(des.toString());
+
+
     }
 }

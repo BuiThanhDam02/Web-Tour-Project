@@ -71,7 +71,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate1.svg" alt="">
+                        <img src="./assets/images/icons/cate1.svg" alt="">
                     </div>
                     <h5>Phiêu Lưu</h5>
                 </a>
@@ -79,7 +79,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate2.svg" alt="">
+                        <img src="./assets/images/icons/cate2.svg" alt="">
                     </div>
                     <h5>Du Lịch</h5>
                 </a>
@@ -87,7 +87,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate3.svg" alt="">
+                        <img src="./assets/images/icons/cate3.svg" alt="">
                     </div>
                     <h5>Du Lịch Đôi</h5>
                 </a>
@@ -95,7 +95,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate4.svg" alt="">
+                        <img src="./assets/images/icons/cate4.svg" alt="">
                     </div>
                     <h5>Du Lịch Đơn Thân</h5>
                 </a>
@@ -103,7 +103,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate5.svg" alt="">
+                        <img src="./assets/images/icons/cate5.svg" alt="">
                     </div>
                     <h5>Tuần Trăng Mật</h5>
                 </a>
@@ -111,7 +111,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate6.svg" alt="">
+                        <img src="./assets/images/icons/cate6.svg" alt="">
                     </div>
                     <h5>Bãi Biển</h5>
                 </a>
@@ -119,7 +119,7 @@
             <div class="col">
                 <a class="category-box" href="../package-sidebar.jsp">
                     <div class="cate-icon mx-auto">
-                        <img src="../assets/images/icons/cate7.svg" alt="">
+                        <img src="./assets/images/icons/cate7.svg" alt="">
                     </div>
                     <h5>Thám Hiểm Núi</h5>
                 </a>
@@ -135,7 +135,7 @@
             <div class="row">
                 <div class="col-xxl-2 col-xl-2 col-lg-12 col-md-12 col-sm-12 col-xs-12 align-items-center d-xl-flex d-lg-block">
                     <div class="nav-logo d-flex justify-content-between align-items-center">
-                        <a href="../index.jsp"><img src="../assets/images/logo-w.png" alt="logo"></a>
+                        <a href="../index.jsp"><img src="./assets/images/logo-w.png" alt="logo"></a>
                         <div class="mobile-menu d-flex ">
                             <div class="d-flex align-items-center">
                                 <div class="nav-right-icons d-xl-none d-flex align-items-center ">
@@ -162,7 +162,7 @@
                 <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-8 col-sm-6 col-xs-6">
                     <nav class="main-nav index-main-nav">
                         <div class="inner-logo d-xl-none text-center">
-                            <a href="#"><img src="../assets/images/logo.png" alt=""></a>
+                            <a href="#"><img src="./assets/images/logo.png" alt=""></a>
                         </div>
                         <ul >
                             <li>
@@ -170,17 +170,17 @@
                             </li>
                             <li><a href="about.jsp">Về Chúng Tôi</a></li>
                             <li >
-                                <a href="destination.jsp">Điểm Đến</a>
+                                <a href="/projectWeb_war/user/views/destination">Điểm Đến</a>
 
                             </li>
                             <li >
                                 <a href="/projectWeb_war/user/views/tour" >Du Lịch</a>
                             </li>
                             <li >
-                                <a href="blog-standard.jsp">Tin tức</a>
+                                <a href="/projectWeb_war/user/views/blog">Tin tức</a>
 
                             </li>
-                            <li><a href="guide.jsp">Hướng Dẫn Viên</a></li>
+                            <li><a href="/projectWeb_war/user/views/guide">Hướng Dẫn Viên</a></li>
                             <li><a href="contact.jsp">Liên Hệ</a></li>
                         </ul>
                         <div class="inner-contact-options d-xl-none">
@@ -197,7 +197,7 @@
                             </div>
                             <div class="category-toggle"><i class='bx bx-category'></i></div>
                             <div class="profile-toggle">
-                                <a href="<%= user != null?"../profile.jsp":"../sign.jsp"%>"><i class='bx bx-user' ></i></a>
+                                <a href="<%= user != null?"profile.jsp":"sign.jsp"%>"><i class='bx bx-user' ></i></a>
                             </div>
                         </div>
                         <%--                            <div class="nav-right-hotline d-xxl-flex d-none">--%>

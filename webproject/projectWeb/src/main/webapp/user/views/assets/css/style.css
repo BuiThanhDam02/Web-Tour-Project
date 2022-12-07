@@ -4663,13 +4663,14 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 
 .tour-package-details .package-info-tab .rating-overview-row .rating-info .rating-box .rating-bar {
     width: 100%;
-    height: 3px;
+    height: 2px;
     border-radius: 6px;
     background: #eee;
     margin-top: 10px;
     position: relative;
     overflow: hidden
 }
+
 
 .tour-package-details .package-info-tab .rating-overview-row .rating-info .rating-box .rating-bar::before {
     position: absolute;
@@ -7062,7 +7063,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 
 .comment-section .comment-list .single-comment {
     margin-top: 40px;
-   
+
 }
 
 .comment-section .comment-list .single-comment div{
@@ -7086,6 +7087,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 .comment-section .comment-list .single-comment .comment{
     display: flex;
     flex-direction: column;
+    width: 600px;
 }
 
 .comment-section .comment-list .single-comment .comment .info{

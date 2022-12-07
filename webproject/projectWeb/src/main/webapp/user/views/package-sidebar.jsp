@@ -3,6 +3,7 @@
 <%@ page import="java.sql.Date" %>
 
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.Destination" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -100,19 +101,19 @@
                                 int ngay = dem+1;
                                 %>
                         <div class="col-md-6 "  >
-                            <div class="package-card-alpha">
+                            <div class="package-card-alpha" href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                 <div class="package-thumb">
-                                    <div class="is-new-tour <%=checkDate?"":"display-hide"%>" id="<%=tour.getNgayTao().toString()%>>"><span >Mới</span></div>
-                                    <a href="package-details.jsp"><img src="<%=tour.getImageURL()%>" alt=""></a>
+                                    <div class="is-new-tour <%=checkDate?"":"display-hide"%>" id="<%=tour.getNgayTao().toString()%>"><span >Mới</span></div>
+                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%=tour.getImageURL()%>" alt=""></a>
                                     <p class="card-lavel">
                                         <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%>  Đêm</span>
                                     </p>
                                 </div>
                                 <div class="package-card-body">
-                                    <h3 class="p-card-title"><a href="package-details.jsp"><%=tour.getTourName()%></a></h3>
+                                    <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h3>
                                     <div class="p-card-bottom">
                                         <div class="book-btn">
-                                            <a href="package-details.jsp">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                         </div>
                                         <div class="p-card-info">
                                             <span>Số còn nhận <span style="color: var(--c-primary);"><%=tour.getSoLuong()%></span></span>
@@ -174,12 +175,16 @@
                                         id="CountryId"
                                         name="searchDiaDiem"
                                       >
-                                        <option value="" >Chọn điểm đến</option>
-                                        <option value="TPHCM" >Tp.Hồ Chí Minh</option>
-                                        <option value="HANOI" >Hà Nội</option>
-                                        <option value="NHATRANG">Nha Trang</option>
-                                        <option value="DANANG" >Đà Nẵng</option>
-                                        <option value="LAMDONG" >Lâm Đồng</option>
+                                            <option value="" >Chọn điểm đến</option>
+                                            <% List<Destination> desList  = (List<Destination>) request.getAttribute("destinationList");
+                                                for (Destination des:desList
+                                                     ) {
+
+                                            %>
+
+                                        <option value="<%=des.getDiaDiem_ID()%>" ><%=des.getTenDiaDiem()%></option>
+
+                                            <%}%>
                                         </select>
                                      </li>
                                     </ul>
@@ -283,6 +288,7 @@
                             <div class="widget-body">
                                 <ul>
                                     <% List<Tour> incommingList = (List<Tour>) request.getAttribute("incommingList");
+                                    int i =0 ;
                                         for (Tour tour:
                                              incommingList) {
                                             float giaVe= tour.getGiaVe();
@@ -293,19 +299,22 @@
                                     %>
                                     <li class="package-sm">
                                         <div class="thumb">
-                                            <a href="package-details.jsp">
+                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                                 <img src="<%=tour.getImageURL()%>" alt="">
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <h6><a href="package-details.jsp"><%=tour.getTourName()%></a></h6>
+                                            <h6><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
                                             <div class="price">
                                                 <span>Chỉ Từ</span>
                                                 <h6><%=giaVeString%> ₫ <span>1 Người</span></h6>
                                             </div>
                                         </div>
                                     </li>
-                                    <%}%>
+                                    <%
+                                        i++;
+                                        if (i == 4) break;
+                                        }%>
                                 </ul>
                             </div>
                         </aside>

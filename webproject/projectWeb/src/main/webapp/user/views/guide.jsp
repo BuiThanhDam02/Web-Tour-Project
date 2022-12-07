@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -51,187 +53,37 @@
             </div>
         </div>
     </div>
+<% List<User> guideList = (List<User>) request.getAttribute("guideList");
 
+%>
     <div class="guide-wrapper  pt-80">
         <div class="container">
             <div class="row" id="group-item">
+                <%
+                    for (User u:
+                         guideList) {
+
+                    %>
                 <div class="col-lg-4 col-md-6">
                     <div class="guide-card-gamma">
                         <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-1.jpg" alt="">
+                            <img style="width: 340px; height: 370px;" src="<%=u.getImageURL()%>" alt="">
                             <ul class="guide-social-links">
                                 <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
                                 <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
                                 <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
                             </ul>
                              <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
+                                <a href="/projectWeb_war/user/views/contact?guideId=<%=u.getUser_Id()%>">Liên hệ</a>
                             </div>
                         </div>
                         <div class="guide-content">
-                            <h4 class="guide-name">ĐÀO QUANG LINH</h4>
+                            <h4 class="guide-name"><%=u.getFullName()%></h4>
                             <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-2.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">VŨ VĂN PHONG</h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-3.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">NGUYỄN THỊ BÍCH NGỌC
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-4.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">NGUYỄN THỊ BÍCH NGỌC
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-5.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">	ĐẶNG NGỌC PHÚ
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-6.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">DƯƠNG XUÂN ĐỊNH
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-7.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">NGUYỄN QUỐC TUẤN
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-8.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">PHẠM THỊ THANH TUYỀN</h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="guide-card-gamma">
-                        <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="./assets/images/guide/guide-9.jpg" alt="">
-                            <ul class="guide-social-links">
-                                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                            </ul>
-                             <div class="contact-lavel">
-                                <a href="contact.jsp">Liên hệ</a>
-                            </div>
-                        </div>
-                        <div class="guide-content">
-                            <h4 class="guide-name">	PHẠM THỊ THANH TUYỀN
-                            </h4>
-                            <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
-                        </div>
-                    </div>
-                </div>
+                <%}%>
             </div>
             <div class="row">
                 <div class="col-lg-12">
