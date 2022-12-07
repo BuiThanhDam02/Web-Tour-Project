@@ -3,6 +3,13 @@ package vn.edu.hcmuaf.fit.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
+/*
+Class Review chứa thông tin 1 bình luận và đánh giá của khách hàng
+Tạo bởi Trương Anh Thy 20130131
+Cập nhật bởi Trương Anh Thy 20130131
+
+*/
+
 public class Review implements Serializable {
     private String TOUR_ID;
     private String user_id;
