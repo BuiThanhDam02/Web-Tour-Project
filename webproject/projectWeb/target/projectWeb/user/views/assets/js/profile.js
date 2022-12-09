@@ -369,68 +369,10 @@ function GetDistrict(element) {
   });
 }
 
-function btnHidden1() {
-  var x = document.getElementById("edit_name");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 
-function btnHidden2() {
-  var x = document.getElementById("edit_sdt");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 
-function btnHidden3() {
-  var x = document.getElementById("edit_birthday");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 
-function btnHidden4() {
-  var x = document.getElementById("edit_gender");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 
-function btnHidden5() {
-  var x = document.getElementById("edit_quoctich");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
-function btnHidden6() {
-  var x = document.getElementById("edit_address");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
-function btnHidden7() {
-  var x = document.getElementById("edit_cmnd");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 
 function btnHidden8() {
   var x = document.getElementById("edit_passport");

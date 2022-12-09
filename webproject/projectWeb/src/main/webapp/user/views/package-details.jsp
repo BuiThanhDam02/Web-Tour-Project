@@ -161,22 +161,24 @@
                                             int halfStar = (int) Math.ceil(result-countStar);
                                             int emptyStar = 5 - countStar - halfStar;
                                         %>
-                                        <% for (int i = 0; i < emptyStar; i++) {
+                                        <% for (int i = 0; i < countStar; i++) {
 
-                                         %>
-                                        <li><i class="bi bi-star"></i></li>
+                                        %>
+
+                                        <li><i class="bi bi-star-fill"></i></li>
                                         <%}%>
                                         <% for (int i = 0; i < halfStar; i++) {
 
                                         %>
                                         <li><i class="bi bi-star-half"></i></li>
                                         <%}%>
-                                                <% for (int i = 0; i < countStar; i++) {
+                                        <% for (int i = 0; i < emptyStar; i++) {
 
-                                        %>
+                                         %>
+                                        <li><i class="bi bi-star"></i></li>
+                                        <%}%>
 
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                                    <%}%>
+
 
 
                                     </ul>
@@ -573,11 +575,11 @@
               
             
               
-            console.log(listComment)
+
           
                  for (let j = 0; j < listComment.length; j++) {
                      listComment[j].classList.add('display-hide');
-                     console.log(listComment[j])
+
                     
                 };
                 

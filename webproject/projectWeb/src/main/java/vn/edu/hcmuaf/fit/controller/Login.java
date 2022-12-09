@@ -13,7 +13,7 @@ import java.io.IOException;
 Được tạo bởi Bùi Thanh Đảm - 20130217
 
  */
-@WebServlet(name = "Login", value = "/doLogin")
+@WebServlet(name = "Login", value = "/user/views/doLogin")
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

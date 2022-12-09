@@ -29,7 +29,7 @@ public class blogDetail extends HttpServlet {
             request.setAttribute("blogImage",blogImage);
             request.setAttribute("blogComment",blogComment);
             request.setAttribute("destinationList",desList);
-            request.getRequestDispatcher("/blog-details.jsp").forward(request,response);
+            request.getRequestDispatcher("blog-details.jsp").forward(request,response);
         }
     }
 

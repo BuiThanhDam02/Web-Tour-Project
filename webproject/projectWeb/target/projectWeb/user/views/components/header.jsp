@@ -28,7 +28,7 @@
 
 <body>
 
-<% User user = (User) session.getAttribute("auth");
+<% User userHeader = (User) session.getAttribute("auth")==null?null:(User) session.getAttribute("auth");
 %>
 
     <div class="main-searchbar-wrapper">
@@ -260,7 +260,7 @@
                                     <i class='bx bx-search-alt'></i>
                                 </li>
                                 <li class="profile-toggle">
-                                    <a href="<%= user != null?"profile.jsp":"sign.jsp"%>"><i class='bx bx-user' ></i></a>
+                                    <a href="<%= userHeader != null?"profile.jsp":"sign.jsp"%>"><i class='bx bx-user' ></i></a>
                                 </li>
                             </ul>
                         </div>

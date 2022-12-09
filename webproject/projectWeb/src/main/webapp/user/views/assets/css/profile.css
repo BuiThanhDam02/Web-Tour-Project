@@ -51,14 +51,24 @@
     font-size: 15px;
     font-weight: 500;
 }
-
-.heading h5{
+.heading-profile {
+    display: flex;
+    justify-content: space-between;
+}
+.heading-profile div:nth-of-type(1){
+    width: 80%;
+}
+.heading-profile div:nth-of-type(2){
+    width: 20%;
+}
+.heading-profile h5{
     font-size: 24px;
 }
 
-.heading p{
+.heading-profile p{
     font-size: 18px;
 }
+
 
 
 .row{

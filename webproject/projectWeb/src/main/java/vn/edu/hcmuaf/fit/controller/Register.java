@@ -11,7 +11,7 @@ import java.io.IOException;
 Được tạo bởi Bùi Thanh Đảm - 20130217
 
  */
-@WebServlet(name = "Register", value = "/doRegister")
+@WebServlet(name = "Register", value = "/user/views/doRegister")
 public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

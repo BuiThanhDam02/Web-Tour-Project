@@ -1,12 +1,14 @@
-<%@ page import="vn.edu.hcmuaf.fit.services.BlogService" %>
-<%@ page import="java.util.List" %>
 <%@ page import="vn.edu.hcmuaf.fit.bean.*" %>
+
+<%@ page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html >
+<html>
 
 <head>
-    <title>TravellLab - Khám phá đất nước của chúng ta</title>
+    <title>TravelLab - Khám phá đất nước của chúng ta</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,8 +26,8 @@
 
     <link rel="stylesheet" href="./assets/css/animate.min.css">
 
-    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -41,14 +43,8 @@
 
 
     <%@include file="./components/header.jsp"%>
-    <%
-        Blog blog = (Blog) request.getAttribute("blog");
-        List<BlogImage> blogImage = (List<BlogImage>) request.getAttribute("blogImage");
-        List<Comment> blogComment = (List<Comment>) request.getAttribute("blogComment");
-        List<Destination> desList = (List<Destination>) request.getAttribute("destinationList");
 
-
-    %>
+    <% User currentUser = (User) session.getAttribute("auth")==null?null:(User) session.getAttribute("auth");%>
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
             <div class="col-lg-12 text-center">
@@ -61,6 +57,15 @@
         </div>
     </div>
 
+    <%
+
+        Blog blog = (Blog) request.getAttribute("blog");
+        List<BlogImage> blogImage = (List<BlogImage>) request.getAttribute("blogImage");
+        List<Comment> blogComment = (List<Comment>) request.getAttribute("blogComment");
+        List<Destination> desList = (List<Destination>) request.getAttribute("destinationList");
+
+
+    %>
     <div class="blog-details-wrapper pt-80">
         <div class="container">
             <div class="row">
@@ -131,26 +136,18 @@
                             <!-- <span id="show-more-button" style="font-weight: 500;color: var(--c-primary);cursor: pointer;">Xem Thêm Bình Luận</span> -->
                         </div>
                     </div>
-                    <form action="#" id="comment_form" method="post">
+                    <form action="/projectWeb_war/user/views/comment?blogId=<%=blog.getBLOG_ID()%>" id="comment_form" method="post">
                         <div class="comment-form mt-110">
                             <h4>Để Lại Bình Luận Của Bạn</h4>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="custom-input-group">
-                                        <input type="text" placeholder="Họ Tên" id="name1">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="custom-input-group">
-                                        <input type="text" placeholder="Email" id="email1">
-                                    </div>
-                                </div>
-                            </div>
+
+                            <input type="text" style="display: none" name="userIdComment" value="<%=currentUser ==null?"123":currentUser.getUser_Id()%>" id="nameComment">
+
+                            <input type="text" style="display: none" name="blogIdComment" value="<%=blog.getBLOG_ID()%>" id="emailComment">
+                            <%Date currentDate = Date.valueOf(LocalDate.now());%>
+                            <input type="date" name="dateComment" style="display: none" value="<%=currentDate.toString()%>">
+
                             <div class="custom-input-group">
-                                <input type="text" placeholder="Loại Hình Du Lịch" id="type">
-                            </div>
-                            <div class="custom-input-group">
-                                <textarea cols="20" rows="7" placeholder="Viết Bình Luận"></textarea>
+                                <textarea cols="20" rows="7" name="Comment" placeholder="Viết Bình Luận"></textarea>
                             </div>
                             <!-- <ul class="form-rating d-flex">
                                 <li><i class="bi bi-star"></i></li>
@@ -195,7 +192,7 @@
                                                 name="searchBlogDiaDiem"
                                         >
                                             <option value="" >Chọn điểm đến</option>
-                                            <% List<Destination> desList  = (List<Destination>) request.getAttribute("destinationList");
+                                            <%
                                                 for (Destination des:desList
                                                 ) {
 
@@ -242,18 +239,18 @@
                                 </div>
                                 <ul class="widget-body">
                                     <%List<Blog> ran = (List<Blog>) request.getAttribute("ranBlogs");
-                                        for (Blog blog:
+                                        for (Blog blogr:
                                                 ran) {
 
 
                                     %>
                                     <li class="clearfix">
-                                        <div class="wi"><a href="blog-details.jsp"><img src="<%=blog.getImageURL()%>" alt=""></a></div>
+                                        <div class="wi"><a href="blog-details.jsp"><img src="<%=blogr.getImageURL()%>" alt=""></a></div>
                                         <div class="wb">
-                                            <h6><a href="blog-details.jsp"><%=blog.getBLOG_TITLE()%></a></h6>
+                                            <h6><a href="blog-details.jsp"><%=blogr.getBLOG_TITLE()%></a></h6>
                                             <div class="wb-info">
-                                                <span class="post-date"> <i class="bi bi-person-circle"></i><%=blog.getFullName()%> </span>
-                                                <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blog.getNgayVietBai().toString()%></span>
+                                                <span class="post-date"> <i class="bi bi-person-circle"></i><%=blogr.getFullName()%> </span>
+                                                <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blogr.getNgayVietBai().toString()%></span>
                                             </div>
                                         </div>
                                     </li>

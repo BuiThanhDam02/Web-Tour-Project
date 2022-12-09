@@ -27,6 +27,7 @@ public class ReviewDAO {
                         .collect(Collectors.toList())
         );
 
+        list.sort((o1, o2) -> o1.getNgayTao().getTime() >= o2.getNgayTao().getTime()?-1:1);
         return list ;
     }
 

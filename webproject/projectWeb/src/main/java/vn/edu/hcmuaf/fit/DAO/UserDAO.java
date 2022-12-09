@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 import java.util.List;
 
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /*
@@ -58,7 +59,8 @@ cập nhật bởi Bùi Thanh Đảm
     public boolean register(String username, String email, String hashpassword, String confirm) {
 
 //        check register with username and password
-
+        Random random = new Random();
+        String id ="User"+ (random.nextInt() +5000);
         List<User> users = JDBIConnector.get().withHandle(h ->
                 h.createQuery("SELECT * FROM user WHERE username = ?")
                         .bind(0, username)
@@ -69,7 +71,7 @@ cập nhật bởi Bùi Thanh Đảm
         if (!users.isEmpty()) return false;
         JDBIConnector.get().withHandle(h ->
                 h.createUpdate("insert into user values (?,null,?,?,?,null,null,null,null,null,null,null,0)")
-                        .bind(0,"KH")
+                        .bind(0,id)
                         .bind(1,username)
                         .bind(2,email)
                         .bind(3,hashpassword)
@@ -97,5 +99,39 @@ cập nhật bởi Bùi Thanh Đảm
         );
         if (users.size() != 1) return null;
         return users.get(0);
+    }
+    public User getUserById(String user_id){
+        List<User> users = JDBIConnector.get().withHandle(h ->
+                h.createQuery("SELECT * FROM user WHERE user.USER_ID = ?")
+                        .bind(0, user_id)
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (users.size() != 1) return null;
+        return users.get(0);
+    }
+    public User updateUserProfile(String user_id,String profileFullName,String profileTelephone,String profileDate,String profileGioiTinh,String profileAddress,String profileCmnd){
+        Object o = JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("update user " +
+                        "set FullName  = ? , Phone =? , Birth =? , GioiTinh  = ? ,DiaChi =?,CMND =? \n" +
+                        "where USER_ID = ?"
+                ).bind(0,profileFullName==""?null:profileFullName)
+                        .bind(1,profileTelephone==""?null:profileTelephone)
+                        .bind(2,profileDate==""?null:profileDate)
+                        .bind(3,profileGioiTinh==""?null:profileGioiTinh)
+                        .bind(4,profileAddress==""?null:profileAddress)
+                        .bind(5,profileCmnd==""?null:profileCmnd)
+                        .bind(6,user_id)
+                        .execute()
+        );
+        User user = o==null?null:getUserById(user_id);
+        return user;
+    }
+
+    public static void main(String[] args) {
+
+       User b =  getInstance().updateUserProfile("Kh","aaa","","","","","");
+        System.out.println(b.toString());
     }
 }

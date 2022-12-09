@@ -28,7 +28,7 @@
 
 <body>
 
-<% User user = (User) session.getAttribute("auth");
+<% User user = (User) session.getAttribute("auth")==null?null:(User) session.getAttribute("auth");
 %>
 
 
