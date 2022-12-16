@@ -48,7 +48,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Tin tức</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Tin tức</li>
                 </ul>
             </div>
@@ -85,9 +85,9 @@
                             </div>
                             <div class="blog-content">
                                 <div class="blog-body-top">
-                                    <a href="#" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: <%=blog.getFullName()%> </a>
-                                    <a href="#" class="blog-date"><i class="bi bi-calendar3"></i><%=blog.getNgayVietBai().toString()%></a>
-                                    <a href="#" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (<%=blog.getSumComment()%>)</a>
+                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: <%=blog.getFullName()%> </a>
+                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-date"><i class="bi bi-calendar3"></i><%=blog.getNgayVietBai().toString()%></a>
+                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (<%=blog.getSumComment()%>)</a>
                                 </div>
                                 <h4 class="blog-title"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h4>
                             </div>

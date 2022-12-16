@@ -178,7 +178,7 @@
                                             href=""
                                             class="__cf_email__"
                                             data-cfemail="432d24363a262d2b34272237727a727103242e222a2f6d202c2e"
-                                            ><%=userBox==null?"":userBox.getFullName()==null?"[Chưa có&#160;thông tin]":userBox.getFullName()%></a
+                                            ><%=userBox==null?"":userBox.getEmail()==null?"[Chưa có&#160;thông tin]":userBox.getEmail()%></a
                                           >
                                         </p>
                                         <span> </span>

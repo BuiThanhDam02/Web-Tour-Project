@@ -111,7 +111,7 @@ public class TourDAO {
                         .collect(Collectors.toList())
         );
         list.sort((o1, o2) -> o2.getSoLuong() - o1.getSoLuong());
-        List<Tour> listPopular = list.subList(0,7);
+        List<Tour> listPopular = list.size()>=6? list.subList(0,6):list;
         return listPopular ;
     }
     public List<Tour> getListIncomingTour(){

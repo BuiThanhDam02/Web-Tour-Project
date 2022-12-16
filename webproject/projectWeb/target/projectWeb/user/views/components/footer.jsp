@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-lg-4  order-lg-2 order-1">
                     <div class="footer-logo text-center">
-                        <a href="../index.jsp"><img src="../assets/images/logo-w.png" alt=""></a>
+                        <a href="/projectWeb_war/user/views/home"><img src="../assets/images/logo-w.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 order-lg-3 order-2">

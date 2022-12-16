@@ -47,7 +47,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Hướng Dẫn Viên Du Lịch</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">Hướng Dẫn Viên Du Lịch</li>
                 </ul>
             </div>

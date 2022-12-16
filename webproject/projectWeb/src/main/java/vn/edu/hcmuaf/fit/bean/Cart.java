@@ -1,86 +1,88 @@
 package vn.edu.hcmuaf.fit.bean;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 public class Cart implements Serializable {
+    private String User_id;
+    private Map<String,TourCart> listTourCart;
 
-    HashMap<String, Product> listProduct;
-    User customer;
-    long totalMoney;
-    int quantity;
-
+    public Cart(String user_id){
+        this.User_id = user_id;
+    }
     public Cart(){
-        listProduct = new HashMap<>();
-        customer = new User();
-        totalMoney = 0;
-        quantity = 0;
-    }
-
-    public Cart(HashMap<String, Product> listProduct, User customer, long totalMoney, int quantity) {
-        this.listProduct = new Hashmap<>();
-        this.customer = customer;
-        this.totalMoney = totalMoney;
-        this.quantity = quantity;
-    }
-
-    public long getTotalMoney(){
-        return totalMoney;
-    }
-
-    public int getQuantity(){
-        return quantity;
-    }
-
-    public void setQuantity(){
-        if(quantity < 1) quantity=1;
-        this.quantity =quantity;
 
     }
-
-    public Collection<Product> getlistProducts(){
-        return  listProduct.values();
+    public Cart(String user_id, Map<String, TourCart> listTourCart) {
+        User_id = user_id;
+        this.listTourCart = listTourCart;
     }
 
-    public User getCustomer(){
-        return customer;
+    public String getUser_id() {
+        return User_id;
     }
 
-    public void setCustomer(User customer){
-        this.customer = customer;
+    public void setUser_id(String user_id) {
+        User_id = user_id;
     }
 
-    public void put(Product product){
-        String key = product.setKey();
-        if(listProduct.containsKey(key)){
-            Product p = listProduct.get(key);
-            p.setQuantity(p.getQuantity() = 1);
+    public Map<String, TourCart> getListTourCart() {
+        sortCart();
+        return this.listTourCart;
+    }
+
+    public void setListTourCart(Map<String, TourCart> listTourCart) {
+        this.listTourCart = listTourCart;
+    }
+
+    public TourCart findTourCartByTourId(String user_id,String tour_id){
+        if (getUser_id().equals(user_id)){
+            if (getListTourCart().containsKey(tour_id)){
+                return getListTourCart().get(tour_id);
+            }else{
+                return null;
+            }
+        }
+        return null;
+    }
+    public void removeTourCart(String key){
+        this.listTourCart.remove(key);
+    }
+    public void addTourCart(TourCart tc){
+
+        if (this.listTourCart.containsKey(tc.getTOUR_ID())){
+            removeTourCart(tc.getTOUR_ID());
+            this.listTourCart.put(tc.getTOUR_ID(),tc);
         }else{
-            listProduct.put(key, product);
+            this.listTourCart.put(tc.getTOUR_ID(),tc);
         }
-        updateTotalMoneyAndQuantity();
+        sortCart();
     }
+    public void sortCart(){
+        LinkedHashMap<String, TourCart> sortedMap = new LinkedHashMap<>();
+        ArrayList<TourCart> list = new ArrayList<>();
 
-    public void update(String key, int quantity){
-        if(listProduct.containsKey(key)){
-            Product p = listProduct.get(key);
-            p.setQuantity(quantity);
+        for (Map.Entry<String, TourCart> entry : this.listTourCart.entrySet()) {
+            list.add(entry.getValue());
         }
-        updateTotalMoneyAndQuantity();
-    }
+        Collections.sort(list, new Comparator<TourCart>() {
+            public int compare(TourCart o1, TourCart o2) {
+                return o1.getNgayTao().getTime() >= o2.getNgayTao().getTime()?-1:1;
+            }
+        });
 
-    public void remove(String key){
-        listProduct.remove(key);
-    }
+        for (TourCart tc : list) {
 
-    public void updateTotalMoneyAndQuantity(){
-        totalMoney = 0;
-        quantiy = 0;
-        for(Product p : listProduct.values()){
-            totalMoney += (long) p.getQuantity()*p.getSellPrice;
-            quantity += p.getQuantity;
+            sortedMap.put(tc.getTOUR_ID(), tc);
+
         }
+        this.listTourCart = sortedMap;
+    }
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "User_id='" + User_id + '\'' +
+                ", listTourCart=" + listTourCart +
+                '}';
     }
 }
-

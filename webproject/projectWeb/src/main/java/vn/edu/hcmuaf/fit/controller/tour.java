@@ -33,9 +33,10 @@ public class tour extends HttpServlet {
         List<Destination> des = DestinationService.getInstance().getDestination();
 
         if (text !=null){
+            String textHide = text==""?null:" từ khóa: "+text;
             List<Tour> list = TourService.getInstance().getListBySearchText(text);
             request.setAttribute("list",list);
-            request.setAttribute("text",text);
+            request.setAttribute("text",textHide);
 
             request.setAttribute("destinationList",des);
             request.setAttribute("incommingList",incommingList);

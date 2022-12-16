@@ -24,7 +24,7 @@ public class CommentDAO {
                         .stream()
                         .collect(Collectors.toList())
         );
-
+        list.sort((o1, o2) -> o1.getNgayTao().getTime() >= o2.getNgayTao().getTime()?-1:1);
         return list ;
     }
 
@@ -39,5 +39,9 @@ public class CommentDAO {
                         .execute()
         );
         return o==null?false:true;
+    }
+    public static void main(String[] args) {
+        List<Comment> blogComment  = getInstance().getListComment("blog001");
+        System.out.println(blogComment.size()==0?"1":"2");
     }
 }

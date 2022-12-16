@@ -26,7 +26,19 @@ public class BlogDAO {
                         .stream()
                         .collect(Collectors.toList())
                 );
+
         return list;
+    }
+    public List<Blog> getListRecentBlog(){
+        List<Blog> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1")
+                        .mapToBean(Blog.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        list.sort((o1, o2) -> o1.getNgayVietBai().getTime() >= o2.getNgayVietBai().getTime()?-1:1);
+
+        return list.size()>=3?list.subList(0,3):list;
     }
 
     public List<Blog> findListBlogBySearchFilter(String searchText,List<String> liststring){
@@ -88,6 +100,11 @@ public class BlogDAO {
         return list;
     }
 
+    public static void main(String[] args) {
+        List<BlogImage> blogImage = getInstance().getListBlogImage("Blog001");
+
+        System.out.println(blogImage.get(0).getImageURL()==null?"1":"2");
+    }
 
 
 }

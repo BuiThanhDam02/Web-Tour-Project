@@ -59,4 +59,17 @@ public class TourDetailService {
 
         return tp;
     }
+
+    public boolean getLikedTourDetail(String user_id,String tourId){
+        return TourDetailDAO.getInstance().getLikedTourDetail(user_id,tourId);
+    }
+    public List<TourDetail> getListLikedTour(String user_id){
+        return TourDetailDAO.getInstance().getListLikedTour(user_id);
+    }
+    public boolean unLikeTour(String user_id,String tourId){
+        return TourDetailDAO.getInstance().unLikeTour(user_id,tourId);
+    }
+    public boolean likeTour(String user_id,String tourId){
+        return TourDetailDAO.getInstance().likeTour(user_id,tourId);
+    }
 }

@@ -79,6 +79,12 @@ public class TourService {
         return TourDAO.getInstance().findListTourBySearchFilter(searchText,list);
     }
 
+    public List<Tour> getListPopularTour(){
+        return TourDAO.getInstance().getListPopularTour();
+    }
+    public Map<Integer,List<Tour>> getMapVoucherTour(){
+        return TourDAO.getInstance().getMapVoucherTour();
+    }
     public static void main(String[] args) {
 //       List<Tour> list = getInstance().findListTourBySearchFilter("","","","","3000000","","");
         Date date = Date.valueOf(LocalDate.now());

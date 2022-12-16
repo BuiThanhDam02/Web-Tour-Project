@@ -44,13 +44,13 @@
 
     <%@include file="./components/header.jsp"%>
 
-    <% User currentUser = (User) session.getAttribute("auth")==null?null:(User) session.getAttribute("auth");%>
+
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Chi tiết Blog</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Chi tiết Blog</li>
                 </ul>
             </div>
@@ -63,6 +63,8 @@
         List<BlogImage> blogImage = (List<BlogImage>) request.getAttribute("blogImage");
         List<Comment> blogComment = (List<Comment>) request.getAttribute("blogComment");
         List<Destination> desList = (List<Destination>) request.getAttribute("destinationList");
+
+
 
 
     %>
@@ -83,16 +85,16 @@
                             <img src="<%=blog.getImageURL()%>" alt="">
                         </div>
                         <div class="post-body">
-                            <p><%=blog.getDescription()%></p>
 
-                            <p>Phú Quốc là nơi hội tụ rất nhiều khu resort đẳng cấp, vừa đáp ứng nhu cầu nghỉ dưỡng của người lớn, vừa có nhiều điểm vui chơi hấp dẫn dành cho trẻ em. Do đó, đây là lựa chọn lý tưởng cho các gia đình dịp Tết.</p>
+                            <p><%=blog.getDescription()%></p>
                             <%
                                 for (BlogImage bi:
                                      blogImage) {
 
                                 %>
+
                             <div class="post-innner-image">
-                                <img src="<%=bi.getImageURL()%>" alt="">
+                                <img style="height: 400px" src="<%=bi.getImageURL()==null?"":bi.getImageURL()%>" alt="">
                             </div>
                             <%}%>
                         </div>
@@ -110,7 +112,7 @@
                                      blogComment) {
 
                                 %>
-                            <div class="single-comment " >
+                            <div class="single-comment" >
                                 <div>
                                     <div class="commmentor">
                                         <img src="<%=c.getImageURL()%>" alt="">
@@ -121,7 +123,7 @@
                                                 <h6><%=c.getFullName()%></h6>
                                                 <span><%=c.getNgayTao()%></span>
                                             </div>
-                                            
+
                                         </div>
                                         <p><%=c.getComment()%></p>
 
@@ -140,7 +142,7 @@
                         <div class="comment-form mt-110">
                             <h4>Để Lại Bình Luận Của Bạn</h4>
 
-                            <input type="text" style="display: none" name="userIdComment" value="<%=currentUser ==null?"123":currentUser.getUser_Id()%>" id="nameComment">
+                            <input type="text" style="display: none" name="userIdComment" value="<%=userHeader ==null?"123":userHeader.getUser_Id()%>" id="nameComment">
 
                             <input type="text" style="display: none" name="blogIdComment" value="<%=blog.getBLOG_ID()%>" id="emailComment">
                             <%Date currentDate = Date.valueOf(LocalDate.now());%>
@@ -164,6 +166,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="col-lg-4">
                     <form action="/projectWeb_war/user/views/blog" method="post" id="blog-sidebar-search">
                         <div class="blog-sidebar ">
@@ -238,7 +241,7 @@
                                     <h4>Bài Viết Mới</h4>
                                 </div>
                                 <ul class="widget-body">
-                                    <%List<Blog> ran = (List<Blog>) request.getAttribute("ranBlogs");
+                                    <% List<Blog> ran = (List<Blog>) request.getAttribute("ranBlogs");
                                         for (Blog blogr:
                                                 ran) {
 
@@ -262,6 +265,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

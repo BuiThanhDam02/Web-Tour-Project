@@ -47,4 +47,7 @@ public class BlogService {
     public List<Comment> getListComment(String blog_id){
         return CommentDAO.getInstance().getListComment(blog_id);
     }
+    public List<Blog> getListRecentBlog(){
+        return  BlogDAO.getInstance().getListRecentBlog();
+    }
 }

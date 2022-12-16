@@ -4,8 +4,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebFilter(filterName = "CheckUserFilter", urlPatterns = "/*")
-public class CheckUserFilter implements Filter {
+@WebFilter(filterName = "UTF8Filter", urlPatterns = "/*")
+public class UTF8Filter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
 

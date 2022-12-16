@@ -16,7 +16,7 @@
 	String errorRegister = request.getAttribute("errorRegister")!=null?(String) request.getAttribute("errorRegister"):"";
 %>
 	<div class="logo">
-		<a href="index.jsp"><img src="./assets//images/logo-w.png" alt="logo"></a>
+		<a href="/projectWeb_war/user/views/home"><img src="./assets//images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">

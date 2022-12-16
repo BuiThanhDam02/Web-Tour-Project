@@ -1,3 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.Booking" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -24,6 +29,13 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <link rel="stylesheet" href="./assets/css/profile.css">
+    <style>
+        .nav-link.active{
+            background-color: var(--c-primary);
+            color: white;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,7 +60,19 @@
                         <div class="content">
 
                             <%@include file="./components/box-left.jsp"%>
-    
+
+                            <% List<Booking> listBooking = request.getAttribute("listBooking")==null?null:(List<Booking>) request.getAttribute("listBooking");
+                                List<Booking> listCancelBooking = new ArrayList<Booking>();
+                                List<Booking> listWaitBooking = new ArrayList<Booking>();
+                                List<Booking> listCompleteBooking = new ArrayList<Booking>();
+                                for (Booking b:
+                                     listBooking) {
+                                    if (b.getTRANGTHAI() ==0 ) listWaitBooking.add(b);
+                                    if (b.getTRANGTHAI() ==-1 ) listCancelBooking.add(b);
+                                    if (b.getTRANGTHAI() ==1 ) listCompleteBooking.add(b);
+                                }
+
+                            %>
     
                             <div class="ps-md-4">
                                 <div class="wrapper order">
@@ -56,6 +80,9 @@
                                         <ul class="nav py-3 tab flex-sm-row mb-3" role="tablist">
                                             <li class="nav-item flex-sm-fill text-sm-center" style="cursor: pointer;" role="presentation">
                                                 <a class="nav-link active" id="pills-all-tab"  data-bs-toggle="pill" data-bs-target="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">Tất cả</a>
+                                            </li>
+                                            <li class="nav-item flex-sm-fill text-sm-center" style="cursor: pointer;" role="presentation">
+                                                <a class="nav-link " id="pills-destroy-tab"  data-bs-toggle="pill" data-bs-target="#pills-destroy" role="tab" aria-controls="pills-destroy" aria-selected="false">Đã hủy</a>
                                             </li>
                                             
                                             <li class="nav-item flex-sm-fill text-sm-center" style="cursor: pointer;" role="presentation">
@@ -74,249 +101,272 @@
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane result fade show active " id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                                                <div class="tour-list" >
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span class="tour-item-first-side-id">Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound dahuy" >
-                                                                <span>Đã hủy</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound dahuy" >
-                                                                <span>Đã hủy</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound dahuy" >
-                                                                <span>Đã hủy</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    
+                                                   <%
+                                                       for (Booking b :
+                                                               listCompleteBooking) {
+                                                           String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                           String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                           String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                           String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                           Locale locale = new Locale("vi");
+                                                           NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                           String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                   %>
+
+                                                   <div class="tour-item">
+                                                       <div class="tour-item-first-side">
+                                                           <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                           <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
+                                                       </div>
+                                                       <div class="tour-item-second-side">
+                                                           <div class="tour-item-second-side-start">
+                                                               <span >Bắt đầu chuyến đi</span>
+                                                               <p class="time" ><%=beginDate%></p>
+                                                           </div>
+                                                           <div class="tour-item-second-side-end">
+                                                               <span >Kết thúc chuyến đi</span>
+                                                               <p class="time" ><%=endDate%></p>
+                                                           </div>
+                                                       </div>
+                                                       <div class="tour-item-third-side">
+                                                           <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                           <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
+                                                       </div>
+                                                       <div class="tour-item-four-side">
+                                                           <div class="bound " >
+                                                               <span style="font-size: 14px;color: green;font-weight: bold">Đã đặt</span>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                                   <%}%>
+
+                                                   <%
+                                                       for (Booking b :
+                                                               listWaitBooking) {
+                                                           String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                           String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                           String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                           String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                           Locale locale = new Locale("vi");
+                                                           NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                           String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                   %>
+
+                                                   <div class="tour-item">
+                                                       <div class="tour-item-first-side">
+                                                           <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                           <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
+                                                       </div>
+                                                       <div class="tour-item-second-side">
+                                                           <div class="tour-item-second-side-start">
+                                                               <span >Bắt đầu chuyến đi</span>
+                                                               <p class="time" ><%=beginDate%></p>
+                                                           </div>
+                                                           <div class="tour-item-second-side-end">
+                                                               <span >Kết thúc chuyến đi</span>
+                                                               <p class="time" ><%=endDate%></p>
+                                                           </div>
+                                                       </div>
+                                                       <div class="tour-item-third-side">
+                                                           <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                           <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
+                                                       </div>
+                                                       <div class="tour-item-four-side">
+
+                                                           <span style="font-size: 12px;color: blue;font-weight: bold">Chờ xác nhận</span>
+
+                                                           <a class="bound dahuy" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
+                                                               <span>Hủy</span>
+                                                           </a>
+                                                       </div>
+                                                   </div>
+                                                   <%}%>
+                                                   <%
+                                                       for (Booking b :
+                                                               listCancelBooking) {
+                                                           String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                           String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                           String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                           String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                           Locale locale = new Locale("vi");
+                                                           NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                           String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                   %>
+
+                                                   <div class="tour-item">
+                                                       <div class="tour-item-first-side">
+                                                           <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                           <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
+                                                       </div>
+                                                       <div class="tour-item-second-side">
+                                                           <div class="tour-item-second-side-start">
+                                                               <span >Bắt đầu chuyến đi</span>
+                                                               <p class="time" ><%=beginDate%></p>
+                                                           </div>
+                                                           <div class="tour-item-second-side-end">
+                                                               <span >Kết thúc chuyến đi</span>
+                                                               <p class="time" ><%=endDate%></p>
+                                                           </div>
+                                                       </div>
+                                                       <div class="tour-item-third-side">
+                                                           <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                           <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
+                                                       </div>
+                                                       <div class="tour-item-four-side">
+                                                           <div class="bound " >
+                                                               <span style="font-size: 14px;color: red;font-weight: bold">Đã Hủy</span>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                                   <%}%>
                                                    
                                                </div>
                                             </div>
-                                            
+                                            <div class="tab-pane  fade  " id="pills-destroy" role="tabpanel" aria-labelledby="pills-destroy-tab">
+                                                <div class="tour-list" >
+
+                                                    <%
+                                                        for (Booking b :
+                                                                listCancelBooking) {
+                                                            String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                            String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                            String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                            String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                            Locale locale = new Locale("vi");
+                                                            NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                            String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                    %>
+
+                                                    <div class="tour-item">
+                                                        <div class="tour-item-first-side">
+                                                            <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                            <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
+                                                        </div>
+                                                        <div class="tour-item-second-side">
+                                                            <div class="tour-item-second-side-start">
+                                                                <span >Bắt đầu chuyến đi</span>
+                                                                <p class="time" ><%=beginDate%></p>
+                                                            </div>
+                                                            <div class="tour-item-second-side-end">
+                                                                <span >Kết thúc chuyến đi</span>
+                                                                <p class="time" ><%=endDate%></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tour-item-third-side">
+                                                            <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                            <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
+                                                        </div>
+                                                        <div class="tour-item-four-side">
+                                                            <div class="bound " >
+                                                                <span style="font-size: 14px;color: red;font-weight: bold">Đã Hủy</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+
+
+
+
+                                                </div>
+                                            </div>
                                             <div class="tab-pane fade" id="pills-wait" role="tabpanel" aria-labelledby="pills-wait-tab">
                                                 <div class="tour-list" >
+                                                    <%
+                                                        for (Booking b :
+                                                                listWaitBooking) {
+                                                            String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                            String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                            String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                            String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                            Locale locale = new Locale("vi");
+                                                            NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                            String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                    %>
+
                                                     <div class="tour-item">
                                                         <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
+                                                            <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                            <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
                                                         </div>
                                                         <div class="tour-item-second-side">
                                                             <div class="tour-item-second-side-start">
                                                                 <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
+                                                                <p class="time" ><%=beginDate%></p>
                                                             </div>
                                                             <div class="tour-item-second-side-end">
                                                                 <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
+                                                                <p class="time" ><%=endDate%></p>
                                                             </div>
                                                         </div>
                                                         <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
+                                                            <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                            <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
                                                         </div>
                                                         <div class="tour-item-four-side">
-                                                            <div class="bound choxacnhan" >
-                                                                <span>Chờ xác nhận</span>
-                                                            </div>
+
+                                                            <span style="font-size: 12px;color: blue;font-weight: bold">Chờ xác nhận</span>
+
+                                                            <a class="bound dahuy" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>" >
+                                                                <span>Hủy</span>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound choxacnhan" >
-                                                                <span>Chờ xác nhận</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound choxacnhan" >
-                                                                <span>Chờ xác nhận</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <%}%>
+
+
                                                    
                                                     
                                                    
                                                </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="pills-complete" role="tabpanel" aria-labelledby="pills-complete-tab">
                                                 <div class="tour-list" >
+                                                    <%
+                                                        for (Booking b :
+                                                             listCompleteBooking) {
+                                                            String[] beginDateArr= b.getNgayKhoiHanh().toString().split("-");
+                                                            String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                            String[] endDateArr= b.getNgayKetThuc().toString().split("-");
+                                                            String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                            Locale locale = new Locale("vi");
+                                                            NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                                            String thanhTienString = format.format(b.getTongTien()).split(",")[0];
+
+                                                        %>
+
                                                     <div class="tour-item">
                                                         <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
+                                                            <span>Id Booking: <span><%=b.getBOOKING_ID()%></span></span>
+                                                            <span><%=b.getTOUR_ID()+": "+b.getTourName()%></span>
                                                         </div>
                                                         <div class="tour-item-second-side">
                                                             <div class="tour-item-second-side-start">
                                                                 <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
+                                                                <p class="time" ><%=beginDate%></p>
                                                             </div>
                                                             <div class="tour-item-second-side-end">
                                                                 <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
+                                                                <p class="time" ><%=endDate%></p>
                                                             </div>
                                                         </div>
                                                         <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
+                                                            <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
+                                                            <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
                                                         </div>
                                                         <div class="tour-item-four-side">
-                                                            <div class="bound dadat" >
-                                                                <span>Đã đặt</span>
+                                                            <div class="bound " >
+                                                                <span style="font-size: 14px;color: green;font-weight: bold">Đã đặt</span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound dadat" >
-                                                                <span>Đã đặt</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-item">
-                                                        <div class="tour-item-first-side">
-                                                            <span>Id Tour: <span>TOUR001</span></span>
-                                                            <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
-                                                        </div>
-                                                        <div class="tour-item-second-side">
-                                                            <div class="tour-item-second-side-start">
-                                                                <span >Bắt đầu chuyến đi</span>
-                                                                <p class="time" >CN, 18 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                            <div class="tour-item-second-side-end">
-                                                                <span >Kết thúc chuyến đi</span>
-                                                                <p class="time" >CN, 20 Tháng 11, 2022</p>                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="tour-item-third-side">
-                                                            <p class="add-more"style="font-size: 12px;" ><span id="">0 người lớn</span> <span id="">0 trẻ em</span></p>
-                                                            <span>Thành tiền: <span>0</span><span>₫</span></span>
-                                                        </div>
-                                                        <div class="tour-item-four-side">
-                                                            <div class="bound dadat" >
-                                                                <span>Đã đặt</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    
-                                                   
+                                                    <%}%>
+
                                                </div>
                                             </div>
                                         </div>

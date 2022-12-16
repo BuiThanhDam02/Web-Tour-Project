@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="../assets//css/bootstrap.min.css">
 
-    <link rel="stylesheet" href=".../assets//css/animate.min.css">
+    <link rel="stylesheet" href="../assets//css/animate.min.css">
 
     <link rel="stylesheet" href="../assets//css/style.css">
     <link rel="stylesheet" href="../assets//css/responsive.css">
@@ -105,40 +105,47 @@
                                             </li>
                                             <li>
                                               <a
-                                                href="#"
-                                                onclick="LogoutAccount();"
+                                                href="/projectWeb_war/user/views/signout"
+
                                                 class="d-inline-flex align-items-center rounded"
                                               >
                                                 Đăng xuất
                                               </a>
                                             </li>
-                                            <li>
-                                              <a
-                                                href="#"
-                                                id="deleteAccount"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#deleteAccountModal"
-                                                class="d-inline-flex align-items-center rounded"
-                                              >
-                                                Yêu cầu xóa tài khoản
-                                              </a>
-                                            </li>
+<%--                                            <li>--%>
+<%--                                              <a--%>
+<%--                                                href="#"--%>
+<%--                                                id="deleteAccount"--%>
+<%--                                                data-bs-toggle="modal"--%>
+<%--                                                data-bs-target="#deleteAccountModal"--%>
+<%--                                                class="d-inline-flex align-items-center rounded"--%>
+<%--                                              >--%>
+<%--                                                Yêu cầu xóa tài khoản--%>
+<%--                                              </a>--%>
+<%--                                            </li>--%>
                                           </ul>
                                         </div>
                                       </li>
                                       <li class="mb-1">
                                         <a
                                           class="d-inline-flex align-items-center rounded"
-                                          href="Order.jsp"
+                                          href="/projectWeb_war/user/views/order"
                                         >
                                           <h6 class="fw-bold">Đơn đặt chỗ</h6>
                                         </a>
                                       </li>
-                                      
+                                        <li class="mb-1">
+                                            <a
+                                                    class="d-inline-flex align-items-center rounded"
+                                                    href="Cart.jsp"
+                                            >
+                                                <h6 class="fw-bold">Giỏ hàng</h6>
+                                            </a>
+                                        </li>
                                       <li class="mb-1">
                                         <a
                                           class="d-inline-flex align-items-center rounded"
-                                          href="Saved.jsp"
+                                          href="/projectWeb_war/user/views/SavedCart"
                                         >
                                           <h6 class="fw-bold">Yêu thích đã lưu</h6>
                                         </a>

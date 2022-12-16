@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.TourDetail" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -49,13 +51,17 @@
 
                             <%@include file="./components/box-left.jsp"%>
     
-    
+
+                            <%
+                                List<TourDetail> listTD =(List<TourDetail>) request.getAttribute("listTD");
+
+                            %>
                             <div class="ps-md-4">
                                 <div class="wrapper saved">
                                     <div class="tab">
                                         <ul class="nav py-3 tab flex-sm-row mb-3" role="tablist">
                                             <li class="nav-item flex-sm-fill text-sm-center" role="presentation">
-                                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" value="1" aria-selected="true">Tour du lịch</a>
+                                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" value="1" aria-selected="true">Yêu thích đã lưu</a>
                                             </li>
                                            
                                         </ul>
@@ -69,31 +75,41 @@
                                             <div class="tab-pane result fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                                                 <div class="row g-3 g-lg-4" id="divTourLikeAccount">
                                                     <div class="tour-list" >
+                                                        <% for (TourDetail td:
+                                                                listTD) {
+                                                            String[] beginDateArr= td.getNgayKhoiHanh().toString().split("-");
+                                                            String beginDate = "Ngày "+beginDateArr[2]+" Tháng "+beginDateArr[1]+", "+beginDateArr[0];
+                                                            String[] endDateArr= td.getNgayKetThuc().toString().split("-");
+                                                            String endDate = "Ngày "+endDateArr[2]+" Tháng "+endDateArr[1]+", "+endDateArr[0];
+                                                         %>
                                                         <div class="tour-item">
+                                                            <div class="tour-item-image-side">
+                                                                <img style="width: 55px;height: 55px" src="<%=td.getImageURL()%>">
+                                                            </div>
                                                             <div class="tour-item-first-side">
-                                                                <span>Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông</span>
+                                                                <span><%=td.getTourName()%></span>
                                                             </div>
                                                             <div class="tour-item-second-side">
                                                                 <div class="tour-item-second-side-start">
                                                                     <span >Bắt đầu chuyến đi</span>
-                                                                    <p class="time" >CN, 18 Tháng 11, 2022</p>                        
+                                                                    <p class="time" ><%=beginDate%></p>
                                                                 </div>
                                                                 <div class="tour-item-second-side-end">
                                                                     <span >Kết thúc chuyến đi</span>
-                                                                    <p class="time" >CN, 20 Tháng 11, 2022</p>                        
+                                                                    <p class="time" ><%=endDate%></p>
                                                                 </div>
                                                             </div>
                                                             <div class="tour-item-third-side">
-                                                                <p class="add-more"style="font-size: 12px;" ><span id="">Địa điểm </span><span id="">Cà mau</span></p>
-                                                                <span>Số chỗ còn lại <span>10</span></span>
+                                                                <p class="add-more"style="font-size: 12px;" ><span >Hạng mục </span><span ><%=td.getTOUR_CATEGORY()%></span></p>
+                                                                <span>Số chỗ còn lại <span><%=td.getSoLuong()%></span></span>
                                                             </div>
                                                             <div class="tour-item-four-side">
-                                                                <div class="bound dahuy btn-xoa" >
+                                                                <a class="bound dahuy btn-xoa" href="/projectWeb_war/user/views/SavedCart?tourId=<%=td.getTOUR_ID()%>" >
                                                                     <span>Xóa</span>
-                                                                </div>
+                                                                </a>
                                                             </div>
                                                         </div>
-                                                       
+                                                       <%}%>
                                                         
                                                        
                                                         

@@ -70,5 +70,11 @@ public class UserService {
     public User getGuideById(String user_id){
         return UserDAO.getInstance().getGuideById(user_id);
     }
+    public User getCurrentUserByIdAndPassword(String user_id,String oldHashPassword){
+        return  UserDAO.getInstance().getCurrentUserByIdAndPassword(user_id, hashPassword(oldHashPassword));
+    }
+    public User changeUserPassword(User user , String newHashPassword){
+        return  UserDAO.getInstance().changeUserPassword(user,hashPassword(newHashPassword));
+    }
 
 }

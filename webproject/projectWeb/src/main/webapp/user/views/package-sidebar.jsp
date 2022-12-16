@@ -53,7 +53,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Du Lịch</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Du Lịch</li>
                 </ul>
             </div>
@@ -68,7 +68,7 @@
                     <%if (text != null){%>
                     <div class="row">
                         <div class="col-lg-10 right">
-                            <span style="font-size: 1.5rem;font-weight: 600">Bạn đang tìm kiếm với từ khóa: <%=text%></span>
+                            <span style="font-size: 1.5rem;font-weight: 600">Bạn đang tìm kiếm với<%=text%></span>
                         </div>
                     </div>
                     <%}%>
@@ -95,7 +95,8 @@
                                 NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
                                String giaVeString = format.format(giaVe).split(",")[0];
                                 boolean checkDate = curDate.getTime()-tour.getNgayTao().getTime() <=500000000?true:false;
-                                long dateLong = curDate.getTime()-tour.getNgayTao().getTime();
+//                                long dateLong = curDate.getTime()-tour.getNgayTao().getTime();
+                                long dateLong = tour.getNgayKetThuc().getTime()-tour.getNgayKhoiHanh().getTime();
                                 String dateString = ""+dateLong;
                                 int dem = Integer.parseInt(dateString.substring(0,1));
                                 int ngay = dem+1;
@@ -354,7 +355,7 @@
             let productNum = listProducts.length;
             let displayProduct = 8;
             let paginationNum =  Math.ceil(productNum / displayProduct) ;
-            console.log(boundParent.children()[1])
+
             let ulPagination = $('#pagination-demo');
             let listIndex = ulPagination.children(".page-item-index");
             

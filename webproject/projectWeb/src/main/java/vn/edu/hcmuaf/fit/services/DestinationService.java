@@ -19,6 +19,9 @@ public class DestinationService {
     public Destination getOneDestination(String Des_id){
         return DestinationDAO.getInstance().getOneDestination(Des_id);
     }
+    public List<Destination> getPopularDestination(){
+        return DestinationDAO.getInstance().getPopularDestination();
+    }
     public List<Destination> getDestination(){
         return DestinationDAO.getInstance().getDestination();
     }

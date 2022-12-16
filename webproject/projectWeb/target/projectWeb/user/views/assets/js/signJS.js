@@ -99,7 +99,7 @@ Validator.isEmail = function (selector) {
         selector : selector,
         test : function (value) {
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
-            return regex.test(value) ? undefined : "Đây phảu là 1 email";
+            return regex.test(value) ? undefined : "Email không hợp lệ";
 
         }
     };

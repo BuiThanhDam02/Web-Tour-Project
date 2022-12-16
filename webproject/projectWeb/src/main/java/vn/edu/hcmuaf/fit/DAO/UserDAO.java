@@ -70,11 +70,12 @@ cập nhật bởi Bùi Thanh Đảm
         );
         if (!users.isEmpty()) return false;
         JDBIConnector.get().withHandle(h ->
-                h.createUpdate("insert into user values (?,null,?,?,?,null,null,null,null,null,null,null,0)")
+                h.createUpdate("insert into user values (?,null,?,?,?,null,null,?,null,null,null,null,0)")
                         .bind(0,id)
                         .bind(1,username)
                         .bind(2,email)
                         .bind(3,hashpassword)
+                        .bind(4,"./assets/images/userDefaultImage.png")
                         .execute()
         );
         return true;
@@ -127,6 +128,33 @@ cập nhật bởi Bùi Thanh Đảm
         );
         User user = o==null?null:getUserById(user_id);
         return user;
+    }
+    public User getCurrentUserByIdAndPassword(String user_id,String oldHashPassword){
+        List<User> users = JDBIConnector.get().withHandle(h ->
+                h.createQuery("SELECT * FROM user WHERE user_id = ? ")
+                        .bind(0, user_id)
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (users.size() != 1) return null;
+        User user = users.get(0);
+        if (!user.getUser_password().equals(oldHashPassword))return null;
+        return user;
+    }
+    public User changeUserPassword(User user , String newHashPassword){
+        String userId = user.getUser_Id();
+        int rows = JDBIConnector.get().withHandle(h ->
+                h.createUpdate("update user \n" +
+                                "set USER_Password = ?  \n" +
+                                " where USER_ID = ?")
+                        .bind(0, newHashPassword)
+                        .bind(1,userId)
+                        .execute()
+
+        );
+        if (rows == 1) return  getUserById(userId);
+        return null;
     }
 
     public static void main(String[] args) {

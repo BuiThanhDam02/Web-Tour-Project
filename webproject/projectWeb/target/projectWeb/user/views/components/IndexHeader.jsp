@@ -69,7 +69,7 @@
         </div>
         <div class="row row-cols-lg-3 row-cols-2 gy-5 mt-3">
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Phiêu lưu">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate1.svg" alt="">
                     </div>
@@ -77,7 +77,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate2.svg" alt="">
                     </div>
@@ -85,7 +85,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch đôi">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate3.svg" alt="">
                     </div>
@@ -93,7 +93,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch đơn thân">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate4.svg" alt="">
                     </div>
@@ -101,7 +101,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Tuần trăng mật">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate5.svg" alt="">
                     </div>
@@ -109,7 +109,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Bãi biển">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate6.svg" alt="">
                     </div>
@@ -117,7 +117,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="../package-sidebar.jsp">
+                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Thám hiểm núi">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate7.svg" alt="">
                     </div>
@@ -135,7 +135,7 @@
             <div class="row">
                 <div class="col-xxl-2 col-xl-2 col-lg-12 col-md-12 col-sm-12 col-xs-12 align-items-center d-xl-flex d-lg-block">
                     <div class="nav-logo d-flex justify-content-between align-items-center">
-                        <a href="../index.jsp"><img src="./assets/images/logo-w.png" alt="logo"></a>
+                        <a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
                         <div class="mobile-menu d-flex ">
                             <div class="d-flex align-items-center">
                                 <div class="nav-right-icons d-xl-none d-flex align-items-center ">
@@ -166,7 +166,7 @@
                         </div>
                         <ul >
                             <li>
-                                <a href="index.jsp">Trang Chủ</a>
+                                <a href="/projectWeb_war/user/views/home">Trang Chủ</a>
                             </li>
                             <li><a href="about.jsp">Về Chúng Tôi</a></li>
                             <li >
@@ -181,7 +181,7 @@
 
                             </li>
                             <li><a href="/projectWeb_war/user/views/guide">Hướng Dẫn Viên</a></li>
-                            <li><a href="contact.jsp">Liên Hệ</a></li>
+
                         </ul>
                         <div class="inner-contact-options d-xl-none">
                             <div class="contact-box-inner"><i class="bi bi-telephone-fill"></i> <a href="tel:+17632275032">+1 763-227-5032</a></div>

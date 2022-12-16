@@ -86,4 +86,61 @@ public class TourDetailDAO {
 
         return list ;
     }
+
+    public boolean likeTour(String user_id,String tourId){
+        List<TourDetail> td = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+                );
+        if (td.size() > 0) return false;
+
+         JDBIConnector.get().withHandle(handle ->
+
+                handle.createUpdate("insert into LIKE_TOUR values (?,?)")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .execute()
+        );
+        return true;
+
+    }
+
+    public boolean unLikeTour(String user_id,String tourId){
+
+        JDBIConnector.get().withHandle(handle ->
+
+                handle.createUpdate("delete from LIKE_TOUR where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .execute()
+        );
+        return true;
+
+    }
+    public List<TourDetail> getListLikedTour(String user_id){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.USER_ID = ?")
+                        .bind(0,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return llt;
+    }
+    public boolean getLikedTourDetail(String user_id,String tourId){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (llt.size()!=1) return false;
+        return true;
+    }
 }

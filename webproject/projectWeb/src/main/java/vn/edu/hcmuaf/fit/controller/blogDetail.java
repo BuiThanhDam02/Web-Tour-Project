@@ -22,6 +22,7 @@ public class blogDetail extends HttpServlet {
         List<BlogImage> blogImage = BlogService.getInstance().getListBlogImage(blog_id);
         List<Comment> blogComment = BlogService.getInstance().getListComment(blog_id);
         List<Destination> desList = DestinationService.getInstance().getDestination();
+        List<Blog> ranList = BlogService.getInstance().getListRandomBlog();
         if (blog == null){
 
         }else{
@@ -29,6 +30,7 @@ public class blogDetail extends HttpServlet {
             request.setAttribute("blogImage",blogImage);
             request.setAttribute("blogComment",blogComment);
             request.setAttribute("destinationList",desList);
+            request.setAttribute("ranBlogs",ranList);
             request.getRequestDispatcher("blog-details.jsp").forward(request,response);
         }
     }

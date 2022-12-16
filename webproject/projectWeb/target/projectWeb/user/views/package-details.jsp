@@ -50,7 +50,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Chi tiết Gói Du Lịch</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Du Lịch</li>
                     <li class="breadcrumb-item active">Chi tiết Gói Du Lịch</li>
                 </ul>
@@ -58,6 +58,7 @@
         </div>
     </div>
 <%
+    boolean isLike =(boolean) request.getAttribute("isLike");
     User currentUser = (User) session.getAttribute("auth");
     List<Tour> ranList = (List<Tour>) request.getAttribute("tourrandom");
     TourPackage tp = (TourPackage) request.getAttribute("tourdetail");
@@ -185,9 +186,9 @@
                                 </div>
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
                                     <h2 class="pd-title"><%=td.getTourName()%></h2>
-                                    <div title="Thêm vào yêu thích" style="color: red;font-size: 2rem;cursor: pointer;"><i class='bx bxs-heart'></i></div>
+                                    <a href="/projectWeb_war/user/views/savedTour?tourId=<%=td.getTOUR_ID()%>" title="<%=isLike==false?"Thêm vào yêu thích":"Xóa khỏi yêu thích"%>" style="<%=isLike==false?"color: black;font-size: 2rem;cursor: pointer;":"color: red;font-size: 2rem;cursor: pointer;"%>"><%if(isLike==true){%><i class='bx bxs-heart'></i><%}else{%><i class='bx bx-heart'></i><%}%></a>
                                 </div>
-                                <span>Số còn nhận <span style="color: var(--c-primary);">6</span></span>
+                                <span>Số còn nhận <span style="color: var(--c-primary);"><%=td.getSoLuong()%></span></span>
                             </div>
                         </div>
                         <div class="package-details-tabs">
@@ -202,7 +203,7 @@
                                     <button class="nav-link" id="pills-package3" data-bs-toggle="pill" data-bs-target="#pill-body3" type="button" role="tab" aria-controls="pill-body3" aria-selected="false"><i class="bi bi-images"></i> Hình Ảnh</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-package4" data-bs-toggle="pill" data-bs-target="#pill-body4" type="button" role="tab" aria-controls="pill-body4" aria-selected="false"><i class="bi bi-geo-alt"></i> Vị Trí</button>
+                                    <button class="nav-link" id="pills-package4" data-bs-toggle="pill" data-bs-target="#pill-body4" type="button" role="tab" aria-controls="pill-body4" aria-selected="false"><i class="bi bi-person-vcard-fill"></i> Hướng Dẫn Viên</button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -303,10 +304,10 @@
                                                      reviewList) {
 
                                                 %>
-                                            <div class="single-comment " >
+                                            <div class="single-comment " style="width: 700px">
                                                 <div >
                                                     <div class="commmentor"  >
-                                                        <img src="<%=r.getImageURL()%>" alt="">
+                                                        <img src="<%=r.getImageURL()%>" alt="" style="width: 145px;height: 145px">
                                                     </div>
                                                     <div class="comment mt-4 mt-sm-0" style="width: 650px">
                                                         <div class="d-flex align-items-center justify-content-between">
@@ -379,7 +380,7 @@
                                                 </div>
                                             </div>
 
-                                            <input type="text" style="display: none" name="userIdComment" value="<%=currentUser ==null?"123":currentUser.getUser_Id()%>" id="nameComment">
+                                            <input type="text" style="display: none" name="userIdComment" value="<%=currentUser ==null?"":currentUser.getUser_Id()%>" id="nameComment">
 
                                             <input type="text" style="display: none" name="tourIdComment" value="<%=td.getTOUR_ID()%>" id="emailComment">
                                             <%Date currentDate = Date.valueOf(LocalDate.now());%>
@@ -453,10 +454,31 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade package-location-tab mt-3" id="pill-body4" role="tabpanel" aria-labelledby="pills-package4">
-                                    <div class="mapouter">
-                                        <div class="gmap_canvas">
-                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124762.63190606327!2d109.17646148203542!3d12.259629020123805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3170677811cc886f%3A0x5c4bbc0aa81edcb9!2zTmhhIFRyYW5nLCBLaMOhbmggSMOyYSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1666744740378!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://123movies-to.org"></a><br>
+                                    <div class="row g-6">
+                                        <% for (TourGuide u:
+                                                guideList) {
+
+                                         %>
+                                        <div class="col-6">
+                                            <div class="guide-card-gamma">
+                                                <div class="guide-image">
+                                                    <img style="width: 340px; height: 370px;" src="<%=u.getImageURL()%>" alt="">
+                                                    <ul class="guide-social-links">
+                                                        <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
+                                                        <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
+                                                        <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
+                                                    </ul>
+                                                    <div class="contact-lavel">
+                                                        <a href="/projectWeb_war/user/views/contact?guideId=<%=u.getUser_id()%>">Liên hệ</a>
+                                                    </div>
+                                                </div>
+                                                <div class="guide-content">
+                                                    <h4 class="guide-name"><%=u.getFullName()%></h4>
+                                                    <h6 class="guide-designation">Hướng Dẫn Viên Du Lịch</h6>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>
@@ -482,9 +504,10 @@
                                 <h3 class="widget-lavel"><%=giaVeString%> ₫ <span>1 Người</span></h3>
                             </div>
                             <div class="widget-body">
-                                <form action="Booking-Tour.jsp" id="booking-form">
+                                <form action="/projectWeb_war/user/views/TourCart" method="post" id="booking-form">
                                     <div class="booking-form-wrapper">
-                                       
+                                        <input name="tourId" value="<%=td.getTOUR_ID()%>" style="display: none">
+                                        <input name="userId" value="<%=currentUser ==null?"":currentUser.getUser_Id()%>" style="display: none">
                                         <div class="custom-input-group">
                                             <div class="submite-btn">
                                                 <button type="submit">Đặt Ngay</button>
