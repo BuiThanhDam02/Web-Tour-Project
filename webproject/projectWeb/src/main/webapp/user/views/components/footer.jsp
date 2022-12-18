@@ -42,11 +42,11 @@
                         <h4 class="footer-widget-title">Quick Link</h4>
                         <ul class="footer-links">
                             <li><a href="about.jsp">Về chúng tôi</a></li>
-                            <li><a href="package-sidebar.jsp">Các Tour du lịch</a></li>
-                            <li><a href="destination.jsp">Điểm đến</a></li>
+                            <li><a href="/projectWeb_war/user/views/tour">Các Tour du lịch</a></li>
+                            <li><a href="/projectWeb_war/user/views/destination">Điểm đến</a></li>
                             <li><a href="guide.jsp">Hướng dẫn viên</a></li>
 
-                            <li><a href="blog-standard.jsp">Tin tức</a></li>
+                            <li><a href="/projectWeb_war/user/views/blog">Tin tức</a></li>
                         </ul>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-lg-4  order-lg-2 order-1">
                     <div class="footer-logo text-center">
-                        <a href="../index.jsp"><img src="../assets/images/logo-w.png" alt=""></a>
+                        <a href="/projectWeb_war/user/views/home"><img src="../assets/images/logo-w.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 order-lg-3 order-2">

@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 /* Lớp User khách hàng chứa các thông tin
 Được tạo bởi Bùi Thanh Đảm - 20130217
 

@@ -16,11 +16,11 @@
 	String errorRegister = request.getAttribute("errorRegister")!=null?(String) request.getAttribute("errorRegister"):"";
 %>
 	<div class="logo">
-		<a href="index.jsp"><img src="./assets//images/logo-w.png" alt="logo"></a>
+		<a href="/projectWeb_war/user/views/home"><img src="./assets//images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="/projectWeb_war/doRegister" method="POST" class="sign-up-container-valid">
+		<form action="/projectWeb_war/user/views/doRegister" method="POST" class="sign-up-container-valid">
 			<h1>Tạo Tài Khoản</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -50,7 +50,7 @@
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="/projectWeb_war/doLogin" method="POST" class="sign-in-container-valid">
+		<form action="/projectWeb_war/user/views/doLogin" method="POST" class="sign-in-container-valid">
 			<h1>Đăng Nhập</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

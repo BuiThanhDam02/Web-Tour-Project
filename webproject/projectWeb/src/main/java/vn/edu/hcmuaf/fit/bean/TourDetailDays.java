@@ -2,14 +2,6 @@ package vn.edu.hcmuaf.fit.bean;
 
 import java.io.Serializable;
 
-/*
-Class TourDetailDays chứa thông tin của 1 ngày chi tiết trong Tour
-Tạo bởi Trương Anh Thy 20130131
-Cập nhật bởi Trương Anh Thy 20130131
-
-*/
-
-
 public class TourDetailDays implements Serializable {
     private String TOUR_ID ;
     private String Title ;

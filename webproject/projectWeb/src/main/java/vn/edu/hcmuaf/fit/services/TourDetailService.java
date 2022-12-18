@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.services;
 
 
 import vn.edu.hcmuaf.fit.DAO.DestinationDAO;
+import vn.edu.hcmuaf.fit.DAO.ReviewDAO;
 import vn.edu.hcmuaf.fit.DAO.TourDAO;
 import vn.edu.hcmuaf.fit.DAO.TourDetailDAO;
 import vn.edu.hcmuaf.fit.bean.*;
@@ -36,7 +37,7 @@ public class TourDetailService {
         return TourDetailDAO.getInstance().getListType(tour_id);
     }
     public List<Review> getListReview(String tour_id){
-        return TourDetailDAO.getInstance().getListReview(tour_id);
+        return ReviewDAO.getInstance().getListReview(tour_id);
     }
     public List<TourGuide> getListGuide(String tour_id){
         return TourDetailDAO.getInstance().getListGuide(tour_id);
@@ -57,5 +58,18 @@ public class TourDetailService {
         TourPackage tp = new TourPackage(td,d,tdd,tdi,tdt,r,tg,v);
 
         return tp;
+    }
+
+    public boolean getLikedTourDetail(String user_id,String tourId){
+        return TourDetailDAO.getInstance().getLikedTourDetail(user_id,tourId);
+    }
+    public List<TourDetail> getListLikedTour(String user_id){
+        return TourDetailDAO.getInstance().getListLikedTour(user_id);
+    }
+    public boolean unLikeTour(String user_id,String tourId){
+        return TourDetailDAO.getInstance().unLikeTour(user_id,tourId);
+    }
+    public boolean likeTour(String user_id,String tourId){
+        return TourDetailDAO.getInstance().likeTour(user_id,tourId);
     }
 }

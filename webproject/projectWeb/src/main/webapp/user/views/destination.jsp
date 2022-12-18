@@ -1,3 +1,5 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Destination" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -39,13 +41,14 @@
 
     <%@include file="./components/header.jsp"%>
 
+    <%List<Destination> list = ( List<Destination>) request.getAttribute("desList");%>
 
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Điểm Đến</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Điểm Đến</li>
                 </ul>
             </div>
@@ -55,162 +58,27 @@
     <div class="destination-wrapper pt-110">
         <div class="container">
             <div class="row g-3" id="group-item">
+                <%
+                    for (Destination des :list
+                         ) {
+
+                    %>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="destination-card-style-two">
                         <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm1.png" alt="">
+                            <img src="<%=des.getImageURL()%>" alt="">
                         </div>
                         <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Hà Nội</a></h4>
+                            <h4 class="destination-title"><a href="/projectWeb_war/user/views/doSearchWithFilter?searchDiaDiem=<%=des.getDiaDiem_ID()%>"><%=des.getTenDiaDiem()%></a></h4>
                             <div class="place-count">
-                                <span>45</span>  Địa điểm du lịch
+                                <span><%=des.getSoluong()%></span>  Địa điểm du lịch
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm2.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Hải Phòng</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm3.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Cao Bằng</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm4.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Quảng Ninh</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm5.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Đà Nẵng</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm6.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Thừa Thiên - Huế</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm7.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Nha Trang</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm8.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Đà Lạt</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm9.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Hồ Chí Minh</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm10.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Vũng Tàu</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm11.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Cần Thơ</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="destination-card-style-two">
-                        <div class="d-card-thumb">
-                            <img src="./assets/images/destination/des-sm12.png" alt="">
-                        </div>
-                        <div class="d-card-content">
-                            <h4 class="destination-title"><a href="package-sidebar.jsp">Vĩnh Long</a></h4>
-                            <div class="place-count">
-                                <span>45</span> Địa điểm du lịch
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%}%>
+
+
   
             </div>
             <div class="row">

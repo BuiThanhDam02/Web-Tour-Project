@@ -1,3 +1,11 @@
+<%@ page import="vn.edu.hcmuaf.fit.services.BookingService" %>
+<%@ page import="vn.edu.hcmuaf.fit.services.TourDetailService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.*" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -59,39 +67,80 @@ table {
 
   <%@include file="./components/header.jsp"%>
 
+<%
 
+    TourDetail tour = (TourDetail) request.getAttribute("tour")==null?null:(TourDetail) request.getAttribute("tour");
+    Cart cart = (Cart) session.getAttribute("cart");
+
+    TourCart tc =cart.findTourCartByTourId(userHeader.getUser_Id(),tour.getTOUR_ID());
+    List<TourDetailType> tdt = (List<TourDetailType>) request.getAttribute("tdt")==null?null:(List<TourDetailType>) request.getAttribute("tdt");
+    List<Voucher> voucher = (List<Voucher>) request.getAttribute("voucher")==null?null:(List<Voucher>) request.getAttribute("voucher");
+%>
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Đặt Tour</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">Đặt Tour</li>
                 </ul>
             </div>
         </div>
     </div>
 
+  <%
+      float giaVeChild= 0;
+      float giaVeAdult= 0;
+      for (TourDetailType t:
+              tdt) {
+          if (t.getType() == 1){
+              giaVeAdult = t.getGiaVe();
+          }else{
+              giaVeChild= t.getGiaVe();
+          }
+      }
 
+      Locale locale = new Locale("vi");
+      NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+      String giaVeChildString = format.format(giaVeChild).split(",")[0];
+      String giaVeAdultString = format.format(giaVeAdult).split(",")[0];
+      int numAdult= tc==null?0:tc.getSOLUONG_VENGUOILON();
+      int numChild = tc==null?0:tc.getSOLUONG_VETREEM();
+      int sumNum = tc==null?0:tc.getSOLUONG();
+      float tongTien =(numAdult*giaVeAdult)+(numChild*giaVeChild);
+      String tongTienString = format.format(tongTien).split(",")[0];
+      int voucherValue = 0;
+      if (voucher.size()==0) {
+          voucherValue = 0;
+      }else {
+          voucherValue = voucher.get(0).getVOUCHER_VALUE();
+      }
+      float tienKhuyenMai = (voucherValue/100)*tongTien;
+      String tienKhuyenMaiString = format.format(tienKhuyenMai).split(",")[0];
+      float thanhTien = tc==null?tongTien - tienKhuyenMai:tc.getTongTien();
+      String thanhTienString = format.format(thanhTien).split(",")[0];
+  %>
     <div class="error-wrapper pt-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5">
                     <div class="error-content text-center">
                         <h2>Nhập thông tin khách hàng</h2>
-                        <form action="Booking-Tour-card.jsp" id="booking-form">
+                        <form action="/projectWeb_war/user/views/CEDTourCart" method="post" id="booking-form">
                             <div class="booking-form-wrapper">
                                 <div class="custom-input-group">
-                                    <input type="text" placeholder="Họ Tên" id="name">
+                                    <input type="text" placeholder="Họ Tên" value="<%=tc==null?"":tc.getHoTen()%>" id="inputFullName" name="bookingFullName">
                                 </div>
                                 <div class="custom-input-group">
-                                    <input type="email" placeholder="Email" id="email">
+                                    <input type="email" placeholder="Email"  value="<%=tc==null?"":tc.getEmail()%>" id="inputEmail" name="bookingEmail">
+                                    <span style="display: none;color: red;font-size: 0.7rem;">Email không hợp lệ</span>
                                 </div>
                                 <div class="custom-input-group">
-                                    <input type="tel" placeholder="Số Điện Thoại" id="phone">
+                                    <input type="tel" placeholder="Số Điện Thoại" value="<%=tc==null?"":tc.getPhone()%>" id="inputPhone" name="bookingPhone">
+                                    <span style="display: none;color: red;font-size: 0.7rem;">Số điện thoại không hợp lệ</span>
                                 </div>
                                 <div class="custom-input-group">
-                                    <input type="text" placeholder="Địa chỉ" id="diachi">
+                                    <input type="text" placeholder="Địa chỉ" value="<%=tc==null?"":tc.getDiaChi()%>" id="inputDiaChi" name="bookingDiachi">
                                 </div>
                                 <!-- <div class="custom-input-group">
                                     <i class="bi bi-chevron-down"></i>
@@ -106,50 +155,67 @@ table {
                                     <div class="col-sm-6">
                                         <div class="custom-input-group">
                                             <i class="bi bi-chevron-down"></i>
-                                            <select id="truist-adult">
-<option selected>Người Lớn</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</select>
+                                            <select id="truist-adult" name="bookingAdultTicket">
+                                                <option value="0" <%if (tc ==null||tc.getSOLUONG_VENGUOILON()==0){%>selected <%}%>
+                                                >Người Lớn</option>
+                                                <option value="1" <%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==1){%>selected <%}%> >1</option>
+                                                <option value="2"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==2){%>selected <%}%> >2</option>
+                                                <option value="3"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==3){%>selected <%}%> >3</option>
+                                                <option value="4" <%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==4){%>selected <%}%>>4</option>
+                                                <option value="5"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==5){%>selected <%}%> >5</option>
+                                                <option value="6" <%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==6){%>selected <%}%>>6</option>
+                                                <option value="7"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==7){%>selected <%}%> >7</option>
+                                                <option value="8"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==8){%>selected <%}%> >8</option>
+                                                <option value="9" <%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==8){%>selected <%}%>>9</option>
+                                                <option value="10"<%if (tc!=null&&tc.getSOLUONG_VENGUOILON()==10){%>selected <%}%> >10</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="custom-input-group ">
                                             <i class="bi bi-chevron-down"></i>
-                                            <select id="tourist-child">
-<option selected>Trẻ Em</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</select>
+                                            <select id="tourist-child" name="bookingChildTicket">
+                                            <option value="0" <%if (tc ==null||tc.getSOLUONG_VETREEM()==0){%>selected <%}%>>Trẻ Em</option>
+                                            <option value="1" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==1){%>selected <%}%>>1</option>
+                                            <option value="2" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==2){%>selected <%}%>>2</option>
+                                            <option value="3" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==3){%>selected <%}%>>3</option>
+                                            <option value="4" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==4){%>selected <%}%>>4</option>
+                                            <option value="5" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==5){%>selected <%}%>>5</option>
+                                            <option value="6" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==6){%>selected <%}%>>6</option>
+                                            <option value="7" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==7){%>selected <%}%>>7</option>
+                                            <option value="8" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==8){%>selected <%}%>>8</option>
+                                            <option value="9" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==9){%>selected <%}%>>9</option>
+                                            <option value="10" <%if (tc!=null&&tc.getSOLUONG_VETREEM()==10){%>selected <%}%>>10</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                                <input name="thanhTien" id="bookingThanhTien" value="<%=thanhTien%>" style="display: none">
+                                    <input name="userId" value="<%=userHeader.getUser_Id()%>" style="display: none">
+                                <input name="tourId" value="<%=tour.getTOUR_ID()%>" style="display: none">
+                                <%Date currentDate = Date.valueOf(LocalDate.now());%>
+                                <input type="date" name="bookingDate" style="display: none" value="<%=currentDate.toString()%>">
                                 <div class="custom-input-group">
-                                    <i class="bi bi-calendar3"></i>
-                                    <input placeholder="Chọn Ngày" type="text" name="checkIn" id="datepicker2" value="" class="calendar">
+                                    <textarea cols="20" rows="7" id="inputDescription" name="bookingDescription" content="" placeholder="Tin Nhắn"><%=tc==null?"":tc.getDescription()%></textarea>
+
                                 </div>
-                                <div class="custom-input-group">
-                                    <textarea cols="20" rows="7" placeholder="Tin Nhắn"></textarea>
-                                </div>
-                                <div class="custom-input-group">
-                                    <div class="submite-btn">
-                                        <button type="submit">Tiếp tục</button>
+                                <div class="row">
+                                    <span id="checkFullInput" style="display: none;color: red;font-size: 0.7rem;">Bắt buộc phải nhập đầy đủ thông tin</span>
+
+                                    <div class="col-sm-6">
+                                        <div class="custom-input-group">
+                                            <div class="submite-btn" >
+                                                <button type="submit" id="addToCart" name="option" value="addToCart" ><%=tc==null?"Thêm vào giỏ hàng":"Lưu Lại"%></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="custom-input-group">
+                                            <div class="submite-btn">
+                                                <button type="submit"id="goToBookingCard" name="option" value="goToBookingCard" >Tiếp tục</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -160,22 +226,29 @@ table {
                     <div class="error-content text-center ">
                         <h2>Thông tin chuyến đi</h2>
                         <div class="group-checkout">
-                            
-                            <p class="package-title">Tour trọn gói <span> (6 khách)</span></p>
+
+                            <p class="package-title">Tour trọn gói <span> (<%=tour.getSoLuong()%> khách)</span></p>
                             <div class="product" style="margin-top: 1rem;">
                             <div class="product-image">
-                                <img src="././assets/images/package/pac-033.jpg" class="img-fluid" alt="image">
+                                <img src="<%=tc==null?tour.getImageURL():tc.getImageURL()%>" class="img-fluid" alt="image">
                             </div>
                             <div class="product-content">
-                            <p class="title" style="color: #2d4271; font-weight: 600;">Miền Tây - Bến Tre - Trà Vinh- Cồn Chim - Nụ Cười Mê Kông </p>
+                            <p class="title" style="color: #2d4271; font-weight: 600;"><%=tc==null?tour.getTourName():tc.getTourName()%></p>
                             </div>
                             </div>
+                            <%
+                                String[] startDayStringList = tc==null?tour.getNgayKhoiHanh().toString().split("-"):tc.getNgayKhoiHanh().toString().split("-");
+                                String startDayString ="Ngày "+ startDayStringList[2]+" Tháng "+startDayStringList[1]+", "+startDayStringList[0];
+                                String[] endDayStringList = tc==null?tour.getNgayKetThuc().toString().split("-"):tc.getNgayKetThuc().toString().split("-");
+                                String endDayString ="Ngày "+ endDayStringList[2]+" Tháng "+endDayStringList[1]+", "+endDayStringList[0];
+
+                            %>
                             <div class="go-tour" >
                                 <div class="start">
                                     <i class="fal fa-calendar-minus"></i>
                                     <div class="start-content">
                                         <span>Bắt đầu chuyến đi</span>
-                                        <p class="time" style="color: #2d4271; font-weight: 600;">T7, 19 Tháng 11, 2022</p>
+                                        <p class="time" style="color: #2d4271; font-weight: 600;"><%=startDayString%></p>
                                         <p class="from"></p>
                                     </div>
                                 </div>
@@ -183,47 +256,49 @@ table {
                                     <i class="fal fa-calendar-minus"></i>
                                     <div class="start-content">
                                         <span >Kết thúc chuyến đi</span>
-                                        <p class="time" style="color: #2d4271; font-weight: 600;">CN, 20 Tháng 11, 2022</p>
+                                        <p class="time" style="color: #2d4271; font-weight: 600;"><%=endDayString%></p>
                                         <p class="from"></p>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="detail" style="display: flex;justify-content: center;align-items: center;">
                                 <table style="width: 90%;">
                                     <tbody><tr>
                                     <th class="l1"></th>
                                     <th class="l2 text-right">
-                                  
+
                                     </th>
                                     </tr>
                                     <tr>
                                     <td>Người lớn</td>
-                                    <td class="t-price text-right" id="AdultPrice">0 x 1990000₫</td>
+                                    <td class="t-price text-right" id="AdultPrice"><%=numAdult%> x <%=giaVeAdultString%>₫</td>
                                     </tr>
                                     <tr>
                                     <td>Trẻ em</td>
-                                    <td class="t-price text-right" id="ChildrenPrice">0 x 990000₫</td>
+                                    <td class="t-price text-right" id="ChildrenPrice"><%=numChild%> x <%=giaVeChildString%>₫</td>
                                     </tr>
                                     <tr>
                                         <td>Số lượng</td>
-                                        <td><span class="fal fa-users" id="AmoutPerson" style="color: #2d4271; font-weight: 600;font-size: 17px;">0 người</span> 
-                                        <p class="add-more"style="font-size: 12px;" ><span id="AmoutAdult">0 người lớn</span> <span id="AmoutChild">0 trẻ em</span></p></td>
+                                        <td><span class="fal fa-users" id="AmoutPerson" style="color: #2d4271; font-weight: 600;font-size: 17px;"><%=sumNum%> người</span>
+                                        <p class="add-more"style="font-size: 12px;" ><span id="AmoutAdult"><%=numAdult%> người lớn</span> <span id="AmoutChild"><%=numChild%> trẻ em</span></p></td>
                                     </tr>
-                                    
-                                    
+
+
                                         <tr>
                                             <td>Tổng cộng</td>
-                                            <td class="t-price text-right" id="tongcong"><span>0</span><span>₫</span></td>
+
+                                            <td class="t-price text-right" id="tongcong"><span><%=tongTienString%></span><span>₫</span></td>
                                             </tr>
-                                    
+
                                     <tr class="pt hardCode" id="promotiontitle">
                                     <td>Khuyến mãi</td>
-                                    <td class="t-price text-right" id="GiaTriKhuyenMai"><span>0</span><span>%</span></td>
+                                    <td class="t-price text-right" id="GiaTriKhuyenMai"><span><%=voucherValue%></span><span>%</span></td>
                                     </tr>
                                     <td>Tiền khuyến mãi</td>
-                                    <td class="t-price text-right" id="TienKhuyenMai"><span>-</span><span>0</span><span>₫</span></td>
+                                    <td class="t-price text-right" id="TienKhuyenMai"><span>-</span><span><%=tienKhuyenMaiString%></span><span>₫</span></td>
                                     </tr>
-                                    
+
                                     <tr id="promotiontitletotal" style="display:none">
                                     <td>Thành tiền</td>
                                     <td class="t-price text-right" id="PromotionTotalPrice"></td>
@@ -232,29 +307,29 @@ table {
                                     <td id="discountTitle">noidia</td>
                                     <td id="discountPrice"></td>
                                     </tr>
-                                    
-                                   
-                                    
-                                
+
+
+
+
                                     <tr class="total">
                                     <td style="color: #2d4271; font-weight: 600;font-size: 20px;">Thành Tiền</td>
-                                    <td class="t-price text-right" id="TotalPrice" style="color: red; font-weight: 600;font-size: 18px;"><span>0</span><span>₫</span></td>
+                                    <td class="t-price text-right" id="TotalPrice" style="color: red; font-weight: 600;font-size: 18px;"><span><%=thanhTienString%></span><span>₫</span></td>
                                     <td class="t-price text-right" style="display: none;" id="TotalPricetemp">2490000</td>
                                     <td class="t-price text-right" style="display: none;" id="TotalOptionPrice"> 0</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             <div>
-                            
+
                             </div>
                             </div>
-                          
-                            
-                            
-                        
+
+
+
+
                              </div>
                     </div>
-                       
+
                 </div>
             </div>
         </div>
@@ -278,10 +353,13 @@ table {
     <script>
         jQuery(function () {
             const adultPrice = $("#AdultPrice");
-            let numAdult = 0;
-            let numChild = 0 ;
+
             const touristAdult = $("#truist-adult");
             const touristChild = $("#tourist-child");
+
+             let numAdult =parseInt(touristAdult.find(":selected").val());
+             let numChild = parseInt(touristChild.find(":selected").val());
+
             const childPrice = $("#ChildrenPrice");
             const sumPerson = $("#AmoutPerson");
             const sumAdult = $('#AmoutAdult');
@@ -291,9 +369,74 @@ table {
             let voucherValue = parseInt(giaTrivoucher.children()[0].innerText);
             const tienVoucher = $('#TienKhuyenMai');
             const totalPrice = $('#TotalPrice');
-            let childPriceValue =0;
-            let adultPriceValue =0;
-           
+            const bookingThanhTien = $('#bookingThanhTien');
+
+            let textInnerA =  adultPrice[0].innerText;
+            let textListA= textInnerA.split(" ");
+            let textInnerC =  childPrice[0].innerText;
+            let textListC= textInnerC.split(" ");
+
+            let childPriceValue =parseInt((textListC[2].split('₫')[0]).split(".").join(""));
+            let adultPriceValue =parseInt((textListA[2].split('₫')[0]).split(".").join(""));
+            let checkPhone = false;
+            let checkEmail = false;
+            const checkFullInput = $('#checkFullInput')[0];
+
+            //
+
+            const inputFullName= $('#inputFullName')[0];
+            const inputEmail= $('#inputEmail')[0];
+            const inputPhone= $('#inputPhone')[0];
+            const inputDiaChi= $('#inputDiaChi')[0];
+            let goToBookingCard = $('#goToBookingCard')[0];
+            let addToCart = $('#addToCart')[0];
+
+            //
+
+           function checkInputValue(){
+
+               if (inputFullName.value!==""&&inputEmail.value !==""&&checkPhone===true&&checkEmail===true&&inputPhone.value!==""&&inputDiaChi.value!==""&&numAdult!==0||numChild!==0){
+                    addToCart.disabled  =false;
+                    goToBookingCard.disabled  =false;
+                    checkFullInput.style.display ="none";
+
+               }else{
+                   addToCart.disabled  =true;
+                   goToBookingCard.disabled  =true;
+                   checkFullInput.style.display ="block";
+               }
+           }
+           checkInputValue();
+            inputFullName.oninput = (e) =>{
+                checkInputValue();
+            }
+            inputEmail.oninput = (e) =>{
+                let va = e.target.value;
+                var regex =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+                checkEmail = va.match(regex)?true:false;
+                let spanChild =e.target.parentNode.querySelector("span");
+                if (checkEmail===false){
+                    spanChild.style.display = "block";
+                }else{
+                    spanChild.style.display = "none";
+                }
+                checkInputValue();
+            }
+            inputPhone.oninput = (e) =>{
+                let va = e.target.value;
+                var regex =/(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+                checkPhone = va.match(regex)?true:false;
+                let spanChild =e.target.parentNode.querySelector("span");
+                if (checkPhone===false){
+                    spanChild.style.display = "block";
+                }else{
+                    spanChild.style.display = "none";
+                }
+                checkInputValue();
+            }
+            inputDiaChi.oninput = (e) =>{
+                checkInputValue();
+            }
             touristAdult.on('change' , function (e) {
                 var valueSelected = this.value;
                 if (valueSelected === 'Người Lớn') {
@@ -301,14 +444,16 @@ table {
                     let textList= textInner.split(" ");
                     numAdult = 0;
                     adultPriceValue =0;
+
                     adultPrice[0].innerHTML = `${numAdult} ${textList[1]} ${textList[2]}`;
                     updateAmount();
                 }else{
                    let textInner =  adultPrice[0].innerText;
                     let textList= textInner.split(" ");
                     numAdult = parseInt(valueSelected);
-                    adultPriceValue = parseInt(textList[2].split('₫')[0]);
-                    
+                    adultPriceValue = parseInt((textList[2].split('₫')[0]).split(".").join(""));
+
+
                     adultPrice[0].innerText = `${numAdult} ${textList[1]} ${textList[2]}`;
                     updateAmount();
                 }
@@ -328,7 +473,7 @@ table {
                    let textInner =  childPrice[0].innerText;
                     let textList= textInner.split(" ");
                     numChild = parseInt(valueSelected);
-                    childPriceValue = parseInt(textList[2].split('₫')[0]);
+                    childPriceValue = parseInt((textList[2].split('₫')[0]).split(".").join(""));
                    
                     childPrice[0].innerText = `${numChild} ${textList[1]} ${textList[2]}`;
                     updateAmount();
@@ -349,12 +494,19 @@ table {
                 sumAdult[0].innerText = `${numAdult} ${atl[1]} ${atl[2]}`;
                
                 let tongcongtien =(numAdult * adultPriceValue)+(numChild* childPriceValue);
-                tongcong.children()[0].innerText = tongcongtien;
+                let tongcongtienString = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(tongcongtien))
+
+                tongcong.children()[0].innerText = tongcongtienString.split("₫")[0];
                 let tongtienkhuyenmai = tongcongtien * (voucherValue/100);
                 let thanhtien = tongcongtien -tongtienkhuyenmai;
-                tienVoucher.children()[1].innerText = tongtienkhuyenmai ;
-                
-                totalPrice.children()[0].innerText = thanhtien;
+                let tongtienkhuyenmaiString = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(tongtienkhuyenmai))
+                let thanhtienString = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(thanhtien))
+
+                tienVoucher.children()[1].innerText = tongtienkhuyenmaiString.split("₫")[0];
+
+                totalPrice.children()[0].innerText = thanhtienString.split("₫")[0];
+                bookingThanhTien[0].value = thanhtien;
+                checkInputValue();
             }
 
         })

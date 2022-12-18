@@ -61,17 +61,7 @@ public class TourDetailDAO {
 
         return list ;
     }
-    public List<Review> getListReview(String tour_id){
-        List<Review> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select REVIEW.TOUR_ID,User.USER_ID ,user.FullName ,user.ImageURL ,REVIEW.Comment , REVIEW.NgayTao ,REVIEW.Stars  from REVIEW inner join User on User.USER_ID =REVIEW.USER_ID where REVIEW.TOUR_ID  = ?")
-                        .bind(0, tour_id)
-                        .mapToBean(Review.class)
-                        .stream()
-                        .collect(Collectors.toList())
-        );
 
-        return list ;
-    }
 
     public List<TourGuide> getListGuide(String tour_id){
         List<TourGuide> list = JDBIConnector.get().withHandle(h ->
@@ -95,5 +85,62 @@ public class TourDetailDAO {
         );
 
         return list ;
+    }
+
+    public boolean likeTour(String user_id,String tourId){
+        List<TourDetail> td = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+                );
+        if (td.size() > 0) return false;
+
+         JDBIConnector.get().withHandle(handle ->
+
+                handle.createUpdate("insert into LIKE_TOUR values (?,?)")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .execute()
+        );
+        return true;
+
+    }
+
+    public boolean unLikeTour(String user_id,String tourId){
+
+        JDBIConnector.get().withHandle(handle ->
+
+                handle.createUpdate("delete from LIKE_TOUR where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .execute()
+        );
+        return true;
+
+    }
+    public List<TourDetail> getListLikedTour(String user_id){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.USER_ID = ?")
+                        .bind(0,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return llt;
+    }
+    public boolean getLikedTourDetail(String user_id,String tourId){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                        .bind(0,tourId)
+                        .bind(1,user_id)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (llt.size()!=1) return false;
+        return true;
     }
 }

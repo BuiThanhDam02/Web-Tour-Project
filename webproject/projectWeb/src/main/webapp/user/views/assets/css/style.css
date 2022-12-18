@@ -620,6 +620,7 @@ table tfoot tr th {
     color: var(--c-primary)
 }
 
+
 .section-head-alpha {
     max-width: 710px;
     padding-bottom: 50px
@@ -3426,7 +3427,8 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 }
 
 .package-card-alpha .package-card-body {
-    padding: 30px 25px
+    padding: 30px 25px;
+    height: 140px;
 }
 
 .package-card-alpha .package-card-body .p-card-title {
@@ -4663,13 +4665,14 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 
 .tour-package-details .package-info-tab .rating-overview-row .rating-info .rating-box .rating-bar {
     width: 100%;
-    height: 3px;
+    height: 2px;
     border-radius: 6px;
     background: #eee;
     margin-top: 10px;
     position: relative;
     overflow: hidden
 }
+
 
 .tour-package-details .package-info-tab .rating-overview-row .rating-info .rating-box .rating-bar::before {
     position: absolute;
@@ -7062,7 +7065,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 
 .comment-section .comment-list .single-comment {
     margin-top: 40px;
-   
+
 }
 
 .comment-section .comment-list .single-comment div{
@@ -7086,6 +7089,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 .comment-section .comment-list .single-comment .comment{
     display: flex;
     flex-direction: column;
+    width: 600px;
 }
 
 .comment-section .comment-list .single-comment .comment .info{
@@ -8039,11 +8043,11 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 }
 
 .col-sm-10 .package-card-delta{
-    height: 465px;
+    height: 400px;
 }
 
 .col-lg-4 .package-card-delta{
-    height: 465px;
+    height: 400px;
 }
 
 .package-thumb img{
@@ -8051,7 +8055,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
 }
 
 .swiper-slide .package-card-delta{
-    height: 465px;
+    height: 400px;
 }
 
 .guide-card-gamma{
@@ -8075,7 +8079,10 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-};
+}
+.order .tab .nav .nav-item .nav-link.active{
+    background-color: var(--c-primary);
+}
 
 
 

@@ -46,231 +46,12 @@
                 <div class="profile">
                     <div class="container_profile">
                         <div class="content">
-    
-                            <div class="box-items-left">
-                                <div class="wrapper p-4 box-items">
-                                  <div class="info d-flex align-items-center mb-md-3">
-                                    <div class="image me-3">
-                                      <a href="#">
-                                        <img
-                                          src="https://lh3.googleusercontent.com/a/ALm5wu2avfGVm5jBptugPFvfuTjKlhDKkmMXQTUoqHNO=s96-c"
-                                          class="rounded-circle"
-                                        />
-                                      </a>
-                                    </div>
-                                    <div class="info-wrapper">
-                                      <div>
-                                        <h5 class="fw-bold">Nguyễn Văn A</h5>
-                                        <small
-                                          ><a
-                                            href="/cdn-cgi/l/email-protection"
-                                            class="__cf_email__"
-                                            data-cfemail="83ede4f6fae6edebf4e7e2f7b2bab2b1c3e4eee2eaefade0ecee"
-                                            >[email&#160;protected]</a
-                                          ></small
-                                        >
-                                      </div>
-                                      <span id="toggle-profile-menu" class="d-lg-none">
-                                        <i class="icon icon--chevron-down"></i>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <nav class="profile-links py-3">
-                                    <ul class="list-unstyled mb-0 py-3 pt-md-1">
-                                      <li class="mb-1">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded collapsed"
-                                          data-bs-toggle="collapse"
-                                          data-bs-target="#getting-started-collapse"
-                                          aria-expanded="false"
-                                        >
-                                          <h6 class="fw-bold">Tài khoản</h6>
-                                        </a>
-                                        <div
-                                          class="collapse "
-                                          id="getting-started-collapse"
-                                        >
-                                          <ul class="list-unstyled fw-normal pb-1 small">
-                                            <li>
-                                              <a
-                                                href="profile.jsp"
-                                                class="d-inline-flex align-items-center rounded active"
-                                              >
-                                                Thông tin cá nhân
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a
-                                                href="ChangePassword.jsp"
-                                                class="d-inline-flex align-items-center rounded"
-                                              >
-                                                Đổi mật khẩu
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a
-                                                href="PaymentInfo.jsp"
-                                                class="d-inline-flex align-items-center rounded"
-                                              >
-                                                Thông tin thanh toán
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a
-                                                href="#"
-                                                onclick="LogoutAccount();"
-                                                class="d-inline-flex align-items-center rounded"
-                                              >
-                                                Đăng xuất
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a
-                                                href="#"
-                                                id="deleteAccount"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#deleteAccountModal"
-                                                class="d-inline-flex align-items-center rounded"
-                                              >
-                                                Yêu cầu xóa tài khoản
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
-                                      </li>
-                                      <li class="mb-1">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded"
-                                          href="Order.jsp"
-                                        >
-                                          <h6 class="fw-bold">Đơn đặt chỗ</h6>
-                                        </a>
-                                      </li>
-                                      
-                                      <li class="mb-1">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded"
-                                          href="Saved.jsp"
-                                        >
-                                          <h6 class="fw-bold">Yêu thích đã lưu</h6>
-                                        </a>
-                                      </li>
-                                      <li class="mb-1 d-none">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded"
-                                          href="Compared.html"
-                                        >
-                                          <h6 class="fw-bold">Sản phẩm đã so sánh</h6>
-                                        </a>
-                                      </li>
-                                      <li class="mb-1 d-none">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded"
-                                          href="Voucher.html"
-                                        >
-                                          <h6 class="fw-bold">
-                                            Voucher khuyến mãi của Quý khách
-                                          </h6>
-                                        </a>
-                                      </li>
-                                      <li class="mb-1 d-none">
-                                        <a
-                                          class="d-inline-flex align-items-center rounded"
-                                          href="Promotion.html"
-                                        >
-                                          <h6 class="fw-bold">Chương trình ưu đãi cho user</h6>
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </nav>
-                                </div>
-                              </div>
-                            <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">GỬI YÊU CẦU XÓA TÀI KHOẢN</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row g-3">
-                                                <div class="col-12">
-                                                    <label for="name" class="form-label">Lý do<span class="required-star">*</span></label>
-                                                    <input type="text" class="form-control" id="ReasonName" placeholder="Lý do" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" id="btnSendRequest" class="btn btn-primary">Gửi đi</button>
-                                        </div>
-                                    </div>
-                                    }
-                                </div>
-                            </div>
-                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                            <script>
-                                function LogoutAccount() {
-                                    if (!confirm("Xác nhận đăng xuất?")) {
-                                        return false;
-                                    }
-                                    //Logout action
-                                    $.ajax({
-                                        url: '/AccountMember/LogoutAccount',
-                                        type: 'POST',
-                                        contentType: 'json',
-                                        data: {},
-                                        success: function(result) {
-                                            if (result.length > 0) {
-                                                alert(result);
-                                                location.href = '/AccountMember/Login';
-                                            }
-                                        },
-                                        error: function() {
-                                            alert("Không thực hiện được");
-                                        }
-    
-                                    })
-                                };
-    
-                                var myModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'), {
-                                    keyboard: false
-                                })
-    
-                                $("#deleteAccount").click(function() {
-                                    event.preventDefault();
-                                    myModal.show();
-                                });
-    
-                                $("#btnSendRequest").click(function() {
-                                    event.preventDefault();
-                                    var ReasonName = $("#ReasonName").val();
-                                    if (ReasonName === "") {
-                                        alert("Vui lòng nhập lý do");
-                                    } else {
-                                        $.ajax({
-                                            url: '/Profile/DeleteAccount',
-                                            type: 'GET',
-                                            /*contentType: 'json',*/
-                                            data: {
-                                                Reason: ReasonName
-                                            },
-                                            success: function(result) {
-                                                if (result.length > 0) {
-                                                    alert(result);
-                                                    location.href = '/AccountMember/Login';
-                                                } else {
-                                                    alert("Xóa tài khoản không thành công");
-                                                }
-                                            },
-                                            error: function() {
-                                                alert("Không thực hiện được");
-                                            }
-    
-                                        })
-                                    }
-                                });
-                            </script>
-    
+
+                            <%@include file="./components/box-left.jsp"%>
+
+                            <%
+                                String rpt = (String) request.getAttribute("resultPasswordText") ==null?null:(String) request.getAttribute("resultPasswordText");
+                            %>
     
                             <div class="ps-md-4">
                                 <div class="wrapper p-md-4">
@@ -280,12 +61,15 @@
                                             Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
                                         </p>
                                     </div>
-                                    <form class="row change-password py-4">
+                                    <form class="row change-password py-4" method="post" action="/projectWeb_war/user/views/changePassword">
+                                        <input style="display: none" class="form-control"  name="userId" type="text" value="<%=userBox.getUser_Id()%>" />
+
                                         <div class="col-12">
                                             <div class="mb-3 row">
                                                 <label for="inputOldPassword" class="col-sm-3 col-form-label">Mật khẩu cũ</label>
                                                 <div class="col-sm-7">
-                                                    <input class="form-control" id="Password" name="Password" placeholder="Mật khẩu cũ" type="password" value="" />
+                                                    <span style="display: <%=rpt==null?"none":"block"%>;color: blue"><%=rpt==null?"":rpt%></span>
+                                                    <input class="form-control" id="Password" name="oldPassword" placeholder="Mật khẩu cũ" type="password" value="" />
                                                 </div>
                                                 <div class="col d-inline-flex align-items-center">
                                                     <a class="miss-pass" style="color: var(--c-primary);" href="forgotPassword.jsp">Quên mật khẩu?</a>
@@ -294,19 +78,21 @@
                                             <div class="mb-3 row">
                                                 <label for="inputNewPassword" class="col-sm-3 col-form-label">Mật khẩu mới</label>
                                                 <div class="col-sm-7">
-                                                    <input class="form-control" id="PasswordNew" name="PasswordNew" placeholder="Mật  khẩu mới" type="password" value="" />
+                                                    <input class="form-control" id="PasswordNew" name="newPassword" placeholder="Mật  khẩu mới" type="password" value="" />
+                                                    <span id="span-password-error" style="display: none; color: red"></span>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label for="inputConfirmPassword" class="col-sm-3 col-form-label">Nhập lại mật khẩu mới</label>
                                                 <div class="col-sm-7">
-                                                    <input class="form-control" id="RePasswordNew" name="RePasswordNew" placeholder="Nhập lại mật khẩu mới" type="password" value="" />
+                                                    <input class="form-control" id="RePasswordNew" name="reNewPassword" placeholder="Nhập lại mật khẩu mới" type="password" value="" />
+                                                    <span id="span-error" style="display: none; color: red">Mật khẩu nhập lại không khớp</span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3"></div>
                                                 <div class="col-md-7">
-                                                    <button class="btn btn-primary w-100" style="background-color: var(--c-primary);" onclick="ChangePasswordAccount();">Đổi mật khẩu&nbsp;&nbsp;<i class="fas fa-sign-in-alt" aria-hidden="true"></i></button>
+                                                    <button class="btn btn-primary w-100" id="btn-submit" style="background-color: var(--c-primary);" type="submit">Đổi mật khẩu&nbsp;&nbsp;<i class="fas fa-sign-in-alt" aria-hidden="true"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -319,6 +105,7 @@
                 </div>
             </main>
             <script type="text/javascript">
+
                 function ChangePasswordAccount() {
                     Password = $("#Password").val();
                     PasswordNew = $("#PasswordNew").val();
@@ -357,6 +144,60 @@
     <script src="./assets/js/select2.min.js"></script>
     <script src="./assets/js/jquery-ui.js"></script>
 
+    <script>
+
+            var newp = document.getElementById("PasswordNew");
+            var renewp = document.getElementById("RePasswordNew");
+            var butt = document.getElementById("btn-submit");
+            newp.oninput =(e)=>{
+                var p1 = e.target.value;
+                var p2 = renewp.value;
+                if (p1.length>=6) {
+                    var spa = document.getElementById("span-password-error");
+                    if (spa.style.display ==="block"){
+                        spa.style.display ="none"
+                    }
+                    spa.style.display ="none"
+                    if (p1 ===p2){
+                        butt.disabled = false
+                    }else{
+                        butt.disabled = true
+                    }
+                }else{
+                    var spa = document.getElementById("span-password-error");
+
+                    if (spa.style.display ==="none"){
+                        spa.innerText = "Mật khẩu phải lớn hơn 6 lý tự"
+                        spa.style.display ="block"
+                    }
+                    butt.disabled = true;
+
+                }
+            }
+            renewp.oninput = (e) => {
+
+                var p1 = newp.value;
+                var p2 = e.target.value;
+
+                if (p1===p2) {
+                    var spa = document.getElementById("span-error");
+                    if (spa.style.display ==="block"){
+                        spa.style.display ="none"
+                    }
+                    butt.disabled =false
+                    spa.style.display ="none"
+                }else{
+                    var spa = document.getElementById("span-error");
+
+                    if (spa.style.display ==="none"){
+                        spa.style.display ="block"
+                    }
+                    butt.disabled =true
+
+                }
+            }
+
+    </script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/profile.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

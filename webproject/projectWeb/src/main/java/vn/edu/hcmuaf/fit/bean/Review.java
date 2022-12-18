@@ -3,13 +3,6 @@ package vn.edu.hcmuaf.fit.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
-/*
-Class Review chứa thông tin 1 bình luận và đánh giá của khách hàng
-Tạo bởi Trương Anh Thy 20130131
-Cập nhật bởi Trương Anh Thy 20130131
-
-*/
-
 public class Review implements Serializable {
     private String TOUR_ID;
     private String user_id;
@@ -18,6 +11,8 @@ public class Review implements Serializable {
     private String Comment ;
 
     private Date NgayTao;
+
+    private String Category ;
     private int Stars;
     //non constructor
     public Review(){
@@ -25,13 +20,14 @@ public class Review implements Serializable {
     }
     // constructor
 
-    public Review(String TOUR_ID,String user_id, String fullName, String imageURL, String comment, Date ngayTao, int stars) {
+    public Review(String TOUR_ID,String user_id, String fullName, String imageURL, String comment, Date ngayTao,String Category, int stars) {
         this.TOUR_ID = TOUR_ID;
         this.user_id = user_id;
         this.fullName = fullName;
         this.imageURL = imageURL;
         this.Comment = comment;
         this.NgayTao = ngayTao;
+        this.Category = Category;
         this.Stars = stars;
     }
 
@@ -85,6 +81,14 @@ public class Review implements Serializable {
         NgayTao = ngayTao;
     }
 
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
     public int getStars() {
         return Stars;
     }
@@ -94,15 +98,17 @@ public class Review implements Serializable {
     }
     //
 
+
     @Override
     public String toString() {
         return "Review{" +
                 "TOUR_ID='" + TOUR_ID + '\'' +
-                "user_id='" + user_id + '\'' +
+                ", user_id='" + user_id + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 ", Comment='" + Comment + '\'' +
                 ", NgayTao=" + NgayTao +
+                ", Category='" + Category + '\'' +
                 ", Stars=" + Stars +
                 '}';
     }

@@ -64,4 +64,17 @@ public class UserService {
        return UserDAO.getInstance().register(username, email, hashPassword(password), confirm);
 
     }
+    public List<User> getListGuide(){
+        return UserDAO.getInstance().getListGuide();
+    }
+    public User getGuideById(String user_id){
+        return UserDAO.getInstance().getGuideById(user_id);
+    }
+    public User getCurrentUserByIdAndPassword(String user_id,String oldHashPassword){
+        return  UserDAO.getInstance().getCurrentUserByIdAndPassword(user_id, hashPassword(oldHashPassword));
+    }
+    public User changeUserPassword(User user , String newHashPassword){
+        return  UserDAO.getInstance().changeUserPassword(user,hashPassword(newHashPassword));
+    }
+
 }

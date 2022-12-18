@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="logo">
-		<a href="index.jsp"><img src="./assets/images/logo-w.png" alt="logo"></a>
+		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
 	 

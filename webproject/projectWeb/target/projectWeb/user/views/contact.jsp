@@ -1,3 +1,4 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -39,13 +40,16 @@
 
     <%@include file="./components/header.jsp"%>
 
+    <%User guide = (User) request.getAttribute("guide");
+
+    %>
 
     <div class="breadcrumb breadcrumb-style-one">
         <div class="container">
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Liên Hệ</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="index.jsp">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Liên Hệ</li>
                 </ul>
             </div>
@@ -58,7 +62,7 @@
             <div class="row align-items-center justify-content-lg-center gy-5">
                 <div class="col-lg-6">
                     <div class="contatc-intro-figure">
-                        <img src="./assets/images/banner/contact-bg.png" alt="" class="img-fluid">
+                        <img src="<%=guide.getImageURL()%>" alt="" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -66,19 +70,24 @@
                         <h3>Thông Tin Liên Hệ</h3>
                         <ul>
                             <li>
-                                <h6>Hãy liên hệ</h6>
-                                <a href="/cdn-cgi/l/email-protection#325b5c545d72574a535f425e571c515d5f"><span class="__cf_email__" data-cfemail="244d4a424b64415c45495448410a474b49">[email&#160;protected]</span></a>
-                                <a href="/cdn-cgi/l/email-protection#f49d9a929bb4918c9599849891da979b99"><span class="__cf_email__" data-cfemail="fa93949c95ba9f829b978a969fd4999597">[email&#160;protected]</span></a>
-                                <a href="tel:8801761111456">+88 0176 1111 456</a>
+                                <h6>Thông tin cá nhân</h6>
+                                <a href=""><%=guide.getFullName()%></a>
+                                <br>
+                                <a href=""><%=guide.getBirth()%></a>
+                                <br>
+                                <a href=""><%=guide.getGioiTinh()%></a>
+
                             </li>
                             <li>
                                 <h6>Vị Trí</h6>
-                                <a href="#">123 Đường Linh Trung, Phường Linh Trung, TP Thủ Đức</a>
+                                <a href=""><%=guide.getDiaChi()%></a>
                             </li>
                             <li>
-                                <h6>Ghé thăm chúng tôi.</h6>
+                                <h6>Hãy liên hệ</h6>
+                                <a href="/cdn-cgi/l/email-protection#325b5c545d72574a535f425e571c515d5f"><span class="__cf_email__" data-cfemail="244d4a424b64415c45495448410a474b49"><%=guide.getEmail()%></span></a>
+                                <a href="tel:<%=guide.getPhone()%>"><%=guide.getPhone()%></a>
                                 <a href="#">Facebook: https://www.facebook.com/egenslab</a>
-                                <a href="#">Twitter: https://www.twitter.com/egenslab</a>
+
                             </li>
                         </ul>
                     </div>

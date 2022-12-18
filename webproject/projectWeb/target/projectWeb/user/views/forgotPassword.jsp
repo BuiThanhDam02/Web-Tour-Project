@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="20x20">
     <title>Sign in</title>
-    <link rel="stylesheet" href="/./assets/css/signStyle.css">
+    <link rel="stylesheet" href="./assets/css/signStyle.css">
 
 </head>
 <body>
 	<div class="logo">
-		<a href="index.jsp"><img src="./assets/images/logo-w.png" alt="logo"></a>
+		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
 	 
