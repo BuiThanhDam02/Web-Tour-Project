@@ -25,9 +25,9 @@ public class TourTableData extends HttpServlet {
         String option = request.getParameter("option");
         String tourId = request.getParameter("tourId");
         if (option.equals("edit")){
-            User user = UserService.getInstance().getGuideById(tourId);
-            request.setAttribute("guide",user);
-            request.getRequestDispatcher("form-add-san-pham.jsp").forward(request,response);
+//            User user = UserService.getInstance().getGuideById(tourId);
+//            request.setAttribute("guide",user);
+//            request.getRequestDispatcher("form-add-san-pham.jsp").forward(request,response);
         }
     }
 }

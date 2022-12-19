@@ -4,8 +4,10 @@ import vn.edu.hcmuaf.fit.bean.User;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 
+import java.sql.Date;
 import java.util.List;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -60,7 +62,7 @@ cập nhật bởi Bùi Thanh Đảm
 
 //        check register with username and password
         Random random = new Random();
-        String id ="User"+ (random.nextInt() +5000);
+        String id ="User"+ (random.nextInt(99999) );
         List<User> users = JDBIConnector.get().withHandle(h ->
                 h.createQuery("SELECT * FROM user WHERE username = ?")
                         .bind(0, username)
@@ -83,6 +85,15 @@ cập nhật bởi Bùi Thanh Đảm
     public List<User> getListGuide(){
         List<User> list = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("SELECT  * from user where user.USER_Role = 1")
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list;
+    }
+    public List<User> getListKhachHang(){
+        List<User> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("SELECT  * from user where user.USER_Role = 0")
                         .mapToBean(User.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -155,6 +166,61 @@ cập nhật bởi Bùi Thanh Đảm
         );
         if (rows == 1) return  getUserById(userId);
         return null;
+    }
+
+    public boolean createGuide(Map<String,String> map){
+        Random random = new Random();
+        String id ="User"+ (random.nextInt(99999));
+       int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("insert into user values (?,?,?,?,?,?,?,?,?,?,?,null,1)")
+                        .bind(0,id)
+                        .bind(1,map.get("fullNameGuide"))
+                        .bind(2,map.get("usernameGuide"))
+                        .bind(3,map.get("emailGuide"))
+                        .bind(4,map.get("passwordGuide"))
+                        .bind(5,map.get("phoneGuide"))
+                        .bind(6, map.get("birthGuide"))
+                        .bind(7,map.get("ImageUpload"))
+                        .bind(8,map.get("gioiTinhGuide"))
+                        .bind(9,map.get("cmndGuide"))
+                        .bind(10,map.get("diachiGuide"))
+                        .execute()
+        );
+       if (row != 1) return false;
+       return true;
+    }
+    public boolean updateGuide(Map<String,String> map){
+
+        String id = map.get("idGuide");
+        int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("update user " +
+                                "set FullName =? ,Username =? ,Email =?,USER_Password =?,Phone =?,Birth =?,ImageURL =?,GioiTinh =?,CMND =?,DiaChi =?  " +
+                                "where USER_ID =?")
+
+                        .bind(0,map.get("fullNameGuide"))
+                        .bind(1,map.get("usernameGuide"))
+                        .bind(2,map.get("emailGuide"))
+                        .bind(3,map.get("passwordGuide"))
+                        .bind(4,map.get("phoneGuide"))
+                        .bind(5, map.get("birthGuide"))
+                        .bind(6,map.get("ImageUpload"))
+                        .bind(7,map.get("gioiTinhGuide"))
+                        .bind(8,map.get("cmndGuide"))
+                        .bind(9,map.get("diachiGuide"))
+                        .bind(10,id)
+                        .execute()
+        );
+        if (row != 1) return false;
+        return true;
+    }
+    public boolean deleteGuide(String id){
+        int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("delete from user where USER_ID = ?")
+                        .bind(0,id)
+                        .execute()
+        );
+        if (row != 1) return false;
+        return true;
     }
 
     public static void main(String[] args) {

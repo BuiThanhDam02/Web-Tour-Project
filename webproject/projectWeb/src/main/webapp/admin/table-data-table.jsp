@@ -28,10 +28,14 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+  <
+  <jsp:include page="leftSideBar.jsp">
+    <jsp:param name="isCurrent" value="guideTable"/>
+  </jsp:include>
 
   <%
     List<User> guideList = (List<User>) request.getAttribute("guideList");
+    String error = request.getAttribute("error") ==null?null:(String) request.getAttribute("error");
   %>
   <main class="app-content">
     <div class="app-title">
@@ -43,6 +47,7 @@
 
     <div class="row">
       <div class="col-md-12">
+        <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
         <div class="tile">
           <div class="tile-body">
 
@@ -95,10 +100,10 @@
                   <td><%=g.getEmail() == null?"Chưa có":g.getEmail()%></td>
                   <td><%=g.getCMND()==null ?"Chưa có":g.getCMND()%></td>
                   <td class="table-td-center">
-                    <form action="/projectWeb_war/admin/GuideTableData" method="post">
+                    <form action="/projectWeb_war/admin/GuideTableData" id="form" method="post">
                       <input style="display: none" name="guideId" value="<%=g.getUser_Id()%>">
-                      <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                              onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                      <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                              ><i class="fas fa-trash-alt"></i>
                       </button>
                       <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                               ><i class="fas fa-edit"></i>
@@ -193,6 +198,7 @@
   MODAL
 -->
 
+
   <!-- Essential javascripts for application to work-->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -214,7 +220,7 @@
       document.getElementById("myTable").deleteRow(i);
     }
     jQuery(function () {
-      jQuery(".trash").click(function () {
+      jQuery("").click(function () {
         swal({
           title: "Cảnh báo",
          
@@ -223,9 +229,7 @@
         })
           .then((willDelete) => {
             if (willDelete) {
-              swal("Đã xóa thành công.!", {
-                
-              });
+
             }
           });
       });

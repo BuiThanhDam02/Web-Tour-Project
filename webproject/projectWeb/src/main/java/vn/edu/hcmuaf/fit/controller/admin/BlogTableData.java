@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.controller.admin;
 
+import vn.edu.hcmuaf.fit.bean.Blog;
 import vn.edu.hcmuaf.fit.bean.User;
+import vn.edu.hcmuaf.fit.services.BlogService;
 import vn.edu.hcmuaf.fit.services.UserService;
 
 import javax.servlet.*;
@@ -14,7 +16,7 @@ public class BlogTableData extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<User> blogList = UserService.getInstance().getListGuide();
+        List<Blog> blogList = BlogService.getInstance().getListBlog();
         request.setAttribute("blogList",blogList);
         request.getRequestDispatcher("table-data-blog.jsp").forward(request,response);
     }
@@ -24,8 +26,8 @@ public class BlogTableData extends HttpServlet {
         String option = request.getParameter("option");
         String blogId = request.getParameter("blogId");
         if (option.equals("edit")) {
-            User user = UserService.getInstance().getBlogById(blogId);
-            request.setAttribute("blog",user);
+            Blog blog = BlogService.getInstance().getBlogDetail(blogId);
+            request.setAttribute("blog",blog);
             request.getRequestDispatcher("form-add-blog.jsp").forward(request,response);
         }
     }

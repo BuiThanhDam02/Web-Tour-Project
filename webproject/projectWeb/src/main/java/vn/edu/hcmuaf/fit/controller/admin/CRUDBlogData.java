@@ -24,14 +24,14 @@ public class CRUDBlogData extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(fileItemFactory);
-        try {
-            List<FileItem> fileItem = upload.parseRequest(request);
-            new UploadFile().upload(fileItem,request.getServletContext().getRealPath(""));
-
-        } catch (FileUploadException e) {
-            e.printStackTrace();
-        }
+//        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+//        ServletFileUpload upload = new ServletFileUpload(fileItemFactory);
+//        try {
+//            List<FileItem> fileItem = upload.parseRequest(request);
+//            new UploadFile().upload(fileItem,request.getServletContext().getRealPath(""));
+//
+//        } catch (FileUploadException e) {
+//            e.printStackTrace();
+//        }
     }
 }

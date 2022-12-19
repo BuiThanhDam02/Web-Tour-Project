@@ -27,6 +27,17 @@ public class GuideTableData extends HttpServlet {
             User user = UserService.getInstance().getGuideById(guideId);
             request.setAttribute("guide",user);
             request.getRequestDispatcher("form-add-nhan-vien.jsp").forward(request,response);
+        } else if (option.equals("delete")) {
+            boolean b = UserService.getInstance().deleteGuide(guideId);
+            if (b){
+                List<User> guideList = UserService.getInstance().getListGuide();
+                request.setAttribute("guideList",guideList);
+                request.getRequestDispatcher("table-data-table.jsp").forward(request,response);
+            }else{
+                String text = "Xóa không thành công";
+                request.setAttribute("error",text);
+                request.getRequestDispatcher("table-data-table.jsp").forward(request,response);
+            }
         }
 
     }

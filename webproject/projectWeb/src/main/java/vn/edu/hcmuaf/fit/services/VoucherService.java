@@ -11,12 +11,10 @@ public class VoucherService {
     private VoucherService(){
 
     }
-
-    public static VoucherService getInstance() {
-        if(instance == null) instance = new VoucherService();
+    public  static  VoucherService getInstance(){
+        if (instance == null) return instance = new VoucherService();
         return instance;
     }
-
     public List<Voucher> getVoucherList(){
         return VoucherDAO.getInstance().getVoucherList();
     }

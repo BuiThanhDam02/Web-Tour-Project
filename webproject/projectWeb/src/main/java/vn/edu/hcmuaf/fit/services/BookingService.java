@@ -24,5 +24,8 @@ public class BookingService {
     public boolean createBooking(TourCart tc){
         return BookingDAO.getInstance().createBooking(tc);
     }
+    public List<Booking> getListBooking(){
+        return BookingDAO.getInstance().getListBooking();
+    }
 
 }

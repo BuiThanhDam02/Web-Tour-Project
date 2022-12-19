@@ -76,5 +76,17 @@ public class UserService {
     public User changeUserPassword(User user , String newHashPassword){
         return  UserDAO.getInstance().changeUserPassword(user,hashPassword(newHashPassword));
     }
+    public List<User> getListKhachHang(){
+        return UserDAO.getInstance().getListKhachHang();
+    }
+    public boolean deleteGuide(String id){
+        return UserDAO.getInstance().deleteGuide(id);
+    }
+    public boolean updateGuide(Map<String,String> map){
+        return UserDAO.getInstance().updateGuide(map);
+    }
+    public boolean createGuide(Map<String,String> map){
+        return UserDAO.getInstance().createGuide(map);
+    }
 
 }

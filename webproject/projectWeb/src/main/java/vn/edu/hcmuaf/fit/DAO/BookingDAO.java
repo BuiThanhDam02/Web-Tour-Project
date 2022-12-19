@@ -37,6 +37,17 @@ public class BookingDAO {
         return list;
 
     }
+    public List<Booking> getListBooking(){
+        List<Booking> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select  * from booking")
+                        .mapToBean(Booking.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        list.sort((o1, o2) -> o1.getNgayTao().getTime()>= o2.getNgayTao().getTime()?-1:1);
+        return list;
+
+    }
     public boolean createBooking(TourCart tc){
         Random random = new Random();
         String id ="BOOKING"+ (random.nextInt() +100);

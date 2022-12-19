@@ -18,12 +18,15 @@
 
   </div>
   <hr>
+  <%
+    String isCurrent = request.getParameter("isCurrent");
+  %>
   <ul class="app-menu">
     <!-- <li><a class="app-menu__item haha" href="phan-mem-ban-hang.jsp"><i class='app-menu__icon bx bx-cart-alt'></i>
         <span class="app-menu__label">POS Bán Hàng</span></a></li> -->
-    <li><a class="app-menu__item active" href="index.jsp"><i class='app-menu__icon bx bx-tachometer'></i><span
+    <li><a class="app-menu__item <%=isCurrent.equals("indexTable")?"active":""%>" href="index.jsp"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
-    <li><a class="app-menu__item " href="table-data-table.jsp"><i class='app-menu__icon bx bx-id-card'></i> <span
+    <li><a class="app-menu__item <%=isCurrent.equals("guideTable")?"active":""%> " href="/projectWeb_war/admin/GuideTableData"><i class='app-menu__icon bx bx-id-card'></i> <span
             class="app-menu__label">Quản lý hướng dẫn viên</span></a></li>
     <li><a class="app-menu__item" href="table-data-customer.jsp"><i class='app-menu__icon bx bx-user-voice'></i><span
             class="app-menu__label">Quản lý khách du lịch</span></a></li>
