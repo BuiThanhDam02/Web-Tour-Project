@@ -23,12 +23,12 @@ public class BlogTableData extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String option = request.getParameter("option");
+       /* String option = request.getParameter("option");
         String blogId = request.getParameter("blogId");
         if (option.equals("edit")) {
             Blog blog = BlogService.getInstance().getBlogDetail(blogId);
             request.setAttribute("blog",blog);
             request.getRequestDispatcher("form-add-blog.jsp").forward(request,response);
-        }
+        }*/
     }
 }

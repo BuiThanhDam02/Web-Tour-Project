@@ -26,7 +26,9 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+  <jsp:include page="leftSideBar.jsp">
+    <jsp:param name="isCurrent" value="voucherTable"/>
+  </jsp:include>
     <main class="app-content">
       <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">

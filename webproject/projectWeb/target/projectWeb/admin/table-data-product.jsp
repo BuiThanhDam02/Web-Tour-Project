@@ -1,3 +1,7 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Tour" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -26,7 +30,11 @@
    <%@include file="header.jsp"%>
    <!-- Sidebar menu-->
    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-   <%@include file="leftSideBar.jsp"%>
+   <jsp:include page="leftSideBar.jsp">
+       <jsp:param name="isCurrent" value="tourTable"/>
+   </jsp:include>
+
+   <% List<Tour> tourList = request.getAttribute("tourList")==null?null:(List<Tour>) request.getAttribute("tourList");%>
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
@@ -57,7 +65,7 @@
                                     <th width="10"><input type="checkbox" id="all"></th>
                                     <th>Mã Tour</th>
                                     <th>Tên Tour</th>
-                                    <th>Địa điểm</th>
+                                    <th>Hình ảnh</th>
                                     <th>Số lượng</th>
                                     <th>Trạng thái</th>
                                     <th>Giá tiền</th>
@@ -66,23 +74,35 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <% for (int i = 0; i < tourList.size(); i++) {
+                               int j = i+1;
+                                float giaVe= tourList.get(i).getGiaVe();
+                                Locale locale = new Locale("vi");
+                                NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                String giaVeString = format.format(giaVe).split(",")[0];
+                            %>
                                 <tr>
-                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                    <td>71309005</td>
-                                    <td>Bàn ăn gỗ Theresa</td>
-                                    <td><img src="/img-sanpham/theresa.jpg" alt="" width="100px;"></td>
-                                    <td>40</td>
-                                    <td><span class="badge bg-success">Còn hàng</span></td>
-                                    <td>5.600.000 đ</td>
-                                    <td>Bàn ăn</td>
-                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            ><i class="fas fa-trash-alt"></i> 
-                                        </button>
-                                       <a href="form-add-san-pham.jsp"> <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" ><i class="fas fa-edit"></i></button>
-                                       </a>
+                                    <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
+                                    <td><%=tourList.get(i).getTour_id()%></td>
+                                    <td><%=tourList.get(i).getTourName()%></td>
+                                    <td><img src="<%=tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
+                                    <td><%=tourList.get(i).getSoLuong()%></td>
+                                    <td><span class="badge bg-success"><%=tourList.get(i).getSoLuong()>0?"Còn hàng":"Hết hàng"%></span></td>
+                                    <td><%=giaVeString%>đ</td>
+                                    <td><%=tourList.get(i).getTour_category()%></td>
+                                    <td>
+                                        <form action="/projectWeb_war/admin/TourTableData" id="form" method="post">
+                                            <input style="display: none" name="tourId" value="<%=tourList.get(i).getTour_id()%>">
+                                            <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                                            ><i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
+                                            ><i class="fas fa-edit"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-
+                            <%}%>
                             </tbody>
                         </table>
                     </div>

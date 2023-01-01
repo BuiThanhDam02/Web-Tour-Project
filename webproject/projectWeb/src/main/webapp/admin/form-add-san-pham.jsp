@@ -1,3 +1,4 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.TourPackage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -136,19 +137,30 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+  <jsp:include page="leftSideBar.jsp">
+    <jsp:param name="isCurrent" value="tourTable"/>
+  </jsp:include>
+
+
+  <%
+    TourPackage tour = request.getAttribute("tour")==null?null:(TourPackage) request.getAttribute("tour");
+    String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");
+  %>
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item">Danh sách Tour</li>
-        <li class="breadcrumb-item"><a href="#">Thêm Tour</a></li>
+        <li class="breadcrumb-item"><a href="#"><%=tour==null?"Thêm Tour du lịch":"Sửa Tour du lịch"%></a></li>
       </ul>
     </div>
     <div class="row">
       <div class="col-md-12">
+        <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
         <div class="tile">
-          <h3 class="tile-title">Tạo mới Tour</h3>
+          <form class="row">
+          <h3 class="tile-title"><%=tour==null?"Tạo mới Tour du lịch":"Sửa Tour du lịch"%></h3>
           <div class="tile-body">
+
             <div class="row element-button">
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
@@ -163,7 +175,7 @@
                     class="fas fa-folder-plus"></i> Thêm mã giảm giá</a>
               </div>
             </div>
-            <form class="row">
+
               <div class="form-group col-md-3">
                 <label class="control-label">Mã Tour </label>
                 <input class="form-control" type="number" placeholder="">
@@ -334,10 +346,15 @@
               
               
 
+
+
           </div>
           <button class="btn btn-save" type="button">Lưu lại</button>
           <a class="btn btn-cancel" href="table-data-product.jsp">Hủy bỏ</a>
+          </form>
         </div>
+      </div>
+    </div>
   </main>
 
 

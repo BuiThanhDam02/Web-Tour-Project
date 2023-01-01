@@ -19,7 +19,7 @@ public class VoucherTableData extends HttpServlet {
 
         List<Voucher> voucherList = VoucherService.getInstance().getVoucherList();
         request.setAttribute("voucherList",voucherList);
-        request.getRequestDispatcher("table-date-voucher.jsp").forward(request,response);
+        request.getRequestDispatcher("table-data-voucher.jsp").forward(request,response);
 
     }
 

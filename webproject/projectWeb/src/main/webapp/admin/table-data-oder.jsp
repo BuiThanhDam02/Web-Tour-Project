@@ -1,3 +1,7 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Booking" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -26,7 +30,14 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+
+  <jsp:include page="leftSideBar.jsp">
+    <jsp:param name="isCurrent" value="orderTable"/>
+  </jsp:include>
+  <%
+    List<Booking> bookingList  = request.getAttribute("bookingList")==null?null:(List<Booking>) request.getAttribute("bookingList");
+    String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");
+  %>
     <main class="app-content">
       <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
@@ -36,6 +47,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
+          <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
           <div class="tile">
             <div class="tile-body">
               <div class="row element-button">
@@ -68,24 +80,37 @@
                   </tr>
                 </thead>
                 <tbody>
+                <% for (int i = 0; i < bookingList.size(); i++) {
+                  int j = i +1;
+                  float giaVe= bookingList.get(i).getTongTien();
+                  Locale locale = new Locale("vi");
+                  NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                  String giaVeString = format.format(giaVe).split(",")[0];
+                %>
                   <tr>
-                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                    <td>MD0837</td>
-                    <td>kh001</td>
-                    <td>tour001</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>9.400.000 đ</td>
-                    <td>19/11/2022</td>
-                    <td><span class="badge bg-success">Hoàn thành</span></td>
-                    <td ><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i> </button>
-      
-                        <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp" data-toggle="modal"
-                      data-target="#ModalUP"><i class="fa fa-edit"></i></button>
+                    <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
+                    <td><%=bookingList.get(i).getBOOKING_ID()%></td>
+                    <td><%=bookingList.get(i).getUSER_ID()%></td>
+                    <td><%=bookingList.get(i).getTOUR_ID()%></td>
+                    <td><%=bookingList.get(i).getSOLUONG_VENGUOILON()%></td>
+                    <td><%=bookingList.get(i).getSOLUONG_VETREEM()%></td>
+                    <td><%=bookingList.get(i).getSOLUONG()%></td>
+                    <td><%=giaVeString%>đ</td>
+                    <td><%=bookingList.get(i).getNgayTao()%></td>
+                    <td><span class="badge <%=bookingList.get(i).getTRANGTHAI()==-1?"bg-danger":bookingList.get(i).getTRANGTHAI()==0?"bg-info":"bg-success"%>"><%=bookingList.get(i).getTRANGTHAI()==-1?"Đã hủy":bookingList.get(i).getTRANGTHAI()==0?"Chờ xác nhận":"Hoàn thành"%></span></td>
+                    <td >
+                      <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
+                        <input style="display: none" name="bookingId" value="<%=bookingList.get(i).getBOOKING_ID()%>">
+                        <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                        ><i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
+                        ><i class="fas fa-edit"></i>
+                        </button>
+                      </form>
                     </td>
                   </tr>
-
+                <%}%>
                 </tbody>
               </table>
             </div>

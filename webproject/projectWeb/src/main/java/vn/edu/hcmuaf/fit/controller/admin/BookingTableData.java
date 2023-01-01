@@ -17,7 +17,7 @@ public class BookingTableData extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Booking> bookingList = BookingService.getInstance().getListBooking();
         request.setAttribute("bookingList", bookingList);
-        request.getRequestDispatcher("table-data-order.jsp");
+        request.getRequestDispatcher("table-data-oder.jsp").forward(request,response);
     }
 
     @Override

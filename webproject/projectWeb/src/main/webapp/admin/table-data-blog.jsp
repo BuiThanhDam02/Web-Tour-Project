@@ -1,3 +1,5 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Blog" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -26,7 +28,15 @@
    <%@include file="header.jsp"%>
    <!-- Sidebar menu-->
    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-   <%@include file="leftSideBar.jsp"%>
+
+   <jsp:include page="leftSideBar.jsp">
+       <jsp:param name="isCurrent" value="blogTable"/>
+   </jsp:include>
+
+   <%
+       List<Blog> blogList = (List<Blog>) request.getAttribute("blogList");
+       String error = request.getAttribute("error") ==null?null:(String) request.getAttribute("error");
+   %>
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
@@ -36,6 +46,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
                 <div class="tile">
                     <div class="tile-body">
                         <div class="row element-button">
@@ -56,7 +67,7 @@
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
                                     <th>Mã BLog</th>
-                                    <th>Mã hướng dẫn viên</th>
+                                    <th>Hướng dẫn viên</th>
                                     <th>Tên Blog</th>
                                     <th>Ngày viết bài</th>
                                     <th>Nội dung</th>
@@ -64,22 +75,32 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <%
+                                for (int i = 0; i < blogList.size(); i++) {
+                                    int j =i +1;
+                                %>
                                 <tr>
-                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                    <td>Blog001</td>
-                                    <td>GUIDE001</td>
-                                    <td>Ngày hội ở đà lạt</td>
-                                    <td>19/11/2022</td>
+                                    <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
+                                    <td><%=blogList.get(i).getBLOG_ID()%></td>
+                                    <td><%=blogList.get(i).getFullName()%></td>
+                                    <td><%=blogList.get(i).getBLOG_TITLE()%></td>
+                                    <td><%=blogList.get(i).getNgayVietBai().toString()%></td>
                                     
-                                    <td><textarea name="noidung" id="" cols="30" rows="10" disabled >ngày hội lớn nhất ở đà lạt sẽ mang lại nhiều điều thú vị cho các cặp đôi</textarea></td>
-                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            ><i class="fas fa-trash-alt"></i> 
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp" data-toggle="modal"
-                                        data-target="#ModalUP"><i class="fa fa-edit"></i></button>
+                                    <td><textarea name="noidung" id="" cols="30" rows="10" disabled ><%=blogList.get(i).getDescription()%></textarea></td>
+                                    <td>
+                                        <form action="/projectWeb_war/admin/BlogTableData" id="form" method="post">
+                                            <input style="display: none" name="blogId" value="<%=blogList.get(i).getBLOG_ID()%>">
+                                            <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                                            ><i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
+                                            ><i class="fas fa-edit"></i>
+                                            </button>
+                                        </form>
                                                          
                                     </td>
                                 </tr>
+                            <%}%>
 
                             </tbody>
                         </table>
