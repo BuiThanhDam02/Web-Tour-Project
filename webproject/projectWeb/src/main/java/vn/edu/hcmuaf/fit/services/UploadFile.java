@@ -1,8 +1,12 @@
 package vn.edu.hcmuaf.fit.services;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemStream;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -13,7 +17,7 @@ public class UploadFile {
     public  UploadFile(){
 
     }
-    public Map<String,String> upload(List<FileItem> fileItems, String reqPath,String divide){
+    public Map<String,String> upload(List<FileItem> fileItems,HttpServletRequest req, String reqPath,String divide) throws UnsupportedEncodingException {
         Map<String,String> result = new HashMap<String,String>();
 
         for (FileItem fileItem : fileItems) {
@@ -41,9 +45,12 @@ public class UploadFile {
                 }
             }else{
 
-                String name = fileItem.getFieldName();
-                String value = fileItem.getString();
 
+                String name = fileItem.getFieldName();
+
+//                String value = fileItem.getString();
+                String value = fileItem.getString(req.getCharacterEncoding());
+                System.out.println(name+": "+value);
                 result.put(name,value);
             }
         }

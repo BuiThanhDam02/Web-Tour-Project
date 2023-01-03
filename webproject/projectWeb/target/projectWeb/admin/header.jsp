@@ -1,4 +1,4 @@
-<%--
+<%@ page import="vn.edu.hcmuaf.fit.bean.User" %><%--
   Created by IntelliJ IDEA.
   User: MyPC
   Date: 12/16/2022
@@ -11,7 +11,7 @@
 
 </head>
 <body>
-
+<% User user =(User) session.getAttribute("auth");%>
 <header class="app-header">
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
                                     aria-label="Hide Sidebar"></a>

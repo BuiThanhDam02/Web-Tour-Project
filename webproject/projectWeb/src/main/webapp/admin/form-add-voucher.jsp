@@ -1,3 +1,4 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.Voucher" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -29,17 +30,24 @@
   <jsp:include page="leftSideBar.jsp">
     <jsp:param name="isCurrent" value="voucherTable"/>
   </jsp:include>
+  <%
+    Voucher voucher = request.getAttribute("voucher")==null?null:(Voucher) request.getAttribute("voucher");
+    String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");
+  %>
     <main class="app-content">
       <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item">Quản lý Voucher</li>
-          <li class="breadcrumb-item"><a href="#">Tạo mới</a></li>
+          <li class="breadcrumb-item"><a href="#"><%=voucher==null?"Tạo mới voucher":"Sửa voucher"%></a></li>
         </ul>
       </div>
       <div class="row">
         <div class="col-md-12">
+          <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
+
           <div class="tile">
-            <h3 class="tile-title">Tạo mới danh sách Voucher</h3>
+            <form  method="post" action="/projectWeb_war/admin/CRUDVoucherData">
+            <h3 class="tile-title"><%=voucher==null?"Tạo mới voucher":"Sửa voucher"%></h3>
             <div class="tile-body">
               <!-- <div class="row element-button">
                 <div class="col-sm-2">
@@ -48,41 +56,44 @@
                 </div>
   
               </div> -->
-              <form class="row">
-                <div class="form-group col-md-4">
+
+                <div class="form-group col-md-4" style="display: <%=voucher==null?"none":"block"%>">
                   <label class="control-label">ID Voucher</label>
-                  <input class="form-control" type="text">
+                  <input class="form-control" name="voucherId" value="<%=voucher==null?"":voucher.getVOUCHER_ID()==null?"":voucher.getVOUCHER_ID()%>" type="text">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="control-label">Ngày bắt đầu</label>
-                  <input class="form-control" type="date">
+                  <input class="form-control" name="voucherStart" value="<%=voucher==null?"":voucher.getNgayBatDau()==null?"":voucher.getNgayBatDau().toString()%>" required type="date">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="control-label">Ngày kết thúc</label>
-                  <input class="form-control" type="date">
+                  <input class="form-control" name="voucherEnd" value="<%=voucher==null?"":voucher.getNgayKetThuc()==null?"":voucher.getNgayKetThuc().toString()%>" required type="date">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="control-label">Giá trị khuyến mãi</label>
-                  <input class="form-control" type="number">
+                  <input class="form-control" name="voucherValue" value="<%=voucher==null?"":voucher.getVOUCHER_VALUE()%>" required type="number">
                 </div>
-                <div class="form-group col-md-4">
-                        <label for="exampleSelect1" class="control-label">Trạng thái</label>
-                        <select class="form-control" id="exampleSelect1">
-                          <option>-- Chọn trạng thái --</option>
-                          <option>Khả dụng</option>
-                          <option>Hết khả dụng</option>
-                          
-                        </select>
-                      </div>
+<%--                <div class="form-group col-md-4">--%>
+<%--                        <label for="exampleSelect1" class="control-label">Trạng thái</label>--%>
+<%--                        <select class="form-control" id="exampleSelect1" name="voucherTrangThai">--%>
+<%--                          <option value="1" <%if (voucher.getTRANGTHAI()==1||voucher==null){%>selected<%}%>>Khả dụng</option>--%>
+<%--                          <option value="1" <%if (voucher.getTRANGTHAI()==1||voucher==null){%>selected<%}%>>Khả dụng</option>--%>
+<%--                          <option value="0" <%if (voucher.getTRANGTHAI()==0){%>selected<%}%>>Hết khả dụng</option>--%>
+<%--                          --%>
+<%--                        </select>--%>
+<%--                      </div>--%>
                      
                   
                   
             <div class="tile-footer">
             </div>
           </div>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" href="table-data-voucher.jsp">Hủy bỏ</a>
+          <button class="btn btn-save" type="submit">Lưu lại</button>
+          <a class="btn btn-cancel" href="/projectWeb_war/admin/VoucherTableData">Hủy bỏ</a>
+            </form>
+          </div>
         </div>
+      </div>
     </main>
 
  <!--

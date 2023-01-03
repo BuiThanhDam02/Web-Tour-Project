@@ -8,6 +8,7 @@ import vn.edu.hcmuaf.fit.bean.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BlogService {
     private static BlogService instance;
@@ -50,4 +51,7 @@ public class BlogService {
     public List<Blog> getListRecentBlog(){
         return  BlogDAO.getInstance().getListRecentBlog();
     }
+    public boolean updateBlog(Map<String,String> map){return BlogDAO.getInstance().updateBlog(map);}
+    public boolean createBlog(Map<String,String> map){return BlogDAO.getInstance().createBlog(map);}
+    public boolean deleteBlog(String id){return BlogDAO.getInstance().deleteBlog(id);}
 }

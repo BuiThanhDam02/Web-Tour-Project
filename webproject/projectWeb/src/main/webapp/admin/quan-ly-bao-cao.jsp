@@ -25,7 +25,9 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+  <jsp:include page="leftSideBar.jsp">
+      <jsp:param name="isCurrent" value="reportTable"/>
+  </jsp:include>
   <main class="app-content">
     <div class="row">
       <div class="col-md-12">

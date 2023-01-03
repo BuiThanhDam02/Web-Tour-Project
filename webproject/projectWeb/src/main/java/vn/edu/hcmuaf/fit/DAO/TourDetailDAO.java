@@ -4,6 +4,7 @@ package vn.edu.hcmuaf.fit.DAO;
 
 import vn.edu.hcmuaf.fit.bean.*;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
+import vn.edu.hcmuaf.fit.services.VoucherService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,6 +77,7 @@ public class TourDetailDAO {
     }
 
     public List<Voucher> getListVoucher(String tour_id){
+        VoucherDAO.getInstance().updateStatusVoucher();
         List<Voucher> list = JDBIConnector.get().withHandle(h ->
                 h.createQuery("select VOUCHER.* from VOUCHER inner join TOUR_VOUCHER on TOUR_VOUCHER.VOUCHER_ID =VOUCHER.VOUCHER_ID where TOUR_VOUCHER.TOUR_ID  = ? and VOUCHER.TRANGTHAI = 1")
                         .bind(0, tour_id)
@@ -142,5 +144,16 @@ public class TourDetailDAO {
         );
         if (llt.size()!=1) return false;
         return true;
+    }
+
+    public List<TourDetail> getListIncomingSoldOutTour(){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select * from tour  where tour.SoLuong < 10")
+
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return llt;
     }
 }

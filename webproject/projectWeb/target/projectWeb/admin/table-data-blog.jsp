@@ -52,7 +52,7 @@
                         <div class="row element-button">
                             <div class="col-sm-2">
               
-                              <a class="btn btn-add btn-sm" href="form-add-blog.jsp" title="Thêm"><i class="fas fa-plus"></i>
+                              <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDBlogData" title="Thêm"><i class="fas fa-plus"></i>
                                 Tạo mới Blog</a>
                             </div>
                            
@@ -227,29 +227,29 @@ MODAL
         //     var i = r.parentNode.parentNode.rowIndex;
         //     document.getElementById("sampleTable").deleteRow(i);
         // }
-        jQuery(function () {
-          
-            jQuery(".trash").click(function (e) {
-              
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                    .then((willDelete) => {
-                      
-                        if (willDelete) {
-                          
-                          var i = e.currentTarget.parentNode.parentNode.rowIndex;
-                          
-                         document.getElementById("sampleTable").deleteRow(i);
-                            swal("Đã xóa thành công.!", {
-                              
-                            });
-                        }
-                    });
-            });
-        });
+        // jQuery(function () {
+        //
+        //     jQuery(".trash").click(function (e) {
+        //
+        //         swal({
+        //             title: "Cảnh báo",
+        //             text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+        //             buttons: ["Hủy bỏ", "Đồng ý"],
+        //         })
+        //             .then((willDelete) => {
+        //
+        //                 if (willDelete) {
+        //
+        //                   var i = e.currentTarget.parentNode.parentNode.rowIndex;
+        //
+        //                  document.getElementById("sampleTable").deleteRow(i);
+        //                     swal("Đã xóa thành công.!", {
+        //
+        //                     });
+        //                 }
+        //             });
+        //     });
+        // });
         oTable = $('#sampleTable').dataTable();
         $('#all').click(function (e) {
             $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

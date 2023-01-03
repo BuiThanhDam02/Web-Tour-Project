@@ -27,5 +27,13 @@ public class BookingService {
     public List<Booking> getListBooking(){
         return BookingDAO.getInstance().getListBooking();
     }
+    public boolean createBookingAdmin(Booking tc){return BookingDAO.getInstance().createBookingAdmin(tc);}
+    public boolean updateBookingAdmin(Booking tc){return  BookingDAO.getInstance().updateBookingAdmin(tc);}
 
+    public Booking getBookingById(String id){return BookingDAO.getInstance().getBookingById(id);}
+
+    public boolean adminCancelBooking(String bookingId){return BookingDAO.getInstance().adminCancelBooking(bookingId);}
+    public boolean adminSubmitBooking(String bookingId){return BookingDAO.getInstance().adminSubmitBooking(bookingId);}
+    public boolean adminDeleteBooking(String bookingId){return BookingDAO.getInstance().adminDeleteBooking(bookingId);}
+    public List<Booking> getListBookingByMonth(){return  BookingDAO.getInstance().getListBookingByMonth();}
 }

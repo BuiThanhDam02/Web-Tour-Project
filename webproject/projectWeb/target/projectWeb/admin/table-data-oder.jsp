@@ -53,7 +53,7 @@
               <div class="row element-button">
                 <div class="col-sm-2">
   
-                  <a class="btn btn-add btn-sm" href="form-add-don-hang.jsp" title="Thêm"><i class="fas fa-plus"></i>
+                  <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDBookingTableData" title="Thêm"><i class="fas fa-plus"></i>
                     Tạo mới đơn đặt Tour</a>
                 </div>
                
@@ -101,12 +101,22 @@
                     <td >
                       <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
                         <input style="display: none" name="bookingId" value="<%=bookingList.get(i).getBOOKING_ID()%>">
-                        <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+
+                       <%if (bookingList.get(i).getTRANGTHAI()==-1){%> <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                         ><i class="fas fa-trash-alt"></i>
                         </button>
+                        <%}%>
                         <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                         ><i class="fas fa-edit"></i>
                         </button>
+                        <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận"
+                                ><i class="fas fa-check"></i>
+                        </button>
+                        <%}%>
+                        <%if (bookingList.get(i).getTRANGTHAI()==0){%> <button class="btn btn-primary btn-sm " style="background-color: #eee3e3; color: #828c82" type="submit" name="option" value="cancel" title="Hủy"
+                        ><i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <%}%>
                       </form>
                     </td>
                   </tr>

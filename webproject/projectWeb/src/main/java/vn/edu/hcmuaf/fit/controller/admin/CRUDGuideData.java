@@ -29,9 +29,10 @@ public class CRUDGuideData extends HttpServlet {
         Map<String,String> result = new HashMap<String,String>();
         DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(fileItemFactory);
+
         try {
             List<FileItem> fileItems = upload.parseRequest(request);
-             result =  new UploadFile().upload(fileItems,request.getServletContext().getRealPath(""),"guides");
+             result =  new UploadFile().upload(fileItems,request,request.getServletContext().getRealPath(""),"allImage");
 
         } catch (FileUploadException e) {
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class CRUDGuideData extends HttpServlet {
             if (b) {
                 response.sendRedirect("/projectWeb_war/admin/GuideTableData");
             }else {
-                String text = "Tạo mới không thành công";
+                String text = "Sửa không thành công";
                 request.setAttribute("error",text);
                 request.getRequestDispatcher("form-add-nhan-vien.jsp").forward(request,response);
             }

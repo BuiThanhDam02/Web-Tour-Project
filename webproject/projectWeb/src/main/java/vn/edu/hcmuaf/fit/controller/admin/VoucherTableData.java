@@ -28,9 +28,24 @@ public class VoucherTableData extends HttpServlet {
         String option = request.getParameter("option");
         String voucherId = request.getParameter("voucherId");
         if (option.equals("edit")) {
-//            Voucher voucher = UserService.getInstance().getVoucherById(voucherId);
-//            request.setAttribute("voucher",voucher);
-//            request.getRequestDispatcher("form-add-voucher.jsp").forward(request,response);
+            Voucher voucher = VoucherService.getInstance().getVoucher(voucherId);
+            request.setAttribute("voucher",voucher);
+            request.getRequestDispatcher("form-add-voucher.jsp").forward(request,response);
+        } else if (option.equals("delete")) {
+            boolean b = VoucherService.getInstance().deleteVoucher(voucherId);
+            if (b){
+                String text = "Xóa "+voucherId+" thành công";
+                request.setAttribute("error",text);
+                List<Voucher> voucherList = VoucherService.getInstance().getVoucherList();
+                request.setAttribute("voucherList",voucherList);
+                request.getRequestDispatcher("table-data-voucher.jsp").forward(request,response);
+            }else{
+                List<Voucher> voucherList = VoucherService.getInstance().getVoucherList();
+                request.setAttribute("voucherList",voucherList);
+                String text = "Xóa không thành công";
+                request.setAttribute("error",text);
+                request.getRequestDispatcher("table-data-voucher.jsp").forward(request,response);
+            }
         }
     }
 }

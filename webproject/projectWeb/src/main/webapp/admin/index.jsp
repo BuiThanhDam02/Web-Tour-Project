@@ -1,3 +1,14 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.TourDetail" %>
+<%@ page import="java.util.List" %>
+
+
+<%@ page import="vn.edu.hcmuaf.fit.bean.Booking" %>
+
+<%@ page import="vn.edu.hcmuaf.fit.bean.Tour" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -29,6 +40,21 @@
     <jsp:param name="isCurrent" value="indexTable"/>
   </jsp:include>
 
+  <%
+    List<TourDetail> listTD = (List<TourDetail>) request.getAttribute("listTD");
+    List<User> listKH = (List<User>) request.getAttribute("listKH");
+    List<Booking> listBM =  (List<Booking>) request.getAttribute("listBM");
+    List<Tour> listT =  (List<Tour>) request.getAttribute("listT");
+    List<Booking> listB =  (List<Booking>) request.getAttribute("listB");
+String error = request.getAttribute("error")==null?null:(String)request.getAttribute("error");
+    List<Booking> listUnSubmit = new ArrayList<Booking>();
+    for (Booking b:
+         listB) {
+      if (b.getTRANGTHAI() ==0){
+        listUnSubmit.add(b);
+      }
+    }
+  %>
   <main class="app-content">
     <div class="row">
       <div class="col-md-12">
@@ -47,11 +73,11 @@
        <!-- col-6 -->
        <div class="col-md-6">
         <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
-          <div class="info">
+          <a class="info" href="/projectWeb_war/admin/CustomerDataTable">
             <h4>Tổng khách du lịch</h4>
-            <p><b>3 khách du lịch</b></p>
+            <p><b><%=listKH.size()%> khách du lịch</b></p>
             <p class="info-tong">Tổng số khách du lịch được quản lý.</p>
-          </div>
+          </a>
         </div>
       </div>
        <!-- col-6 -->
@@ -59,7 +85,7 @@
             <div class="widget-small info coloured-icon"><i class='icon bx bxs-data fa-3x'></i>
               <div class="info">
                 <h4>Tổng Tour</h4>
-                <p><b>100 tour</b></p>
+                <p><b><%=listT.size()%> tour</b></p>
                 <p class="info-tong">Tổng số Tour được quản lý.</p>
               </div>
             </div>
@@ -68,8 +94,8 @@
           <div class="col-md-6">
             <div class="widget-small warning coloured-icon"><i class='icon bx bxs-shopping-bags fa-3x'></i>
               <div class="info">
-                <h4>Tổng đơn đặt tour</h4>
-                <p><b>10 đơn đặt tour</b></p>
+                <h4>Tổng đơn đặt tour trong tháng</h4>
+                <p><b><%=listBM.size()%> đơn đặt tour</b></p>
                 <p class="info-tong">Tổng số hóa đơn đặt tour trong tháng.</p>
               </div>
             </div>
@@ -79,8 +105,8 @@
             <div class="widget-small danger coloured-icon"><i class='icon bx bxs-error-alt fa-3x'></i>
               <div class="info">
                 <h4>Sắp hết vé</h4>
-                <p><b>4 sản phẩm</b></p>
-                <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                <p><b><%=listTD.size()%> Tour</b></p>
+                <p class="info-tong">Số Tour cảnh báo hết cần nhập thêm.</p>
               </div>
             </div>
           </div>
@@ -142,41 +168,45 @@
             <div class="tile">
                 <h3 class="tile-title">Đơn hàng đang chờ xác nhận</h3>
               <div>
+                <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>ID TOUR</th>
-                      <th>ID khách hàng</th>
+                      <th>ID Booking</th>
+                      <th>Số lượng</th>
                       <th>Tổng tiền</th>
                       <th>Trạng thái</th>
                       <th>Xác nhận</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <%
+                    for (Booking b:
+                         listUnSubmit) {
+                      float giaVe= b.getTongTien();
+                      Locale locale = new Locale("vi");
+                      NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                      String giaVeString = format.format(giaVe).split(",")[0];
+                    %>
                     <tr>
-                      <td>TOUR3947</td>
-                      <td>KH011</td>
+                      <td><%=b.getBOOKING_ID()%></td>
+                      <td><%=b.getSOLUONG()%></td>
                       <td>
-                        19.770.000 đ
+                        <%=giaVeString%> đ
                       </td>
                       <td><span class="badge bg-info">Chờ xác nhận</span></td>
-                      <td><button class="btn btn-primary btn-sm save" type="button" title="Xác nhận"
-                            onclick="myFunction(this)"><i class="fas fa-check"></i>
+                      <td>
+                        <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
+                          <input style="display: none" name="bookingId" value="<%=b.getBOOKING_ID()%>">
+                          <button class="btn btn-primary btn-sm save" name="option" value="submitIndex" type="submit" title="Xác nhận"
+                          ><i class="fas fa-check"></i>
                           </button>
+                        </form>
+
                     </td>
                     </tr>
-                    <tr>
-                      <td>TOUR3947</td>
-                      <td>KH011</td>
-                      <td>
-                        19.770.000 đ
-                      </td>
-                      <td><span class="badge bg-info">Chờ xác nhận</span></td>
-                      <td><button class="btn btn-primary btn-sm save" type="button" title="Xác nhận"
-                        onclick="myFunction(this)"><i class="fas fa-check"></i>
-                      </button>
-                      </td>
-                    </tr>
+                  <%}%>
+
                 
                    
                   </tbody>
@@ -185,10 +215,56 @@
               <!-- / div trống-->
             </div>
            </div>
+
+          <div class="col-md-16">
+            <div class="tile">
+              <h3 class="tile-title">Đơn hàng trong tháng</h3>
+              <a href="/projectWeb_war/admin/BookingTableData"><span style="font-size: 0.6rem;color: blue">Xem tất cả đơn hàng</span></a>
+
+              <div>
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>ID Booking</th>
+                    <th>Số lượng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%
+                    for (Booking b:
+                            listBM) {
+                      float giaVe= b.getTongTien();
+                      Locale locale = new Locale("vi");
+                      NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                      String giaVeString = format.format(giaVe).split(",")[0];
+                  %>
+                  <tr>
+                    <td><%=b.getBOOKING_ID()%></td>
+                    <td><%=b.getSOLUONG()%></td>
+                    <td>
+                      <%=giaVeString%> đ
+                    </td>
+                    <td><span class="badge <%=b.getTRANGTHAI()==-1?"bg-danger":b.getTRANGTHAI()==1?"bg-success":"bg-info"%>"><%=b.getTRANGTHAI()==-1?"Đã hủy":b.getTRANGTHAI()==1?"Đã hoàn thành":"Chờ xác nhận"%></span></td>
+
+                  </tr>
+                  <%}%>
+
+
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- / div trống-->
+            </div>
+          </div>
         </div>
 
       </div>
       <!--END right-->
+
     </div>
 
 

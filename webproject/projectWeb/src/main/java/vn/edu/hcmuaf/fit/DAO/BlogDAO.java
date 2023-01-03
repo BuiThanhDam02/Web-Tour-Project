@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -98,6 +99,59 @@ public class BlogDAO {
                         .collect(Collectors.toList())
         );
         return list;
+    }
+
+    public boolean createBlog(Map<String,String> map){
+        Random random = new Random();
+        String id ="Blog"+ (random.nextInt(1000));
+        int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("insert into BLOG values (?,?,?,?,?,?,?,?)")
+                        .bind(0,id)
+                        .bind(1,map.get("blogUserId"))
+                        .bind(2,map.get("blogDiaDiem"))
+                        .bind(3,map.get("blogTitle"))
+                        .bind(4,map.get("blogDescription"))
+                        .bind(5,map.get("blogDate"))
+
+                        .bind(6,map.get("ImageUpload"))
+                        .bind(7,map.get("blogCategory"))
+
+                        .execute()
+        );
+        if (row != 1) return false;
+        return true;
+    }
+    public boolean deleteBlog(String id){
+        int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("delete from BLOG where BLOG_ID = ?")
+                        .bind(0,id)
+                        .execute()
+        );
+        if (row != 1) return false;
+        return true;
+    }
+
+    public boolean updateBlog(Map<String,String> map){
+
+        String id = map.get("blogID");
+        int row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("update BLOG " +
+                                "set  USER_ID=?,DiaDiem_ID=?,BLOG_TITLE=?,Description=?,NgayVietBai=?,ImageURL=?,blog_category=? " +
+                                "where BLOG_ID =?")
+
+                        .bind(0,map.get("blogUserId"))
+                        .bind(1,map.get("blogDiaDiem"))
+                        .bind(2,map.get("blogTitle"))
+                        .bind(3,map.get("blogDescription"))
+                        .bind(4,map.get("blogDate"))
+
+                        .bind(5,map.get("ImageUpload"))
+                        .bind(6,map.get("blogCategory"))
+                        .bind(7,id)
+                        .execute()
+        );
+        if (row != 1) return false;
+        return true;
     }
 
     public static void main(String[] args) {

@@ -1,10 +1,12 @@
 package vn.edu.hcmuaf.fit.DAO;
 
 
+import vn.edu.hcmuaf.fit.bean.Booking;
 import vn.edu.hcmuaf.fit.bean.Tour;
 import vn.edu.hcmuaf.fit.bean.TourDetail;
 import vn.edu.hcmuaf.fit.bean.Voucher;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
+import vn.edu.hcmuaf.fit.services.BookingService;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -147,15 +149,50 @@ public class TourDAO {
         return map ;
     }
 
-    public static void main(String[] args) {
-        Map<Integer,List<Tour>> map = new LinkedHashMap<Integer, List<Tour>>();
-        map = getInstance().getMapVoucherTour();
-
-        Set<Integer> set = map.keySet();
-        for (Integer i:
-             set) {
-            System.out.println(i + map.get(i).toString());
+    public boolean updateSoLuongTour(String bookingId){
+        boolean result = false;
+        Booking booking = BookingService.getInstance().getBookingById(bookingId);
+        if (booking.getTRANGTHAI()==1){
+            TourDetail tour = getInstance().getTourDetail(booking.getTOUR_ID());
+            if (tour.getSoLuong()>= booking.getSOLUONG()){
+                int rest = tour.getSoLuong() - booking.getSOLUONG();
+                JDBIConnector.get().withHandle(handle ->
+                        handle.createUpdate("update TOUR " +
+                                "set SoLuong = ? " +
+                                "where TOUR_ID = ?").bind(0,rest).bind(1,tour.getTOUR_ID()).execute()
+                );
+                updateTourStatus();
+                result = true;
+            }else{
+                result = false;
+            }
         }
+        return result;
     }
+    public void updateTourStatus(){
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("update TOUR " +
+                        "set TrangThai = ? " +
+                        "where SoLuong = ?").bind(0,0).bind(1,0).execute()
+        );
+
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("update TOUR " +
+                        "set TrangThai = ? " +
+                        "where DATEDIFF(NgayKhoiHanh,CURRENT_DATE) <= 2").bind(0,0).execute()
+        );
+    }
+
+
+//    public static void main(String[] args) {
+//        Map<Integer,List<Tour>> map = new LinkedHashMap<Integer, List<Tour>>();
+//        map = getInstance().getMapVoucherTour();
+//
+//        Set<Integer> set = map.keySet();
+//        for (Integer i:
+//             set) {
+//            System.out.println(i + map.get(i).toString());
+//        }
+//    }
 
 }

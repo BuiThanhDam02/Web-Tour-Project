@@ -72,4 +72,5 @@ public class TourDetailService {
     public boolean likeTour(String user_id,String tourId){
         return TourDetailDAO.getInstance().likeTour(user_id,tourId);
     }
+    public List<TourDetail> getListIncomingSoldOutTour(){return TourDetailDAO.getInstance().getListIncomingSoldOutTour();}
 }

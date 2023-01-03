@@ -53,7 +53,7 @@
               <div class="row element-button">
                 <div class="col-sm-2">
   
-                  <a class="btn btn-add btn-sm" href="form-add-voucher.jsp" title="Thêm"><i class="fas fa-plus"></i>
+                  <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDVoucherData" title="Thêm"><i class="fas fa-plus"></i>
                     Tạo mới Voucher</a>
                 </div>
                
