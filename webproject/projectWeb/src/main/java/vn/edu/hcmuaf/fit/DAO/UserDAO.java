@@ -91,6 +91,18 @@ cập nhật bởi Bùi Thanh Đảm
         );
         return list;
     }
+
+
+    public List<User> getListGuideOnBusy(){
+        List<User> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("SELECT user.* FROM User INNER JOIN tour_guide on tour_guide.USER_ID = user.USER_ID  WHERE user.USER_Role =1 ")
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list;
+    }
+
     public List<User> getListKhachHang(){
         List<User> list = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("SELECT  * from user where user.USER_Role = 0")

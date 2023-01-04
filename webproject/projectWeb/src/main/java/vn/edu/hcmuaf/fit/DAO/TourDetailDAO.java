@@ -6,7 +6,10 @@ import vn.edu.hcmuaf.fit.bean.*;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 import vn.edu.hcmuaf.fit.services.VoucherService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /*
@@ -155,5 +158,275 @@ public class TourDetailDAO {
                         .collect(Collectors.toList())
         );
         return llt;
+    }
+
+    public boolean adminCreateTour(Map<String,String > map){
+        Random random = new Random();
+        String id ="Tour"+ (random.nextInt(10000000) );
+        int countGuide = Integer.parseInt(map.get("tourDetailCountGuide"));
+        List<String> guidesId = new ArrayList<String>();
+        for (int i = 1; i <= countGuide; i++) {
+            String g = "tourDetailGuide"+i;
+           if (map.containsKey(g)){
+               String gid = map.get(g);
+               guidesId.add(gid);
+           }
+        }
+
+
+
+        List<String[]> listType = new ArrayList<String[]>();
+        String[] NLtype = new String[3];
+        NLtype[0] = id;
+        NLtype[1] = "1";
+        NLtype[2] = map.get("tourDetailSLVNL");
+        listType.add(NLtype);
+        String[] TEtype = new String[3];
+        TEtype[0] = id;
+        TEtype[1] = "0";
+        TEtype[2] = map.get("tourDetailSLVTE");
+        listType.add(TEtype);
+
+
+       int countDay = Integer.parseInt(map.get("tourDetailCountDay")) ;
+        List<String[]> listDay = new ArrayList<String[]>();
+        for (int i = 1; i <= countDay ; i++) {
+            String[] day = new String[3];
+            day[0] = map.get("tourDetailDay"+i);
+            day[1] = map.get("tourDetailDayTitle"+i);
+            day[2] = map.get("tourDetailDayMoTa"+i);
+            listDay.add(day);
+        }
+
+       if (createTourDetail(map,id)==true){
+           createTourDetailGuide(guidesId,id);
+           createTourDetailType(listType,id);
+           createTourDetailDay(listDay,id);
+           createTourDetailVoucher(map.get("tourDetailVoucher"),id);
+           return true;
+       }else{
+           return false;
+       }
+
+    }
+
+    public boolean adminUpdateTour(Map<String,String > map){
+
+        String id = map.get("tourDetailId");
+        int countGuide = Integer.parseInt(map.get("tourDetailCountGuide"));
+        List<String> guidesId = new ArrayList<String>();
+        for (int i = 1; i <= countGuide; i++) {
+            String g = "tourDetailGuide"+i;
+            if (map.containsKey(g)){
+                String gid = map.get(g);
+                guidesId.add(gid);
+            }
+        }
+
+
+
+        List<String[]> listType = new ArrayList<String[]>();
+        String[] NLtype = new String[3];
+        NLtype[0] = id;
+        NLtype[1] = "1";
+        NLtype[2] = map.get("tourDetailSLVNL");
+        listType.add(NLtype);
+        String[] TEtype = new String[3];
+        TEtype[0] = id;
+        TEtype[1] = "0";
+        TEtype[2] = map.get("tourDetailSLVTE");
+        listType.add(TEtype);
+
+
+        int countDay = Integer.parseInt(map.get("tourDetailCountDay")) ;
+        List<String[]> listDay = new ArrayList<String[]>();
+        for (int i = 1; i <= countDay ; i++) {
+            String[] day = new String[3];
+            day[0] = map.get("tourDetailDay"+i);
+            day[1] = map.get("tourDetailDayTitle"+i);
+            day[2] = map.get("tourDetailDayMoTa"+i);
+            listDay.add(day);
+        }
+
+        if (updateTourDetail(map,id)==true){
+            deleteTourDetailAll(id);
+            createTourDetailGuide(guidesId,id);
+            createTourDetailType(listType,id);
+            createTourDetailDay(listDay,id);
+            createTourDetailVoucher(map.get("tourDetailVoucher"),id);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public boolean createTourDetail(Map<String,String > map , String id){
+      int row =  JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("insert into Tour values(?,?,?,?,?,?,?,?,?,?,?,?,?)")
+                        .bind(0,id)
+                        .bind(1,map.get("tourDetailName"))
+                        .bind(2,map.get("tourDetailDiaDiem"))
+                        .bind(3,Integer.parseInt(map.get("tourDetailTrangThai")))
+                        .bind(4,map.get("tourDetailCreateDate"))
+                        .bind(5,map.get("tourDetailStartDate"))
+                        .bind(6,map.get("tourDetailEndDate"))
+                        .bind(7,map.get("tourDetailStartDiaDiem"))
+                        .bind(8,Integer.parseInt(map.get("tourDetailSoLuong")))
+                        .bind(9,map.get("tourDetailVehicle"))
+                        .bind(10,map.get("ImageUpload"))
+                        .bind(11,map.get("tourDetailDescription"))
+                        .bind(12,map.get("tourDetailCategory"))
+                        .execute()
+
+        );
+        return  row!=1?false:true;
+    }
+
+    public boolean updateTourDetail(Map<String,String > map , String id){
+        int row =  JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("update Tour" +
+                                " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,ImageURL=?,Description=?,TOUR_CATEGORY=? " +
+                                "where TOUR_ID= ?")
+
+                        .bind(0,map.get("tourDetailName"))
+                        .bind(1,map.get("tourDetailDiaDiem"))
+                        .bind(2,Integer.parseInt(map.get("tourDetailTrangThai")))
+                        .bind(3,map.get("tourDetailCreateDate"))
+                        .bind(4,map.get("tourDetailStartDate"))
+                        .bind(5,map.get("tourDetailEndDate"))
+                        .bind(6,map.get("tourDetailStartDiaDiem"))
+                        .bind(7,Integer.parseInt(map.get("tourDetailSoLuong")))
+                        .bind(8,map.get("tourDetailVehicle"))
+                        .bind(9,map.get("ImageUpload"))
+                        .bind(10,map.get("tourDetailDescription"))
+                        .bind(11,map.get("tourDetailCategory"))
+                        .bind(12,id)
+                        .execute()
+
+        );
+        return  row!=1?false:true;
+    }
+
+    public boolean deleteTourDetailAll(String id){
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_GUIDE where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_TYPE where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_DETAIL_PER_DAY where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_VOUCHER where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        return  true;
+    }
+
+    public boolean deleteTour(String id){
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_GUIDE where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_TYPE where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_DETAIL_PER_DAY where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("delete from TOUR_VOUCHER where TOUR_ID =?")
+                        .bind(0, id)
+
+                        .execute()
+        );
+        return  true;
+    }
+    public boolean createTourDetailGuide(List<String> list, String id){
+        for (String st:
+             list) {
+
+
+            JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("insert into TOUR_GUIDE values(?,?)")
+                            .bind(0, id)
+                            .bind(1, st)
+                            .execute()
+            );
+        }
+        return true;
+    }
+    public boolean createTourDetailType(List<String[]> list, String id){
+        for (String[] st:
+                list) {
+
+
+            JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("insert into TOUR_TYPE values(?,?,?)")
+                            .bind(0, id)
+                            .bind(1,Integer.parseInt(st[1]) )
+                            .bind(2,Float.parseFloat(st[2] ))
+                            .execute()
+            );
+        }
+        return true;
+    }
+    public boolean createTourDetailDay(List<String[]> list, String id){
+        for (String[] st:
+                list) {
+
+
+            JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("insert into TOUR_DETAIL_PER_DAY values(?,?,?,?)")
+                            .bind(0, id)
+                            .bind(1,st[1])
+                            .bind(2,Integer.parseInt(st[0]))
+                            .bind(3,st[2])
+                            .execute()
+            );
+        }
+        return true;
+    }
+
+    public boolean createTourDetailVoucher(String voucherid, String id){
+
+
+if (!voucherid.equals("none")) {
+    JDBIConnector.get().withHandle(handle ->
+            handle.createUpdate("insert into TOUR_VOUCHER values(?,?)")
+                    .bind(0, id)
+                    .bind(1, voucherid)
+
+                    .execute()
+    );
+}
+        return true;
     }
 }

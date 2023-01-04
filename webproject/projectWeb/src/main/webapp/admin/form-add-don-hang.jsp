@@ -60,7 +60,9 @@
                 <div class="row">
                 <div class="form-group  col-md-4"  style="display: <%=booking==null?"none":"block"%>">
                   <label class="control-label">ID đơn hàng ( Nếu không nhập sẽ tự động phát sinh )</label>
-                  <input class="form-control" type="text" name="bookingId" value="<%=booking==null?"":booking.getBOOKING_ID()%>">
+                  <input class="form-control" type="text" style="display: none" name="bookingId" value="<%=booking==null?"":booking.getBOOKING_ID()%>">
+
+                  <input class="form-control" type="text" disabled value="<%=booking==null?"":booking.getBOOKING_ID()%>">
                 </div>
                 <div class="form-group  col-md-4">
                   <label for="khID" class="control-label">Khách hàng ID</label>
@@ -142,7 +144,7 @@
                 </div>
                 <div class="form-group  col-md-4">
                   <label class="control-label">Ghi chú đơn hàng</label>
-                  <textarea class="form-control" rows="4" name="bookingDescription" content="<%=booking==null?"":booking.getDescription()==null?"":booking.getDescription()%>"></textarea>
+                  <textarea class="form-control" rows="4" name="bookingDescription" ><%=booking==null?"":booking.getDescription()==null?"":booking.getDescription()%></textarea>
                 </div>
 
 

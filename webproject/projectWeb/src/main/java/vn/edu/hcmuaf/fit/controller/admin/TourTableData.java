@@ -1,11 +1,7 @@
 package vn.edu.hcmuaf.fit.controller.admin;
 
-import vn.edu.hcmuaf.fit.bean.Tour;
-import vn.edu.hcmuaf.fit.bean.TourPackage;
-import vn.edu.hcmuaf.fit.bean.User;
-import vn.edu.hcmuaf.fit.services.TourDetailService;
-import vn.edu.hcmuaf.fit.services.TourService;
-import vn.edu.hcmuaf.fit.services.UserService;
+import vn.edu.hcmuaf.fit.bean.*;
+import vn.edu.hcmuaf.fit.services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,7 +13,7 @@ import java.util.List;
 public class TourTableData extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Tour> tourList = TourService.getInstance().getListTour();
+        List<Tour> tourList = TourService.getInstance().getAllTour();
         request.setAttribute("tourList", tourList);
         request.getRequestDispatcher("table-data-product.jsp").forward(request,response);
     }
@@ -29,18 +25,34 @@ public class TourTableData extends HttpServlet {
         if (option.equals("edit")){
             TourPackage tour = TourDetailService.getInstance().getTourPackageDetail(tourId);
             request.setAttribute("tour",tour);
-            request.getRequestDispatcher("form-add-san-pham.jsp").forward(request,response);
+            List<User> guides = UserService.getInstance().getListGuide();
+            List<Voucher> vouchers = VoucherService.getInstance().getVoucherList();
+            List<Destination> dess = DestinationService.getInstance().getDestination();
+            List<User> guideBusys = UserService.getInstance().getListGuideOnBusy();
+
+            request.setAttribute("guides",guides);
+            request.setAttribute("vouchers",vouchers);
+            request.setAttribute("dess",dess);
+            request.setAttribute("guideBusys",guideBusys);
+
+            request.getRequestDispatcher("form-add-san-pham.jsp").forward(request, response);
         } else if (option.equals("delete")) {
-//            boolean b = UserService.getInstance().deleteGuide(guideId);
-//            if (b){
-//                List<User> guideList = UserService.getInstance().getListGuide();
-//                request.setAttribute("guideList",guideList);
-//                request.getRequestDispatcher("table-data-table.jsp").forward(request,response);
-//            }else{
-//                String text = "Xóa không thành công";
-//                request.setAttribute("error",text);
-//                request.getRequestDispatcher("table-data-table.jsp").forward(request,response);
-//            }
+            boolean b = TourDetailService.getInstance().deleteTour(tourId);
+            if (b){
+                String text = "Xóa thành công";
+                request.setAttribute("error",text);
+                List<Tour> tourList = TourService.getInstance().getAllTour();
+                request.setAttribute("tourList", tourList);
+                request.getRequestDispatcher("table-data-product.jsp").forward(request,response);
+            }else{
+                String text = "Xóa không thành công";
+                request.setAttribute("error",text);
+                List<Tour> tourList = TourService.getInstance().getAllTour();
+                request.setAttribute("tourList", tourList);
+                request.getRequestDispatcher("table-data-product.jsp").forward(request,response);
+            }
+        }else if (option.equals("sell")){
+
         }
     }
 }

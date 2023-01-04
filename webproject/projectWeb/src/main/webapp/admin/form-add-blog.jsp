@@ -89,10 +89,12 @@
             <form  method="post" action="/projectWeb_war/admin/CRUDBlogData" enctype="multipart/form-data">
             <h3 class="tile-title"><%=blog==null?"Thêm Blog":"Sửa Blog"%></h3>
             <div class="tile-body">
-
+                <div class="row">
                 <div class="form-group  col-md-4" style="display: <%=blog==null?"none":"block"%>">
                   <label class="control-label">ID Blog</label>
-                  <input class="form-control" type="text" name="blogID" value="<%=blog==null?"":blog.getBLOG_ID()%>">
+                  <input class="form-control" type="text" style="display: none" name="blogID" value="<%=blog==null?"":blog.getBLOG_ID()%>">
+
+                  <input class="form-control" type="text" disabled value="<%=blog==null?"":blog.getBLOG_ID()%>">
                 </div>
 
                   <input class="form-control" type="text" style="display: none" name="blogUserId" value="<%=user==null?"guide002":user.getUser_Id()%>" >
@@ -121,7 +123,7 @@
                 
                 <div class="form-group  col-md-4">
                   <label class="control-label">Nội dung</label>
-                  <textarea class="form-control" name="blogDescription" content="<%=blog==null?"":blog.getDescription()==null?"":blog.getDescription()%>" required ></textarea>
+                  <textarea class="form-control" name="blogDescription"  required ><%=blog==null?"":blog.getDescription()==null?"":blog.getDescription()%></textarea>
                 </div>
               <div class="form-group  col-md-4">
                 <label class="control-label">Hạng mục</label>
@@ -153,10 +155,11 @@
                 </div>
 
               </div>
-                
+                </div>
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
           <a class="btn btn-cancel" href="/projectWeb_war/admin/BlogTableData">Hủy bỏ</a>
+
             </form>
           </div>
         </div>

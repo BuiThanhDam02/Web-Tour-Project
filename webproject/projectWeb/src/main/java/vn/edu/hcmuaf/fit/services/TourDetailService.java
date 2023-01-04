@@ -8,6 +8,7 @@ import vn.edu.hcmuaf.fit.DAO.TourDetailDAO;
 import vn.edu.hcmuaf.fit.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class TourDetailService {
     private static TourDetailService instance;
@@ -73,4 +74,8 @@ public class TourDetailService {
         return TourDetailDAO.getInstance().likeTour(user_id,tourId);
     }
     public List<TourDetail> getListIncomingSoldOutTour(){return TourDetailDAO.getInstance().getListIncomingSoldOutTour();}
+
+    public boolean adminCreateTour(Map<String,String > map){return TourDetailDAO.getInstance().adminCreateTour(map);}
+    public boolean adminUpdateTour(Map<String,String > map){return  TourDetailDAO.getInstance().adminUpdateTour(map);}
+    public boolean deleteTour(String id){return TourDetailDAO.getInstance().deleteTour(id);}
 }

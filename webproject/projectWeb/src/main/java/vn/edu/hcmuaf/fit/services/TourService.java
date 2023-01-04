@@ -35,6 +35,7 @@ public class TourService {
 
         return TourDAO.getInstance().getListTour();
     }
+    public List<Tour> getAllTour(){return TourDAO.getInstance().getAllTour();}
     /*
     Phương thức lấy dữ liệu các Tour từ cơ sở dữ liệu qua 1 1 đoạn căn bản tìm kiếm trả lại 1 List sản phẩm Tour
      */

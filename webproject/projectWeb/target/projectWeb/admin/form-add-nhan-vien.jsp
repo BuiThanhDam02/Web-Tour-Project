@@ -155,9 +155,11 @@
 
             </div>
             <div class="row">
+              <input class="form-control" style="display: none" type="text" value="<%=guide==null?"":guide.getUser_Id()%>" name="idGuide"  >
+
               <div class="form-group col-md-4" style="display: <%=guide==null?"none":"block"%>">
                 <label class="control-label">ID hướng dẫn viên</label>
-                <input class="form-control" type="text" value="<%=guide==null?"":guide.getUser_Id()%>" name="idGuide"  >
+                <input class="form-control" type="text" value="<%=guide==null?"":guide.getUser_Id()%>" disabled >
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Họ và tên</label>

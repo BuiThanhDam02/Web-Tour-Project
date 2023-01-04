@@ -67,6 +67,7 @@ public class UserService {
     public List<User> getListGuide(){
         return UserDAO.getInstance().getListGuide();
     }
+    public List<User> getListGuideOnBusy(){return UserDAO.getInstance().getListGuideOnBusy();}
     public User getGuideById(String user_id){
         return UserDAO.getInstance().getGuideById(user_id);
     }

@@ -34,7 +34,9 @@
        <jsp:param name="isCurrent" value="tourTable"/>
    </jsp:include>
 
-   <% List<Tour> tourList = request.getAttribute("tourList")==null?null:(List<Tour>) request.getAttribute("tourList");%>
+   <% List<Tour> tourList = request.getAttribute("tourList")==null?null:(List<Tour>) request.getAttribute("tourList");
+       String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");
+   %>
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
@@ -44,12 +46,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
                 <div class="tile">
                     <div class="tile-body">
                       <div class="row element-button">
                         <div class="col-sm-2">
           
-                          <a class="btn btn-add btn-sm" href="form-add-san-pham.jsp" title="Thêm"><i class="fas fa-plus"></i>
+                          <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDTourData" title="Thêm"><i class="fas fa-plus"></i>
                             Tạo mới Tour</a>
                         </div>
                        
@@ -80,6 +83,12 @@
                                 Locale locale = new Locale("vi");
                                 NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
                                 String giaVeString = format.format(giaVe).split(",")[0];
+
+                                String tt = "";
+                               tt=  tourList.get(i).getTrangThai()==-1?"Ngừng kinh doanh":tourList.get(i).getTrangThai()==0?"Tạm hết bán":tourList.get(i).getTrangThai()==1?"Đang bán":"Sắp bán";
+                                String cltt = "";
+                                cltt=  tourList.get(i).getTrangThai()==-1?"bg-danger":tourList.get(i).getTrangThai()==0?"bg-warning":tourList.get(i).getTrangThai()==1?"bg-success":"bg-info";
+
                             %>
                                 <tr>
                                     <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
@@ -87,18 +96,24 @@
                                     <td><%=tourList.get(i).getTourName()%></td>
                                     <td><img src="<%=tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
                                     <td><%=tourList.get(i).getSoLuong()%></td>
-                                    <td><span class="badge bg-success"><%=tourList.get(i).getSoLuong()>0?"Còn hàng":"Hết hàng"%></span></td>
+                                    <td><span class="badge <%=cltt%>"><%=tt%></span></td>
                                     <td><%=giaVeString%>đ</td>
                                     <td><%=tourList.get(i).getTour_category()%></td>
                                     <td>
                                         <form action="/projectWeb_war/admin/TourTableData" id="form" method="post">
                                             <input style="display: none" name="tourId" value="<%=tourList.get(i).getTour_id()%>">
-                                            <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                                            <%if (tourList.get(i).getTrangThai()!=1){%><button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                                             ><i class="fas fa-trash-alt"></i>
                                             </button>
-                                            <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
+                                            <%}%>
+                                           <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                                             ><i class="fas fa-edit"></i>
                                             </button>
+
+                                            <%if (tourList.get(i).getTrangThai()==2){%> <button class="btn btn-primary btn-sm " style="background-color: #d1efff; color: #3a70d5" name="option" value="sell" type="submit" title="Bán"
+                                            ><i class="fas fa-edit"></i>
+                                            </button>
+                                            <%}%>
                                         </form>
                                     </td>
                                 </tr>

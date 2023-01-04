@@ -36,7 +36,7 @@ public class UploadFile {
                         fileItem.write(file);
                         System.out.println("UPLOAD THÀNH CÔNG...!");
                         System.out.println("ĐƯỜNG DẪN KIỂM TRA UPLOAD HÌNH ẢNH : \n"+file.getAbsolutePath());
-                        String imgValue =  File.separator + "filesUpload"+ File.separator +divide+File.separator+file.getName();
+                        String imgValue = "/"+"filesUpload"+ "/" +divide+"/"+file.getName();
                         result.put("ImageUpload",imgValue);
                     } catch (Exception e) {
                         System.out.println("CÓ LỖ TRONG QUÁ TRÌNH UPLOAD!");
@@ -57,9 +57,5 @@ public class UploadFile {
         return result;
     }
 
-    public static void main(String[] args) {
-        String n = "Ná»¯";
-        String valueUTF = new String(n.getBytes(Charset.forName("UTF-16")), StandardCharsets.UTF_8);
-        System.out.println(valueUTF);
-    }
+
 }

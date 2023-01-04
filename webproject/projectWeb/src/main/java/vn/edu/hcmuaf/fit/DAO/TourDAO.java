@@ -23,10 +23,11 @@ public class TourDAO {
     private static TourDAO instance;
     //non constructor
     private TourDAO(){
-
+        updateTourStatus();
     }
 
     public static TourDAO getInstance() {
+
         if (instance ==null) instance = new TourDAO();
         return instance;
     }
@@ -44,7 +45,16 @@ public class TourDAO {
         );
         return list ;
     }
+    public List<Tour> getAllTour(){
 
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 ")
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list ;
+    }
     public TourDetail getTourDetail(String tour_id){
 
         List<TourDetail> list = JDBIConnector.get().withHandle(h ->
@@ -181,7 +191,25 @@ public class TourDAO {
                         "set TrangThai = ? " +
                         "where DATEDIFF(NgayKhoiHanh,CURRENT_DATE) <= 2").bind(0,0).execute()
         );
+        List<TourDetail> l = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select * from tour  where NgayKetThuc <  CURRENT_DATE")
+
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        for (TourDetail td:
+             l) {
+
+
+            JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("delete from TOUR_GUIDE " +
+
+                            "where TOUR_GUIDE.TOUR_ID = ?").bind(0,td.getTOUR_ID()).execute()
+            );
+        }
     }
+
 
 
 //    public static void main(String[] args) {

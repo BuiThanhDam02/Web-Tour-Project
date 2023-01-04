@@ -56,10 +56,10 @@
                 </div>
   
               </div> -->
-
+              <input class="form-control" style="display: none" name="voucherId" value="<%=voucher==null?"":voucher.getVOUCHER_ID()==null?"":voucher.getVOUCHER_ID()%>" type="text">
                 <div class="form-group col-md-4" style="display: <%=voucher==null?"none":"block"%>">
                   <label class="control-label">ID Voucher</label>
-                  <input class="form-control" name="voucherId" value="<%=voucher==null?"":voucher.getVOUCHER_ID()==null?"":voucher.getVOUCHER_ID()%>" type="text">
+                  <input class="form-control" disabled value="<%=voucher==null?"":voucher.getVOUCHER_ID()==null?"":voucher.getVOUCHER_ID()%>" type="text">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="control-label">Ngày bắt đầu</label>

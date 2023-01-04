@@ -92,7 +92,7 @@
                   <td width="10"><input type="checkbox" name="check<%=g.getUser_Id()%>" value="<%=g.getUser_Id()%>"></td>
                   <td><%=g.getUser_Id()%></td>
                   <td><%=g.getFullName()==null?"Chưa có":g.getFullName()%></td>
-                  <td><img class="img-card-person" src="<%=g.getImageURL()%>" alt=""></td>
+                  <td><img class="img-card-person" src="..<%=g.getImageURL()%>" alt=""></td>
                   <td><%=g.getDiaChi()==null?"Chưa có":g.getDiaChi()%></td>
                   <td><%=g.getBirth() ==null?"Chưa có":g.getBirth().toString()%></td>
                   <td><%=g.getGioiTinh()==null?"Chưa có":g.getGioiTinh()%></td>
