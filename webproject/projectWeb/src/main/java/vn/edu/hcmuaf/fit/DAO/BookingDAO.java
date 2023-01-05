@@ -161,7 +161,7 @@ public class BookingDAO {
 
                         .execute()
         );
-        if (row!=1){
+        if (row==1){
             TourDAO.getInstance().updateSoLuongTour(bookingId);
         }
         return row!=1?false:true;

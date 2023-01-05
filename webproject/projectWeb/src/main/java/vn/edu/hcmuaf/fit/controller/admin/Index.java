@@ -24,12 +24,15 @@ public class Index extends HttpServlet {
         List<Booking> listBM = BookingService.getInstance().getListBookingByMonth();
         List<Tour> listT = TourService.getInstance().getListTour();
         List<Booking> listB = BookingService.getInstance().getListBooking();
+        List<User> listEmployee = UserService.getInstance().getListEmployee();
         request.setAttribute("error",request.getAttribute("error"));
         request.setAttribute("listTD",listTD);
         request.setAttribute("listKH",listKH);
         request.setAttribute("listB",listB);
         request.setAttribute("listT",listT);
        request.setAttribute("listBM",listBM);
+       request.setAttribute("listEmployee",listEmployee);
+       request.setAttribute("error",request.getAttribute("error"));
        request.getRequestDispatcher("index.jsp").forward(request,response);
 
     }

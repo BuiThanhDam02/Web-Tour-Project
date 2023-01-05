@@ -217,10 +217,10 @@
 
                 <label class="control-label">Ảnh 3x4 nhân viên</label>
                 <div id="myfileupload">
-                  <input type="file" id="uploadfile"  name="ImageUpload"  onchange="readURL(this);" />
+                  <input type="file" accept="image/*" id="uploadfile"  name="ImageUpload"  onchange="readURL(this);" />
                 </div>
                 <div id="thumbbox">
-                  <img height="300" width="300" alt="Thumb image" src="<%=guide==null?"":guide.getImageURL()==null?"":guide.getImageURL()%>" id="thumbimage" style="display: none" />
+                  <img height="300" width="300" alt="Thumb image" src="<%=guide==null?"":guide.getImageURL()==null?"":".."+guide.getImageURL()%>" id="thumbimage" style="display: none" />
                   <a class="removeimg" href="javascript:"></a>
                 </div>
                 <div id="boxchoice">

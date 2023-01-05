@@ -64,6 +64,8 @@ public class UserService {
        return UserDAO.getInstance().register(username, email, hashPassword(password), confirm);
 
     }
+    public boolean AuthorizationUser(String userId , String option, String currRole){return  UserDAO.getInstance().AuthorizationUser(userId,option,currRole);}
+    public boolean uploadProfileImage(Map<String,String> map){return UserDAO.getInstance().uploadProfileImage(map);}
     public List<User> getListGuide(){
         return UserDAO.getInstance().getListGuide();
     }
@@ -77,6 +79,8 @@ public class UserService {
     public User changeUserPassword(User user , String newHashPassword){
         return  UserDAO.getInstance().changeUserPassword(user,hashPassword(newHashPassword));
     }
+    public List<User> getListEmployee(){return UserDAO.getInstance().getListEmployee();}
+    public boolean newUserPassword(String email , String Password){return UserDAO.getInstance().newUserPassword(email,hashPassword(Password));}
     public List<User> getListKhachHang(){
         return UserDAO.getInstance().getListKhachHang();
     }

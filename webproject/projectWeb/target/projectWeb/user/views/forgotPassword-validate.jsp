@@ -17,7 +17,7 @@
 <div class="container forgotpassowrd-container" id="container">
 	 
 	<div class="form-container ">
-		<form action="" method="POST" class="forgotpassowrd">
+		<form action="/projectWeb_war/user/views/forgotPassword" method="get" class="forgotpassowrd">
 			<h1>Xác nhận Mã</h1>
 			
 			<span>Mã xác nhận được gửi về Email mà bạn đã nhập trước đó ,vui lòng nhận chính xác mã để tiếp tục</span>
@@ -52,11 +52,11 @@
 
 <script src="./assets/js/signJS.js"></script>
 <script>
-	const qmk = document.querySelector('.xac-nhan-ma');
-	qmk.onclick = (e) => {
-		e.preventDefault();
-		window.location.href = "forgotPassword-validate-newpass.jsp"
-	}
+	// const qmk = document.querySelector('.xac-nhan-ma');
+	// qmk.onclick = (e) => {
+	// 	e.preventDefault();
+	// 	window.location.href = "forgotPassword-validate-newpass.jsp"
+	// }
 </script>
 <!-- <script>
 

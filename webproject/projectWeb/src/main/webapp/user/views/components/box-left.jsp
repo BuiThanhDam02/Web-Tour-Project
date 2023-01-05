@@ -7,23 +7,78 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../assets//images/favicon.png" type="image/gif" sizes="20x20">
+    <link rel="icon" href="./assets//images/favicon.png" type="image/gif" sizes="20x20">
 
-    <link rel="stylesheet" href="../assets//css/select2.min.css">
+    <link rel="stylesheet" href="./assets//css/select2.min.css">
 
-    <link rel="stylesheet" href="../assets//css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="./assets//css/jquery.fancybox.min.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" href="../assets//css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./assets//css/swiper-bundle.min.css">
 
-    <link rel="stylesheet" href="../assets//css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets//css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../assets//css/animate.min.css">
+    <link rel="stylesheet" href="./assets//css/animate.min.css">
 
-    <link rel="stylesheet" href="../assets//css/style.css">
-    <link rel="stylesheet" href="../assets//css/responsive.css">
-    <link rel="stylesheet" href="../assets//css/profile.css">
+    <link rel="stylesheet" href="./assets//css/style.css">
+    <link rel="stylesheet" href="./assets//css/responsive.css">
+    <link rel="stylesheet" href="./assets//css/profile.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+    <script>
+
+        function readURL(input, thumbimage) {
+            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#thumbimage").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else { // Sử dụng cho IE
+                $("#thumbimage").attr('src', input.value);
+
+            }
+            $("#thumbimage").show();
+            $('.filename').text($("#uploadfile").val());
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'default');
+            $(".removeimg").show();
+            $(".Choicefile").unbind('click');
+
+        }
+        $(document).ready(function () {
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+
+            });
+            $(".removeimg").click(function () {
+                $("#thumbimage").attr('src', '').hide();
+                $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+                $(".removeimg").hide();
+                $(".Choicefile").bind('click', function () {
+                    $("#uploadfile").click();
+                });
+                $('.Choicefile').css('background', '#14142B');
+                $('.Choicefile').css('cursor', 'pointer');
+                $(".filename").text("");
+            });
+        })
+    </script>
 </head>
 
 <body>
@@ -34,14 +89,78 @@
 
 <% User userBox = (User)session.getAttribute("auth")==null?null:(User) session.getAttribute("auth"); %>
 
-    
+
+
+
+<%--<div class="form-group col-md-12">--%>
+<%--    <label class="control-label">Ảnh sản phẩm</label>--%>
+<%--    <div id="myfileupload">--%>
+<%--        <input type="file" id="uploadfile" name="ImageUpload"  onchange="readURL(this);" />--%>
+<%--    </div>--%>
+<%--    <div id="thumbbox">--%>
+<%--        <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />--%>
+<%--        <a class="removeimg" href="javascript:"></a>--%>
+<%--    </div>--%>
+<%--    <div id="boxchoice">--%>
+<%--        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>--%>
+<%--        <p style="clear:both"></p>--%>
+<%--    </div>--%>
+
+<%--</div>--%>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="/projectWeb_war/user/views/UploadProfileImage" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <input type="text" style="display: none" name="userId" value="<%=userBox.getUser_Id()%>">
+                    <label class="control-label">Ảnh sản phẩm</label>
+                    <div id="myfileupload">
+                        <input accept="image/*" type="file" id="uploadfile" name="ImageUpload"  onchange="readURL(this);" />
+                    </div>
+                    <div id="thumbbox">
+                        <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+                        <a class="removeimg" href="javascript:"></a>
+                    </div>
+                    <div id="boxchoice">
+                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                        <p style="clear:both"></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="submit" class="btn btn-primary">Lưu lại</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+
                             <div class="box-items-left">
                                 <div class="wrapper p-4 box-items">
                                   <div class="info d-flex align-items-center mb-md-3">
                                     <div class="image me-3">
-                                      <a href="">
+<%--                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">--%>
+<%--                                            Launch demo modal--%>
+<%--                                        </button>--%>
+
+                                        <!-- Modal -->
+                                      <a class="btn btn-primary" style="background-color: transparent" data-toggle="modal" data-target="#exampleModal">
+
                                         <img style="width: 43px; height: 43px"
-                                          src="<%=userBox==null?"":userBox.getImageURL()==null?"./assets/images/userDefaultImage.png":userBox.getImageURL()%>"
+                                          src="<%=userBox==null?"":userBox.getImageURL()==null?"./assets/images/userDefaultImage.png":"../.."+userBox.getImageURL()%>"
                                           class="rounded-circle"
                                         />
                                       </a>

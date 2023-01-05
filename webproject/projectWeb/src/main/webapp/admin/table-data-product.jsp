@@ -94,7 +94,7 @@
                                     <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
                                     <td><%=tourList.get(i).getTour_id()%></td>
                                     <td><%=tourList.get(i).getTourName()%></td>
-                                    <td><img src="<%=tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
+                                    <td><img src="<%=tourList.get(i).getImageURL()==null?"":".."+tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
                                     <td><%=tourList.get(i).getSoLuong()%></td>
                                     <td><span class="badge <%=cltt%>"><%=tt%></span></td>
                                     <td><%=giaVeString%>đ</td>

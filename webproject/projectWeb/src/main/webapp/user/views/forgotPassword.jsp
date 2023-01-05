@@ -15,18 +15,20 @@
 		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
-	 
+	 <%String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");%>
 	<div class="form-container ">
-		<form action="" method="POST" class="forgotpassowrd">
+		<form action="/projectWeb_war/user/views/forgotPassword" method="POST" class="forgotpassowrd">
 			<h1>Quên mật khẩu</h1>
 			
 			
 			<!--
 				sign in form submit
 			-->
+
 			<div class="field">
 				
-				<input name="email" type="email" placeholder="Email" />
+				<input name="email" type="email" placeholder="Email" required/>
+				<span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
 				<span></span>
 			</div>
 			<!-- <div class="field">
@@ -49,13 +51,13 @@
 	</p>
 </footer> -->
 
-<script src="/./assets/js/signJS.js"></script>
+<script src="./assets/js/signJS.js"></script>
 <script>
-	const qmk = document.querySelector('.qmk');
-	qmk.onclick = (e) => {
-		e.preventDefault();
-		window.location.href = "forgotPassword-validate.jsp"
-	}
+	// const qmk = document.querySelector('.qmk');
+	// qmk.onclick = (e) => {
+	// 	e.preventDefault();
+	// 	window.location.href = "forgotPassword-validate.jsp"
+	// }
 </script>
 <!-- <script>
 

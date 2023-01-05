@@ -84,7 +84,7 @@
                                                          %>
                                                         <div class="tour-item">
                                                             <div class="tour-item-image-side">
-                                                                <img style="width: 55px;height: 55px" src="<%=td.getImageURL()%>">
+                                                                <img style="width: 55px;height: 55px" src="<%="../.."+td.getImageURL()%>">
                                                             </div>
                                                             <div class="tour-item-first-side">
                                                                 <span><%=td.getTourName()%></span>

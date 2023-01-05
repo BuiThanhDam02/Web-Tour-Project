@@ -15,26 +15,28 @@
 		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
-	 
+	 <%
+	 String email = session.getAttribute("email")==null?null:(String) session.getAttribute("email");
+	 %>
 	<div class="form-container ">
-		<form action="" method="POST" class="forgotpassowrd">
+		<form action="/projectWeb_war/user/views/newPassword" method="POST" class="forgotpassowrd">
 			<h1>Tạo mật khẩu mới</h1>
 			
 			<!--
 				sign in form submit
 			-->
-			
-		
+			<input class="password" style="display: none" name="email" value="<%=email==null?"":email%>"  type="email"   />
+			<input disabled value="<%=email==null?"":email%>"  type="email"   />
 			<div class="field">
 				
-				<input class="password" name="password"  type="password" placeholder="Password" />
-				<span></span>
+				<input class="password" id="password" name="password"  type="password" placeholder="Password" required />
+				<span id="pError" style="color: red; font-size: 0.6rem"></span>
 			</div>
 			<div class="field">
-				<input class="repeat-password" name="repeat-password" type="password" placeholder="Repeat password" />	
-				<span></span>
+				<input class="repeat-password" id="repeat-password" name="repeat-password" type="password" placeholder="Repeat password" required />
+				<span id="rpError"  style="color: red; font-size: 0.6rem"></span>
 			</div>
-			<button type="submit" class="xac-nhan-ma">Xác nhận</button>
+			<button type="submit" id="butt"  class="xac-nhan-ma">Xác nhận</button>
 			
 		</form>
 	</div>
@@ -52,11 +54,53 @@
 
 <script src=./assets/js/signJS.js"></script>
 <script>
-	const qmk = document.querySelector('.xac-nhan-ma');
-	qmk.onclick = (e) => {
-		e.preventDefault();
-		window.location.href = "sign.jsp"
+	// const qmk = document.querySelector('.xac-nhan-ma');
+	// qmk.onclick = (e) => {
+	// 	e.preventDefault();
+	// 	window.location.href = "sign.jsp"
+	// }
+	const  password = document.getElementById("password")
+	const  Rpassword = document.getElementById("repeat-password")
+	const  pError = document.getElementById("pError")
+	const  rpError = document.getElementById("rpError")
+	const  butt = document.getElementById("butt")
+	password.oninput = (e)=>{
+		if(e.target.value < 6){
+			pError.innerText = 'Mật khẩu phải hơn 6 ký tự'
+			butt.disabled = true;
+		}else {
+			pError.innerText =''
+			butt.disabled = false;
+		}
+
+		if (e.target.value === Rpassword.value){
+			pError.innerText =''
+			butt.disabled = false;
+		}else{
+			pError.innerText ='Mật khẩu xác nhận không trùng nhau'
+			butt.disabled = true;
+		}
 	}
+
+	Rpassword.oninput = (e)=>{
+
+		if(e.target.value < 6){
+			rpError.innerText = 'Mật khẩu phải hơn 6 ký tự'
+			butt.disabled = true;
+		}else {
+			rpError.innerText =''
+			butt.disabled = false;
+		}
+
+		if (e.target.value === Rpassword.value){
+			rpError.innerText =''
+			butt.disabled = false;
+		}else{
+			rpError.innerText ='Mật khẩu xác nhận không trùng nhau'
+			butt.disabled = true;
+		}
+	}
+
 </script>
 <!-- <script>
 

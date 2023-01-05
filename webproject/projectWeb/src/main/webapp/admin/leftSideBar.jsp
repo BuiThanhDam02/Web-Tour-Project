@@ -44,7 +44,7 @@
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý Blog</span></a>
     </li>
 
-    <li><a class="app-menu__item <%=isCurrent.equals("reportTable")?"active":""%>" href="quan-ly-bao-cao.jsp"><i
+    <li><a class="app-menu__item <%=isCurrent.equals("reportTable")?"active":""%>" href="/projectWeb_war/admin/ReportTableData"><i
             class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
     </li>
     <li><a class="app-menu__item <%=isCurrent.equals("calendarTable")?"active":""%>" href="page-calendar.jsp"><i class='app-menu__icon bx bx-calendar-check'></i><span

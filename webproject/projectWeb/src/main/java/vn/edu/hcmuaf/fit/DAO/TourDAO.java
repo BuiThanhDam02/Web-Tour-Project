@@ -66,7 +66,6 @@ public class TourDAO {
         );
         return list ;
     }
-
     public List<Tour> getNewTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
@@ -77,7 +76,6 @@ public class TourDAO {
         );
         return list ;
     }
-
     public TourDetail getTourDetail(String tour_id){
 
         List<TourDetail> list = JDBIConnector.get().withHandle(h ->

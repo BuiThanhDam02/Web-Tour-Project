@@ -284,27 +284,52 @@ public class TourDetailDAO {
     }
 
     public boolean updateTourDetail(Map<String,String > map , String id){
-        int row =  JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("update Tour" +
-                                " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,ImageURL=?,Description=?,TOUR_CATEGORY=? " +
-                                "where TOUR_ID= ?")
+        int row = 0;
+        if (map.get("ImageUpload")==null){
+            row = JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("update Tour" +
+                                    " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,Description=?,TOUR_CATEGORY=? " +
+                                    "where TOUR_ID= ?")
 
-                        .bind(0,map.get("tourDetailName"))
-                        .bind(1,map.get("tourDetailDiaDiem"))
-                        .bind(2,Integer.parseInt(map.get("tourDetailTrangThai")))
-                        .bind(3,map.get("tourDetailCreateDate"))
-                        .bind(4,map.get("tourDetailStartDate"))
-                        .bind(5,map.get("tourDetailEndDate"))
-                        .bind(6,map.get("tourDetailStartDiaDiem"))
-                        .bind(7,Integer.parseInt(map.get("tourDetailSoLuong")))
-                        .bind(8,map.get("tourDetailVehicle"))
-                        .bind(9,map.get("ImageUpload"))
-                        .bind(10,map.get("tourDetailDescription"))
-                        .bind(11,map.get("tourDetailCategory"))
-                        .bind(12,id)
-                        .execute()
+                            .bind(0, map.get("tourDetailName"))
+                            .bind(1, map.get("tourDetailDiaDiem"))
+                            .bind(2, Integer.parseInt(map.get("tourDetailTrangThai")))
+                            .bind(3, map.get("tourDetailCreateDate"))
+                            .bind(4, map.get("tourDetailStartDate"))
+                            .bind(5, map.get("tourDetailEndDate"))
+                            .bind(6, map.get("tourDetailStartDiaDiem"))
+                            .bind(7, Integer.parseInt(map.get("tourDetailSoLuong")))
+                            .bind(8, map.get("tourDetailVehicle"))
 
-        );
+                            .bind(9, map.get("tourDetailDescription"))
+                            .bind(10, map.get("tourDetailCategory"))
+                            .bind(11, id)
+                            .execute()
+
+            );
+        }else {
+            row = JDBIConnector.get().withHandle(handle ->
+                    handle.createUpdate("update Tour" +
+                                    " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,ImageURL=?,Description=?,TOUR_CATEGORY=? " +
+                                    "where TOUR_ID= ?")
+
+                            .bind(0, map.get("tourDetailName"))
+                            .bind(1, map.get("tourDetailDiaDiem"))
+                            .bind(2, Integer.parseInt(map.get("tourDetailTrangThai")))
+                            .bind(3, map.get("tourDetailCreateDate"))
+                            .bind(4, map.get("tourDetailStartDate"))
+                            .bind(5, map.get("tourDetailEndDate"))
+                            .bind(6, map.get("tourDetailStartDiaDiem"))
+                            .bind(7, Integer.parseInt(map.get("tourDetailSoLuong")))
+                            .bind(8, map.get("tourDetailVehicle"))
+                            .bind(9, map.get("ImageUpload"))
+                            .bind(10, map.get("tourDetailDescription"))
+                            .bind(11, map.get("tourDetailCategory"))
+                            .bind(12, id)
+                            .execute()
+
+            );
+        }
         return  row!=1?false:true;
     }
 

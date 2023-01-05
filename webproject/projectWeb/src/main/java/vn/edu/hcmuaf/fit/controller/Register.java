@@ -28,9 +28,11 @@ public class Register extends HttpServlet {
         boolean check = UserService.getInstance().register(username,email,password,confirm);
         if (check){
             request.setAttribute("success", "Đã đăng ký thành công");
+            request.setAttribute("route","sign");
             request.getRequestDispatcher("sign.jsp").forward(request, response);
         }else{
-            request.setAttribute("errorRegister", "Tên người dùng đã tồn tại");
+            request.setAttribute("errorRegister", "Tên người dùng hoặc email đã tồn tại");
+            request.setAttribute("route","register");
             request.getRequestDispatcher("sign.jsp").forward(request, response);
         }
     }

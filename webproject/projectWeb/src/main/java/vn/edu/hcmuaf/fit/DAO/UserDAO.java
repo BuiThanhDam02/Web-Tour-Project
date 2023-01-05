@@ -71,16 +71,42 @@ cập nhật bởi Bùi Thanh Đảm
                         .collect(Collectors.toList())
         );
         if (!users.isEmpty()) return false;
+        if (checkEmail(email)==true) return  false;
         JDBIConnector.get().withHandle(h ->
-                h.createUpdate("insert into user values (?,null,?,?,?,null,null,?,null,null,null,null,0)")
+                h.createUpdate("insert into user values (?,null,?,?,?,null,null,null,null,null,null,null,0)")
                         .bind(0,id)
                         .bind(1,username)
                         .bind(2,email)
                         .bind(3,hashpassword)
-                        .bind(4,"./assets/images/userDefaultImage.png")
+
                         .execute()
         );
         return true;
+    }
+
+    public boolean checkEmail( String email){
+        List<User> users = JDBIConnector.get().withHandle(h ->
+                h.createQuery("SELECT * FROM user WHERE Email = ?")
+                        .bind(0, email)
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        if (users.size()==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public boolean uploadProfileImage(Map<String,String> map){
+        int row = JDBIConnector.get().withHandle(handle -> handle.createUpdate("update USER " +
+                "set ImageURL = ? " +
+                "where User.USER_ID = ? ")
+                .bind(0,map.get("ImageUpload"))
+                .bind(1,map.get("userId")).execute()
+        );
+        return row!=1?false:true;
     }
     public List<User> getListGuide(){
         List<User> list = JDBIConnector.get().withHandle(handle ->
@@ -92,7 +118,15 @@ cập nhật bởi Bùi Thanh Đảm
         return list;
     }
 
-
+    public List<User> getListEmployee(){
+        List<User> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("SELECT  * from user where user.USER_Role > 0")
+                        .mapToBean(User.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list;
+    }
     public List<User> getListGuideOnBusy(){
         List<User> list = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("SELECT user.* FROM User INNER JOIN tour_guide on tour_guide.USER_ID = user.USER_ID  WHERE user.USER_Role =1 ")
@@ -152,6 +186,27 @@ cập nhật bởi Bùi Thanh Đảm
         User user = o==null?null:getUserById(user_id);
         return user;
     }
+
+    public boolean AuthorizationUser(String userId , String option, String currRole){
+        int role = Integer.parseInt(currRole);
+        if (option.equals("levelUp")){
+            role += 1;
+        }else{
+           role -= 1;
+        }
+        int finalRole = role;
+        int row = JDBIConnector.get().withHandle(handle ->
+                handle.createUpdate("update user " +
+                                "set USER_Role =?  \n" +
+                                "where USER_ID = ?"
+                        )
+                        .bind(0, finalRole)
+                        .bind(1,userId)
+                        .execute()
+        );
+
+        return row != 1?false:true;
+    }
     public User getCurrentUserByIdAndPassword(String user_id,String oldHashPassword){
         List<User> users = JDBIConnector.get().withHandle(h ->
                 h.createQuery("SELECT * FROM user WHERE user_id = ? ")
@@ -180,6 +235,21 @@ cập nhật bởi Bùi Thanh Đảm
         return null;
     }
 
+    public boolean newUserPassword(String email , String newHashPassword){
+
+        int rows = JDBIConnector.get().withHandle(h ->
+                h.createUpdate("update user \n" +
+                                "set USER_Password = ?  \n" +
+                                " where Email = ?")
+                        .bind(0, newHashPassword)
+                        .bind(1,email)
+                        .execute()
+
+        );
+
+        return rows!=1?false:true;
+    }
+
     public boolean createGuide(Map<String,String> map){
         Random random = new Random();
         String id ="User"+ (random.nextInt(99999));
@@ -202,26 +272,47 @@ cập nhật bởi Bùi Thanh Đảm
        return true;
     }
     public boolean updateGuide(Map<String,String> map){
-
+        int row =0 ;
         String id = map.get("idGuide");
-        int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("update user " +
-                                "set FullName =? ,Username =? ,Email =?,USER_Password =?,Phone =?,Birth =?,ImageURL =?,GioiTinh =?,CMND =?,DiaChi =?  " +
-                                "where USER_ID =?")
+        if (map.get("ImageUpload")==null){
+            row = JDBIConnector.get().withHandle(
+                    handle -> handle.createUpdate("update user " +
+                                    "set FullName =? ,Username =? ,Email =?,USER_Password =?,Phone =?,Birth =?,GioiTinh =?,CMND =?,DiaChi =?  " +
+                                    "where USER_ID =?")
 
-                        .bind(0,map.get("fullNameGuide"))
-                        .bind(1,map.get("usernameGuide"))
-                        .bind(2,map.get("emailGuide"))
-                        .bind(3,map.get("passwordGuide"))
-                        .bind(4,map.get("phoneGuide"))
-                        .bind(5, map.get("birthGuide"))
-                        .bind(6,map.get("ImageUpload"))
-                        .bind(7,map.get("gioiTinhGuide"))
-                        .bind(8,map.get("cmndGuide"))
-                        .bind(9,map.get("diachiGuide"))
-                        .bind(10,id)
-                        .execute()
-        );
+                            .bind(0, map.get("fullNameGuide"))
+                            .bind(1, map.get("usernameGuide"))
+                            .bind(2, map.get("emailGuide"))
+                            .bind(3, map.get("passwordGuide"))
+                            .bind(4, map.get("phoneGuide"))
+                            .bind(5, map.get("birthGuide"))
+
+                            .bind(6, map.get("gioiTinhGuide"))
+                            .bind(7, map.get("cmndGuide"))
+                            .bind(8, map.get("diachiGuide"))
+                            .bind(9, id)
+                            .execute()
+            );
+        }else {
+             row = JDBIConnector.get().withHandle(
+                    handle -> handle.createUpdate("update user " +
+                                    "set FullName =? ,Username =? ,Email =?,USER_Password =?,Phone =?,Birth =?,ImageURL =?,GioiTinh =?,CMND =?,DiaChi =?  " +
+                                    "where USER_ID =?")
+
+                            .bind(0, map.get("fullNameGuide"))
+                            .bind(1, map.get("usernameGuide"))
+                            .bind(2, map.get("emailGuide"))
+                            .bind(3, map.get("passwordGuide"))
+                            .bind(4, map.get("phoneGuide"))
+                            .bind(5, map.get("birthGuide"))
+                            .bind(6, map.get("ImageUpload"))
+                            .bind(7, map.get("gioiTinhGuide"))
+                            .bind(8, map.get("cmndGuide"))
+                            .bind(9, map.get("diachiGuide"))
+                            .bind(10, id)
+                            .execute()
+            );
+        }
         if (row != 1) return false;
         return true;
     }

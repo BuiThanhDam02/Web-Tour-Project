@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="pd-thumb">
-                                <img src="<%=td.getImageURL()%>" alt="">
+                                <img src="<%="../.."+td.getImageURL()%>" alt="">
                             </div>
                             <div class="header-bottom">
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -220,7 +220,7 @@
                                          %>
                                         <div class="col">
                                             <div class="featured-img">
-                                                <img src="<%=tdi.getImageURL()%>" alt="">
+                                                <img src="<%="../.."+tdi.getImageURL()%>" alt="">
                                             </div>
                                         </div>
                                         <%}%>
@@ -307,7 +307,7 @@
                                             <div class="single-comment " style="width: 700px">
                                                 <div >
                                                     <div class="commmentor"  >
-                                                        <img src="<%=r.getImageURL()%>" alt="" style="width: 145px;height: 145px">
+                                                        <img src="<%="../.."+r.getImageURL()%>" alt="" style="width: 145px;height: 145px">
                                                     </div>
                                                     <div class="comment mt-4 mt-sm-0" style="width: 650px">
                                                         <div class="d-flex align-items-center justify-content-between">
@@ -446,7 +446,7 @@
                                         %>
                                         <div class="col-6">
                                             <div class="package-gallary-item">
-                                                <a href="" data-fancybox="gallery" data-caption="Caption Here"><img src="<%=tdi.getImageURL()%>" alt=""></a>
+                                                <a href="" data-fancybox="gallery" data-caption="Caption Here"><img src="<%="../.."+tdi.getImageURL()%>" alt=""></a>
                                             </div>
                                         </div>
                                         <%}%>
@@ -462,7 +462,7 @@
                                         <div class="col-6">
                                             <div class="guide-card-gamma">
                                                 <div class="guide-image">
-                                                    <img style="width: 340px; height: 370px;" src="<%=u.getImageURL()%>" alt="">
+                                                    <img style="width: 340px; height: 370px;" src="<%="../.."+u.getImageURL()%>" alt="">
                                                     <ul class="guide-social-links">
                                                         <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
                                                         <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
@@ -535,7 +535,7 @@
                                         <li class="package-sm">
                                         <div class="thumb">
                                             <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
-                                                <img src="<%=tour.getImageURL()%>" alt="">
+                                                <img src="<%="../.."+tour.getImageURL()%>" alt="">
                                             </a>
                                         </div>
                                         <div class="info">

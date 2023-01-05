@@ -80,11 +80,11 @@ public class BookingTableData extends HttpServlet {
             if (b){
                 String text = "Xác nhận đơn hàng "+bookingId+"  thành công";
                 request.setAttribute("error",text);
-                request.getRequestDispatcher("/projectWeb_war/admin/Index").forward(request,response);
+                response.sendRedirect("/projectWeb_war/admin/Index");
             }else{
                 String text = "Xác nhận đơn hàng "+bookingId+" không thành công";
                 request.setAttribute("error",text);
-                request.getRequestDispatcher("/projectWeb_war/admin/Index").forward(request,response);
+               response.sendRedirect("/projectWeb_war/admin/Index");
             }
         }
     }

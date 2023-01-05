@@ -33,6 +33,7 @@ public class Login extends HttpServlet {
 
         if(user==null){
             request.setAttribute("error", "Tên người dùng hoặc mật khẩu không chính xác");
+            request.setAttribute("route","sign");
             request.getRequestDispatcher("sign.jsp").forward(request, response);
         }else{
 

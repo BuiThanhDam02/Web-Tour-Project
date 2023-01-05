@@ -4,10 +4,7 @@ import vn.edu.hcmuaf.fit.bean.Blog;
 import vn.edu.hcmuaf.fit.bean.BlogImage;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BlogDAO {
@@ -132,9 +129,25 @@ public class BlogDAO {
     }
 
     public boolean updateBlog(Map<String,String> map){
-
+        int row = 0;
         String id = map.get("blogID");
-        int row =  JDBIConnector.get().withHandle(
+    if (map.get("ImageUpload")==null){
+        row =  JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("update BLOG " +
+                                "set  USER_ID=?,DiaDiem_ID=?,BLOG_TITLE=?,Description=?,NgayVietBai=?,blog_category=? " +
+                                "where BLOG_ID =?")
+
+                        .bind(0,map.get("blogUserId"))
+                        .bind(1,map.get("blogDiaDiem"))
+                        .bind(2,map.get("blogTitle"))
+                        .bind(3,map.get("blogDescription"))
+                        .bind(4,map.get("blogDate"))
+                        .bind(5,map.get("blogCategory"))
+                        .bind(6,id)
+                        .execute()
+        );
+    }else{
+        row =  JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("update BLOG " +
                                 "set  USER_ID=?,DiaDiem_ID=?,BLOG_TITLE=?,Description=?,NgayVietBai=?,ImageURL=?,blog_category=? " +
                                 "where BLOG_ID =?")
@@ -150,14 +163,18 @@ public class BlogDAO {
                         .bind(7,id)
                         .execute()
         );
+    }
+
         if (row != 1) return false;
         return true;
     }
 
     public static void main(String[] args) {
-        List<BlogImage> blogImage = getInstance().getListBlogImage("Blog001");
+        Map<String ,String > map = new HashMap<>();
+        map.put("1","1");
+        map.put("2","2");
 
-        System.out.println(blogImage.get(0).getImageURL()==null?"1":"2");
+        System.out.println(map.get("3")==null?true:false);
     }
 
 

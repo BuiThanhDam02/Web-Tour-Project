@@ -43,6 +43,7 @@
   <%
     List<TourDetail> listTD = (List<TourDetail>) request.getAttribute("listTD");
     List<User> listKH = (List<User>) request.getAttribute("listKH");
+    List<User> listEmployee = (List<User>) request.getAttribute("listEmployee");
     List<Booking> listBM =  (List<Booking>) request.getAttribute("listBM");
     List<Tour> listT =  (List<Tour>) request.getAttribute("listT");
     List<Booking> listB =  (List<Booking>) request.getAttribute("listB");
@@ -115,42 +116,48 @@ String error = request.getAttribute("error")==null?null:(String)request.getAttri
              <!-- col-12 -->
             <div class="col-md-12">
                 <div class="tile">
-                  <h3 class="tile-title">Khách hàng mới</h3>
+                  <h3 class="tile-title">Nhân viên quản trị</h3>
                 <div>
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Tên khách hàng</th>
+                        <th>Họ tên</th>
                         <th>Ngày sinh</th>
-                        <th>Số điện thoại</th>
+                        <th>Quyền hiện tại</th>
+                        <th>Phân quyền</th>
                       </tr>
                     </thead>
                     <tbody>
+<%
+  for (User em:
+       listEmployee) {
+
+  %>
                       <tr>
-                        <td>#183</td>
-                        <td>Hột vịt muối</td>
-                        <td>21/7/1992</td>
-                        <td><span class="tag tag-success">0921387221</span></td>
+                        <td><%=em.getUser_Id()%></td>
+                        <td><%=em.getFullName()==null?"Chưa có":em.getFullName()%></td>
+                        <td><%=em.getBirth()==null?"Chưa có":em.getBirth().toString()%></td>
+                        <td><span class="badge <%=em.getUser_role()==1?"bg-info":em.getUser_role()==2?"bg-success":"bg-danger"%>"><%=em.getUser_role()==1?"Hướng dẫn viên":em.getUser_role()==2?"Nhân viên quản trị":"Admin"%></span></td>
+                        <td>
+                          <form action="/projectWeb_war/admin/Authorization"  method="post">
+                            <input style="display: none" name="userId" value="<%=em.getUser_Id()%>" type="text">
+                            <input style="display: none" name="userRole" value="<%=em.getUser_role()%>" type="text">
+                           <% if (em.getUser_role()==2){%> <button class="btn btn-primary btn-sm trash" name="option" value="levelDown" type="submit" title="Hạ quyền"
+                            ><i class="fa fa-arrow-down" ></i>
+                            </button>
+                            <%}%>
+
+                            <% if (em.getUser_role()==1){%>
+                            <button class="btn btn-primary btn-sm " style="background-color: #e0ffd1; color: #44d53a" name="option" value="levelUp" type="submit" title="Nâng quyền"
+                              ><i class="fa fa-arrow-up"></i>
+                            </button>
+                            <%}%>
+                          </form>
+
+                        </td>
                       </tr>
-                      <tr>
-                        <td>#219</td>
-                        <td>Bánh tráng trộn</td>
-                        <td>30/4/1975</td>
-                        <td><span class="tag tag-warning">0912376352</span></td>
-                      </tr>
-                      <tr>
-                        <td>#627</td>
-                        <td>Cút rang bơ</td>
-                        <td>12/3/1999</td>
-                        <td><span class="tag tag-primary">01287326654</span></td>
-                      </tr>
-                      <tr>
-                        <td>#175</td>
-                        <td>Hủ tiếu nam vang</td>
-                        <td>4/12/20000</td>
-                        <td><span class="tag tag-danger">0912376763</span></td>
-                      </tr>
+<%}%>
                     </tbody>
                   </table>
                 </div>

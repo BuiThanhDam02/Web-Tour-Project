@@ -39,11 +39,6 @@ public class TourService {
     /*
     Phương thức lấy dữ liệu các Tour từ cơ sở dữ liệu qua 1 1 đoạn căn bản tìm kiếm trả lại 1 List sản phẩm Tour
      */
-
-    public List<Tour> getSoldOutTour(){return  TourDAO.getInstance().getSoldOutTour();}
-
-    public List<Tour> getNewTour(){return TourDAO.getInstance().getNewTour();}
-
     public List<Tour> getListBySearchText(String textSearch){
 
         return TourDAO.getInstance().getListBySearchText(textSearch) ;
@@ -85,9 +80,11 @@ public class TourService {
         return TourDAO.getInstance().findListTourBySearchFilter(searchText,list);
     }
 
+    public List<Tour> getSoldOutTour(){return  TourDAO.getInstance().getSoldOutTour();}
     public List<Tour> getListPopularTour(){
         return TourDAO.getInstance().getListPopularTour();
     }
+    public List<Tour> getNewTour(){return TourDAO.getInstance().getNewTour();}
     public Map<Integer,List<Tour>> getMapVoucherTour(){
         return TourDAO.getInstance().getMapVoucherTour();
     }

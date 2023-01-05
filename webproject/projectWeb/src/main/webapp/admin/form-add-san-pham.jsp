@@ -191,7 +191,7 @@
             </div>
             <div class="form-group col-md-12">
               <label class="control-label">Nhập ID Voucher mới</label>
-              <select class="form-control"  name="tourDetailVoucher" >
+              <select class="form-control"  name="tourDetailVoucher" required >
                 <option value="none">Không</option>
                 <% for (Voucher v:
                         vouchers) {
@@ -297,11 +297,11 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Tên Tour</label>
-                <input class="form-control" name="tourDetailName" value="<%=tour==null?"":tour.getTourDetail().getTourName()==null?"":tour.getTourDetail().getTourName()%>" type="text">
+                <input class="form-control" name="tourDetailName" required value="<%=tour==null?"":tour.getTourDetail().getTourName()==null?"":tour.getTourDetail().getTourName()%>" type="text">
               </div>
               <div class="form-group col-md-3">
                 <label  class="control-label">Địa điểm</label>
-                <select class="form-control" name="tourDetailDiaDiem">
+                <select class="form-control" required name="tourDetailDiaDiem">
                   <%
                     for (Destination d:
                          dess) {
@@ -318,11 +318,11 @@
 
               <div class="form-group  col-md-3">
                 <label class="control-label">Số lượng</label>
-                <input class="form-control" name="tourDetailSoLuong" value="<%=tour==null?"":tour.getTourDetail().getSoLuong()%>" type="number" >
+                <input class="form-control" required name="tourDetailSoLuong" value="<%=tour==null?"":tour.getTourDetail().getSoLuong()%>" type="number" >
               </div>
               <div class="form-group col-md-3 ">
                 <label class="control-label">Trạng thái</label>
-                <select class="form-control" name="tourDetailTrangThai">
+                <select class="form-control" required name="tourDetailTrangThai">
 
               <% if (tour != null){%>
                   <%if (tour.getTourDetail().getTrangThai()==1){%>
@@ -351,10 +351,10 @@
               <div class="form-group col-md-12">
                 <label class="control-label">Ảnh sản phẩm</label>
                 <div id="myfileupload">
-                  <input type="file" id="uploadfile" name="ImageUpload" value="<%=tour==null?"":".."+tour.getTourDetail().getImageURL()%>" onchange="readURL(this);" />
+                  <input type="file" required accept="image/*" id="uploadfile" name="ImageUpload"  onchange="readURL(this);" />
                 </div>
                 <div id="thumbbox">
-                  <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+                  <img height="450" width="400" alt="Thumb image" src="<%=tour==null?"":tour.getTourDetail().getImageURL()==null?"":".."+tour.getTourDetail().getImageURL()%>" id="thumbimage" style="display: none" />
                   <a class="removeimg" href="javascript:"></a>
                 </div>
                 <div id="boxchoice">
@@ -365,7 +365,7 @@
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="tourDetailDescription"  id="mota"><%=tour ==null?"":tour.getTourDetail().getDescription()==null?"":tour.getTourDetail().getDescription()%></textarea>
+                <textarea class="form-control" required name="tourDetailDescription"  id="mota"><%=tour ==null?"":tour.getTourDetail().getDescription()==null?"":tour.getTourDetail().getDescription()%></textarea>
                 <!-- <script>CKEDITOR.replace('mota');</script> -->
               </div>
               <div class="form-group col-md-12" style="font-weight: bold;font-size: 1rem;">
@@ -377,7 +377,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Giá vé người lớn</label>
-                <input class="form-control" name="tourDetailSLVNL" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==1?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
+                <input class="form-control" required name="tourDetailSLVNL" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==1?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
               </div>
               <br>
               <br>
@@ -386,7 +386,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Giá vé trẻ em</label>
-                <input class="form-control" name="tourDetailSLVTE" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==0?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
+                <input class="form-control" required name="tourDetailSLVTE" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==0?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
               </div>
               <br>
               <br>
@@ -397,17 +397,17 @@
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Ngày khởi hành</label>
-                <input class="form-control" name="tourDetailStartDate" value="<%=tour==null?"":tour.getTourDetail().getNgayKhoiHanh()%>" type="date">
+                <input class="form-control" required name="tourDetailStartDate" value="<%=tour==null?"":tour.getTourDetail().getNgayKhoiHanh()%>" type="date">
               </div>
             <%Date currentDate = Date.valueOf(LocalDate.now());%>
             <input style="display: none" class="form-control" name="tourDetailCreateDate" value="<%=tour==null?currentDate:tour.getTourDetail().getNgayTao()%>" type="date">
               <div class="form-group col-md-4">
                 <label class="control-label">Ngày kết thúc</label>
-                <input class="form-control" type="date" value="<%=tour==null?"":tour.getTourDetail().getNgayKetThuc()%>" name="tourDetailEndDate">
+                <input class="form-control" required type="date" value="<%=tour==null?"":tour.getTourDetail().getNgayKetThuc()%>" name="tourDetailEndDate">
               </div>
               <div class="form-group col-md-3">
                 <label  class="control-label">Nơi khởi hành</label>
-                <select class="form-control" name="tourDetailStartDiaDiem">
+                <select class="form-control" required name="tourDetailStartDiaDiem">
                   <%
                   for (Destination d:
                           dess) {
@@ -423,7 +423,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label  class="control-label">Phương tiện di chuyển</label>
-                <select class="form-control" name="tourDetailVehicle">
+                <select class="form-control" required name="tourDetailVehicle">
 
                   <%if (tour != null && tour.getTourDetail().getPhuongTienDiChuyen().equals("Máy bay")){%><option selected value="Máy bay">Máy bay</option><%}else{%><option  value="Máy bay">Máy bay</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getPhuongTienDiChuyen().equals("Xe khách")){%> <option selected value="Xe khách">Xe khách</option><%}else{%><option  value="Xe khách">Xe khách</option> <%}%>
@@ -432,7 +432,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label  class="control-label">Hạng mục Tour</label>
-                <select class="form-control" name="tourDetailCategory">
+                <select class="form-control" required name="tourDetailCategory">
 
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Phiêu lưu")){%><option selected value="Phiêu lưu">Phiêu lưu</option><%}else{%><option value="Phiêu lưu">Phiêu lưu</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Du lịch")){%><option selected value="Du lịch">Du lịch</option><%}else{%><option value="Du lịch">Du lịch</option> <%}%>
@@ -469,16 +469,16 @@
 
                     <div class="form-group col-md-1">
                       <label class="control-label">Ngày </label>
-                      <input type="number" name="tourDetailDay<%=tdd.getNgay()%>" style="display: none" value="<%=tdd.getNgay()%>" >
-                      <input class="form-control" id="item_tour_per_day_value" type="number" value="<%=tdd.getNgay()%>" disabled>
+                      <input  type="number" name="tourDetailDay<%=tdd.getNgay()%>" style="display: none" value="<%=tdd.getNgay()%>" >
+                      <input class="form-control" id="item_tour_per_day_value" required type="number" value="<%=tdd.getNgay()%>" disabled>
                     </div>
                     <div class="form-group col-md-3">
                       <label class="control-label">Tiêu đề của ngày</label>
-                      <input class="form-control" id="item_tour_per_day_title" name="tourDetailDayTitle<%=tdd.getNgay()%>"  value="<%=tdd.getTitle()%>" type="text">
+                      <input class="form-control" id="item_tour_per_day_title" required name="tourDetailDayTitle<%=tdd.getNgay()%>"  value="<%=tdd.getTitle()%>" type="text">
                     </div>
                     <div class="form-group col-md-7">
                       <label class="control-label">Mô tả ngày</label>
-                      <textarea class="form-control" name="tourDetailDayMoTa<%=tdd.getNgay()%>"  id="m"><%=tdd.getDescription()%></textarea>
+                      <textarea class="form-control" name="tourDetailDayMoTa<%=tdd.getNgay()%>" required  id="m"><%=tdd.getDescription()%></textarea>
 
                     </div>
                     <div class="form-group col-md-0.5">
@@ -660,15 +660,15 @@ console.log(tourDetailCountDay[0].value)
                     <div class="form-group col-md-1">
                       <label class="control-label">Ngày </label>
                       <input type="number" name="tourDetailDay${listChildren.length+1}" style="display: none" value=${listChildren.length+1} >
-                      <input class="form-control" id="item_tour_per_day_value" type="number" value=${listChildren.length+1} disabled>
+                      <input required class="form-control" id="item_tour_per_day_value" type="number" value=${listChildren.length+1} disabled>
                     </div>
                     <div class="form-group col-md-3">
                       <label class="control-label">Tiêu đề của ngày</label>
-                      <input class="form-control" id="item_tour_per_day_title" name="tourDetailDayTitle${listChildren.length+1}"  value="" type="text">
+                      <input class="form-control" id="item_tour_per_day_title" required name="tourDetailDayTitle${listChildren.length+1}"  value="" type="text">
                     </div>
                     <div class="form-group col-md-7">
                       <label class="control-label">Mô tả ngày</label>
-                      <textarea class="form-control" name="tourDetailDayMoTa${listChildren.length+1}" value="" id="mota"></textarea>
+                      <textarea class="form-control" required name="tourDetailDayMoTa${listChildren.length+1}" value="" id="mota"></textarea>
 
                     </div>
                     <div class="form-group col-md-0.5">                     

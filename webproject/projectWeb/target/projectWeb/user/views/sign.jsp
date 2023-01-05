@@ -14,11 +14,12 @@
 <% String error = request.getAttribute("error")!=null?(String) request.getAttribute("error"):"";
 	String success = request.getAttribute("success")!=null?(String) request.getAttribute("success"):"";
 	String errorRegister = request.getAttribute("errorRegister")!=null?(String) request.getAttribute("errorRegister"):"";
+	String route = request.getAttribute("route") == null?null:(String) request.getAttribute("route");
 %>
 	<div class="logo">
 		<a href="/projectWeb_war/user/views/home"><img src="./assets//images/logo-w.png" alt="logo"></a>
 	</div>
-<div class="container" id="container">
+<div class="container <%=route==null?"":route.equals("register")?"right-panel-active":""%>"  id="container">
 	<div class="form-container sign-up-container">
 		<form action="/projectWeb_war/user/views/doRegister" method="POST" class="sign-up-container-valid">
 			<h1>Tạo Tài Khoản</h1>

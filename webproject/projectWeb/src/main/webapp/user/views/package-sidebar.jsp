@@ -105,7 +105,7 @@
                             <div class="package-card-alpha" href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                 <div class="package-thumb">
                                     <div class="is-new-tour <%=checkDate?"":"display-hide"%>" id="<%=tour.getNgayTao().toString()%>"><span >Mới</span></div>
-                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%=tour.getImageURL()%>" alt=""></a>
+                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%="../.."+tour.getImageURL()%>" alt=""></a>
                                     <p class="card-lavel">
                                         <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%>  Đêm</span>
                                     </p>
@@ -301,7 +301,7 @@
                                     <li class="package-sm">
                                         <div class="thumb">
                                             <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
-                                                <img src="<%=tour.getImageURL()%>" alt="">
+                                                <img src="<%="../.."+tour.getImageURL()%>" alt="">
                                             </a>
                                         </div>
                                         <div class="info">

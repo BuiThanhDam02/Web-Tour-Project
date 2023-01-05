@@ -67,7 +67,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="guide-card-gamma">
                         <div class="guide-image">
-                            <img style="width: 340px; height: 370px;" src="<%=u.getImageURL()%>" alt="">
+                            <img style="width: 340px; height: 370px;" src="<%="../.."+u.getImageURL()%>" alt="">
                             <ul class="guide-social-links">
                                 <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
                                 <li><a href="#"><i class='bx bxl-facebook'></i></a></li>

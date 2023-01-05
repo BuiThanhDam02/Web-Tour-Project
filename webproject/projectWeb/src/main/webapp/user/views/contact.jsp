@@ -62,7 +62,7 @@
             <div class="row align-items-center justify-content-lg-center gy-5">
                 <div class="col-lg-6">
                     <div class="contatc-intro-figure">
-                        <img src="<%=guide.getImageURL()%>" alt="" class="img-fluid">
+                        <img src="<%="../.."+guide.getImageURL()%>" alt="" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-5">
