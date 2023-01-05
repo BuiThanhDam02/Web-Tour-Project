@@ -2,6 +2,8 @@
 <%@ page import="vn.edu.hcmuaf.fit.DAO.UserDAO" %>
 <%@ page import="vn.edu.hcmuaf.fit.bean.Booking" %>
 <%@ page import="vn.edu.hcmuaf.fit.bean.Tour" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -39,6 +41,9 @@
       List<Booking> listBooking = (List<Booking>) request.getAttribute("listBooking");
       List<Tour> listTour = (List<Tour>) request.getAttribute("listTour");
       List<User> listKhachHang = (List<User>) request.getAttribute("listKhachHang");
+      List<Tour> listPopularTour = (List<Tour>) request.getAttribute("listPopularTour");
+      List<Tour> listSoldOutTour = (List<Tour>) request.getAttribute("listSoldOutTour");
+      List<Tour> listNewTour = (List<Tour>) request.getAttribute("listNewTour");
       String error = request.getAttribute("error") ==null?null:(String) request.getAttribute("error");
   %>
   <main class="app-content">
@@ -81,7 +86,7 @@
                 <div class="widget-small info coloured-icon"><i class='icon bx bxs-purchase-tag-alt fa-3x' ></i>
                     <div class="info">
                         <h4>Tour du lịch mới</h4>
-                        <p><b><%=listTour.size()%> Tour du lịch</b></p>
+                        <p><b>4 Tour du lịch</b></p>
                     </div>
                 </div>
             </div>
@@ -137,25 +142,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <%
+                                for (int i = 0; i < listPopularTour.size(); i++) {
+
+                            %>
                                 <tr>
-                                    <td>TOUR001</td>
-                                    <td>Du lịch đảo phú quốc</td>
-                                    <td>15.600.000 đ</td>
-                                    <td>Du lịch đôi</td>
+                                    <td><%=listPopularTour.get(i).getTour_id()%></td>
+                                    <td><%=listPopularTour.get(i).getTourName()%></td>
+                                    <td><%=listPopularTour.get(i).getGiaVe()%></td>
+                                    <td><%=listPopularTour.get(i).getTour_category()%></td>
                                 </tr>
-                                <tr>
-                                    <td>TOUR002</td>
-                                    <td>Du lịch đảo phú quốc</td>
-                                    <td>15.600.000 đ</td>
-                                    <td>Du lịch đôi</td>
-                                </tr>
-                                <tr>
-                                    <td>TOUR003</td>
-                                    <td>Du lịch đảo phú quốc</td>
-                                    <td>15.600.000 đ</td>
-                                    <td>Du lịch đôi</td>
-                                </tr>
-                               
+                            <%}%>
                             </tbody>
                         </table>
                     </div>
@@ -180,25 +177,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <%float tongCong =0;
+
+                                    for(int i = 0; i < listBooking.size(); i++){
+                                        tongCong += listBooking.get(i).getTongTien();
+                                        float tongTien = listBooking.get(i).getTongTien();
+                                        Locale locale = new Locale("vi");
+                                        NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                        String tongTienString = format.format(tongTien).split(",")[0];
+                                %>
                                     <tr>
-                                            <td>BOOKING0837</td>
-                                            <td>KH001</td>
-                                            <td>TOUR001</td>
-                                            <td>2</td>
-                                            <td>31.200.000 đ</td>
+                                            <td><%=listBooking.get(i).getBOOKING_ID()%></td>
+                                            <td><%=listBooking.get(i).getUSER_ID()%></td>
+                                            <td><%=listBooking.get(i).getTOUR_ID()%></td>
+                                            <td><%=listBooking.get(i).getSOLUONG()%></td>
+                                            <td><%=tongTienString%></td>
                                     </tr>
-                                    <tr>
-                                        <td>BOOKING0837</td>
-                                        <td>KH001</td>
-                                        <td>TOUR001</td>
-                                        <td>2</td>
-                                        <td>31.200.000 đ</td>
-                                </tr>
-                                   
+                                <%
+                                    }
+
+                                    Locale locale = new Locale("vi");
+                                    NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+                                    String tongCongString = format.format(tongCong).split(",")[0];
+                                %>
+
                                     <tr>
                                        <th colspan="4">Tổng cộng:</th>
-                                        <td>62.400.000 đ</td>
+                                        <td><%=tongCongString%></td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -217,7 +224,6 @@
                                     <tr>
                                             <th>Mã Tour</th>
                                             <th>Tên Tour</th>
-                                            
                                             <th>Số lượng vé</th>
                                             <th>Trạng thái</th>
                                             <th>Giá tiền</th>
@@ -225,15 +231,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for(int i = 0; i < listSoldOutTour.size(); i++){
+                                        float giaVe = listSoldOutTour.get(i).getGiaVe();
+                                        Locale locale1 = new Locale("vi");
+                                        NumberFormat format1 =  NumberFormat.getCurrencyInstance(locale1);
+                                        String giaVeString = format1.format(giaVe).split(",")[0];
+
+                                %>
                                     <tr>
-                                            <td>TOUR0005</td>
-                                            <td>Du lịch bãi biển Nha Trang</td>
-                                           
-                                            <td>0</td>
-                                            <td><span class="badge bg-danger">Hết vé</span></td>
-                                            <td>5.450.000 đ</td>
-                                            <td>Du lịch đơn thân</td>
+                                            <td><%=listSoldOutTour.get(i).getTour_id()%></td>
+                                            <td><%=listSoldOutTour.get(i).getTourName()%></td>
+                                            <td><%=listSoldOutTour.get(i).getSoLuong()%></td>
+                                            <td><span class="badge bg-danger"><%=listSoldOutTour.get(i).getTrangThai()%></span></td>
+                                            <td><%=giaVeString%></td>
+                                            <td><%=listSoldOutTour.get(i).getTour_category()%></td>
                                     </tr>
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
                         </div>
@@ -252,7 +268,6 @@
                                     <tr>
                                             <th>Mã Tour</th>
                                             <th>Tên Tour</th>
-                                            
                                             <th>Số lượng vé</th>
                                             <th>Trạng thái</th>
                                             <th>Giá tiền</th>
@@ -260,15 +275,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for(int i = 0; i < listNewTour.size(); i++){
+                                        float giaVe = listNewTour.get(i).getGiaVe();
+                                        Locale locale1 = new Locale("vi");
+                                        NumberFormat format1 =  NumberFormat.getCurrencyInstance(locale1);
+                                        String giaVeString = format1.format(giaVe).split(",")[0];
+
+                                %>
                                     <tr>
-                                            <td>TOUR0006</td>
-                                            <td>Du lịch Đà lạt</td>
-                                           
-                                            <td>10</td>
-                                            <td><span class="badge bg-success">Hết vé</span></td>
-                                            <td>10.450.000 đ</td>
-                                            <td>Du lịch đơn thân</td>
+                                            <td><%=listNewTour.get(i).getTour_id()%></td>
+                                            <td><%=listNewTour.get(i).getTourName()%></td>
+                                            <td><%=listNewTour.get(i).getSoLuong()%></td>
+                                            <td><span class="badge bg-success"><%=listNewTour.get(i).getTrangThai()%></span></td>
+                                            <td><%=giaVeString%></td>
+                                            <td><%=listNewTour.get(i).getTour_category()%></td>
                                     </tr>
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
                         </div>

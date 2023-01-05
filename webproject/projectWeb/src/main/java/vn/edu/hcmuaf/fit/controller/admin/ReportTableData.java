@@ -32,6 +32,15 @@ public class ReportTableData extends HttpServlet {
         List<User> listKhachHang = UserDAO.getInstance().getListKhachHang();
         request.setAttribute("listKhachHang", listKhachHang);
 
+        List<Tour> listPopularTour = TourDAO.getInstance().getListPopularTour();
+        request.setAttribute("listPopularTour", listPopularTour);
+
+        List<Tour> listSoldOutTour = TourDAO.getInstance().getSoldOutTour();
+        request.setAttribute("listSoldOutTour", listSoldOutTour);
+
+        List<Tour> listNewTour = TourDAO.getInstance().getNewTour();
+        request.setAttribute("listNewTour", listNewTour);
+
         request.getRequestDispatcher("quan-ly-bao-cao.jsp").forward(request,response);
     }
 

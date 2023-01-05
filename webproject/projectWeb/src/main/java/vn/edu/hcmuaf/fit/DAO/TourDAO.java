@@ -55,6 +55,29 @@ public class TourDAO {
         );
         return list ;
     }
+
+    public List<Tour> getSoldOutTour(){
+
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and SoLuong =0")
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list ;
+    }
+
+    public List<Tour> getNewTour(){
+
+        List<Tour> list = JDBIConnector.get().withHandle(h ->
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and  DATEDIFF(CURRENT_DATE,NgayTao) <=5 ")
+                        .mapToBean(Tour.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        return list ;
+    }
+
     public TourDetail getTourDetail(String tour_id){
 
         List<TourDetail> list = JDBIConnector.get().withHandle(h ->
