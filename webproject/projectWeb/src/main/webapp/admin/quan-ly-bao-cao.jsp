@@ -1,3 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.DAO.UserDAO" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.Booking" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.Tour" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -28,6 +32,15 @@
   <jsp:include page="leftSideBar.jsp">
       <jsp:param name="isCurrent" value="reportTable"/>
   </jsp:include>
+
+  <%
+      List<User> listGuide = (List<User>) request.getAttribute("listGuide");
+      List<Tour> listAllTour = (List<Tour>) request.getAttribute("listAllTour");
+      List<Booking> listBooking = (List<Booking>) request.getAttribute("listBooking");
+      List<Tour> listTour = (List<Tour>) request.getAttribute("listTour");
+      List<User> listKhachHang = (List<User>) request.getAttribute("listKhachHang");
+      String error = request.getAttribute("error") ==null?null:(String) request.getAttribute("error");
+  %>
   <main class="app-content">
     <div class="row">
       <div class="col-md-12">
@@ -44,7 +57,7 @@
                 <div class="widget-small primary coloured-icon"><i class='icon  bx bxs-user fa-3x'></i>
                     <div class="info">
                         <h4>Tổng Hướng dẫn viên</h4>
-                        <p><b>6 Hướng dẫn viên</b></p>
+                        <p><b><%=listGuide.size()%> Hướng dẫn viên</b></p>
                     </div>
                 </div>
             </div>
@@ -52,7 +65,7 @@
                 <div class="widget-small info coloured-icon"><i class='icon bx bxs-purchase-tag-alt fa-3x' ></i>
                     <div class="info">
                         <h4>Tổng Tour du lịch</h4>
-                        <p><b>100 Tour du lịch</b></p>
+                        <p><b><%=listAllTour.size()%> Tour du lịch</b></p>
                     </div>
                 </div>
             </div>
@@ -60,7 +73,7 @@
                 <div class="widget-small warning coloured-icon"><i class='icon fa-3x bx bxs-shopping-bag-alt'></i>
                     <div class="info">
                         <h4>Tổng đơn đặt hàng</h4>
-                        <p><b>47 đơn đặt hàng</b></p>
+                        <p><b><%=listBooking.size()%> đơn đặt hàng</b></p>
                     </div>
                 </div>
             </div>
@@ -68,7 +81,7 @@
                 <div class="widget-small info coloured-icon"><i class='icon bx bxs-purchase-tag-alt fa-3x' ></i>
                     <div class="info">
                         <h4>Tour du lịch mới</h4>
-                        <p><b>4 Tour du lịch</b></p>
+                        <p><b><%=listTour.size()%> Tour du lịch</b></p>
                     </div>
                 </div>
             </div>
@@ -86,7 +99,7 @@
                 <div class="widget-small info coloured-icon"><i class='icon fa-3x bx bxs-user-badge' ></i>
                     <div class="info">
                         <h4>Tổng khách hàng</h4>
-                        <p><b>100 khách hàng</b></p>
+                        <p><b><%=listKhachHang.size()%> khách hàng</b></p>
                     </div>
                 </div>
             </div>
