@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.DAO;
 
 import vn.edu.hcmuaf.fit.bean.User;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
+import vn.edu.hcmuaf.fit.services.UserService;
 
 
 import java.sql.Date;
@@ -259,7 +260,7 @@ cập nhật bởi Bùi Thanh Đảm
                         .bind(1,map.get("fullNameGuide"))
                         .bind(2,map.get("usernameGuide"))
                         .bind(3,map.get("emailGuide"))
-                        .bind(4,map.get("passwordGuide"))
+                        .bind(4, UserService.getInstance().hashPassword(map.get("passwordGuide")))
                         .bind(5,map.get("phoneGuide"))
                         .bind(6, map.get("birthGuide"))
                         .bind(7,map.get("ImageUpload"))

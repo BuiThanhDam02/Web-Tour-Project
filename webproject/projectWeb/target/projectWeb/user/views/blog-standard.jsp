@@ -77,7 +77,7 @@
                         <div class="blog-card-gamma-full">
                             <div class="blog-thumb">
                                 <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>">
-                                <img src="<%=blog.getImageURL()%>" alt="">
+                                <img src="<%="../.."+blog.getImageURL()%>" alt="">
                                 </a>
                                 <!-- <div class="blog-lavel">
                                     <a href="#">Tourist</a>
@@ -190,9 +190,9 @@
 
                                 %>
                                 <li class="clearfix">
-                                    <div class="wi"><a href="blog-details.jsp"><img src="<%=blog.getImageURL()%>" alt=""></a></div>
+                                    <div class="wi"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><img src="<%="../.."+blog.getImageURL()%>" alt=""></a></div>
                                     <div class="wb">
-                                        <h6><a href="blog-details.jsp"><%=blog.getBLOG_TITLE()%></a></h6>
+                                        <h6><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h6>
                                         <div class="wb-info">
                                             <span class="post-date"> <i class="bi bi-person-circle"></i><%=blog.getFullName()%> </span>
                                             <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blog.getNgayVietBai().toString()%></span>

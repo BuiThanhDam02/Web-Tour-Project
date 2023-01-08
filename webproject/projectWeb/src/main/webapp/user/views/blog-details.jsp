@@ -81,8 +81,8 @@
                                 <a href="" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình luận (<%=blogComment.size()%>)</a>
                             </div>
                         </div>
-                        <div class="post-thumb">
-                            <img src="<%="../.."+blog.getImageURL()%>" alt="">
+                        <div style="height: 500px" class="post-thumb">
+                            <img style="height: 100%" src="<%="../.."+blog.getImageURL()%>" alt="">
                         </div>
                         <div class="post-body">
 

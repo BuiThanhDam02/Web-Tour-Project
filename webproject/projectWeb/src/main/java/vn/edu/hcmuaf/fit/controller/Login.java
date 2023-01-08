@@ -43,7 +43,12 @@ public class Login extends HttpServlet {
             session.setAttribute("auth", user);
             session.setAttribute("cart",cart);
 //            session.setAttribute("login","Bạn đã đăng nhập");
-            response.sendRedirect("/projectWeb_war/user/views/home");
+            if (user.getUser_role() >0 ){
+                response.sendRedirect("/projectWeb_war/redirect.jsp");
+            }else{
+                response.sendRedirect("/projectWeb_war/user/views/home");
+            }
+
         }
     }
 }

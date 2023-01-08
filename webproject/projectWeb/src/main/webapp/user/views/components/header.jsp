@@ -229,7 +229,7 @@
                                 <li>
                                     <a href="/projectWeb_war/user/views/home"><span style="font-size: 15px;">Trang Chủ</span></a>
                                 </li>
-                                <li><a href="about.jsp"><span style="font-size: 15px;">Về Chúng Tôi</span></a></li>
+                                <li><a href="/projectWeb_war/user/views/aboutUs"><span style="font-size: 15px;">Về Chúng Tôi</span></a></li>
                                 <li >
                                     <a href="/projectWeb_war/user/views/destination"><span style="font-size: 15px;">Điểm Đến</span></a>
                                     

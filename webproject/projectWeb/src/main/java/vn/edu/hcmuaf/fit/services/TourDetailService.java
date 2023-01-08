@@ -34,6 +34,7 @@ public class TourDetailService {
     public List<TourDetailImages> getListImage(String tour_id){
         return TourDetailDAO.getInstance().getListImage(tour_id);
     }
+
     public List<TourDetailType> getListType(String tour_id){
         return TourDetailDAO.getInstance().getListType(tour_id);
     }
@@ -60,7 +61,7 @@ public class TourDetailService {
 
         return tp;
     }
-
+    public List<TourDetail> getListTourGuideCalendar(String guideId){return TourDetailDAO.getInstance().getListTourGuideCalendar(guideId);}
     public boolean getLikedTourDetail(String user_id,String tourId){
         return TourDetailDAO.getInstance().getLikedTourDetail(user_id,tourId);
     }

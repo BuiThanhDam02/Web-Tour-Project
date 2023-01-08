@@ -41,10 +41,10 @@
                     <div class="footer-widget">
                         <h4 class="footer-widget-title">Quick Link</h4>
                         <ul class="footer-links">
-                            <li><a href="about.jsp">Về chúng tôi</a></li>
+                            <li><a href="/projectWeb_war/user/views/aboutUs">Về chúng tôi</a></li>
                             <li><a href="/projectWeb_war/user/views/tour">Các Tour du lịch</a></li>
                             <li><a href="/projectWeb_war/user/views/destination">Điểm đến</a></li>
-                            <li><a href="guide.jsp">Hướng dẫn viên</a></li>
+                            <li><a href="/projectWeb_war/user/views/guide">Hướng dẫn viên</a></li>
 
                             <li><a href="/projectWeb_war/user/views/blog">Tin tức</a></li>
                         </ul>

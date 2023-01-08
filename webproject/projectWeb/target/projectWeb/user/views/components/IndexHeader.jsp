@@ -168,7 +168,7 @@
                             <li>
                                 <a href="/projectWeb_war/user/views/home">Trang Chủ</a>
                             </li>
-                            <li><a href="about.jsp">Về Chúng Tôi</a></li>
+                            <li><a href="/projectWeb_war/user/views/aboutUs">Về Chúng Tôi</a></li>
                             <li >
                                 <a href="/projectWeb_war/user/views/destination">Điểm Đến</a>
 

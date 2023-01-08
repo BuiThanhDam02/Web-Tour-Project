@@ -159,7 +159,17 @@ public class TourDetailDAO {
         );
         return llt;
     }
-
+    public List<TourDetail> getListTourGuideCalendar(String guideId){
+        List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select tour.* from tour inner join TOUR_GUIDE on TOUR_GUIDE.TOUR_ID = tour.TOUR_ID where NgayKhoiHanh > CURRENT_DATE and TOUR_GUIDE.USER_ID = ?")
+                        .bind(0,guideId)
+                        .mapToBean(TourDetail.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        llt.sort((o1, o2) -> o1.getNgayKhoiHanh().getTime() >=o2.getNgayKhoiHanh().getTime() ?-1:1);
+        return llt;
+    }
     public boolean adminCreateTour(Map<String,String > map){
         Random random = new Random();
         String id ="Tour"+ (random.nextInt(10000000) );

@@ -54,7 +54,10 @@
                     <div class="container_profile">
                         <div class="content">
 
-                            <%@include file="./components/box-left.jsp"%>
+
+                            <jsp:include page="./components/box-left.jsp">
+                                <jsp:param name="isCurrent" value="cart"/>
+                            </jsp:include>
 
                             <%
                                 Cart cart =(Cart) session.getAttribute("cart");

@@ -151,8 +151,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pd-thumb">
-                                <img src="<%="../.."+td.getImageURL()%>" alt="">
+                            <div style="height: 600px" class="pd-thumb">
+                                <img style="height: 100%" src="<%="../.."+td.getImageURL()%>" alt="">
                             </div>
                             <div class="header-bottom">
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -240,7 +240,7 @@
                                                 <td><%=td.getNgayKhoiHanh()%></td>
                                             </tr>
                                             <tr>
-                                                <th>Thởi Gian</th>
+                                                <th>Thời Gian</th>
                                                 <td><%=ngay%> Ngày <%=ngay-1%> Đêm</td>
                                             </tr>
 <%--                                            <tr>--%>
@@ -347,7 +347,7 @@
                                     </div>
                                     <form action="/projectWeb_war/user/views/review" id="comment_form" method="post">
                                         <div class="comment-form mt-110">
-                                            <h4>Để Lại Bình Luận Của Bạn</h4>
+                                            <h4>Để Lại Đánh Giá Của Bạn</h4>
                                             <div class="row">
                                                 <div class="col-lg-6">
 

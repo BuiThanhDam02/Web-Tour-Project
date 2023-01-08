@@ -59,7 +59,9 @@
                     <div class="container_profile">
                         <div class="content">
 
-                            <%@include file="./components/box-left.jsp"%>
+                            <jsp:include page="./components/box-left.jsp">
+                                <jsp:param name="isCurrent" value="order"/>
+                            </jsp:include>
 
                             <% List<Booking> listBooking = request.getAttribute("listBooking")==null?null:(List<Booking>) request.getAttribute("listBooking");
                                 List<Booking> listCancelBooking = new ArrayList<Booking>();

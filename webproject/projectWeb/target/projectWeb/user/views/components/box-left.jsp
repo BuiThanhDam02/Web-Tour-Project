@@ -1,3 +1,4 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -79,6 +80,11 @@
             });
         })
     </script>
+    <STYLE>
+        .isCurrent{
+            color: #009b77;
+        }
+    </STYLE>
 </head>
 
 <body>
@@ -89,7 +95,9 @@
 
 <% User userBox = (User)session.getAttribute("auth")==null?null:(User) session.getAttribute("auth"); %>
 
-
+<%
+    String isCurrent = request.getParameter("isCurrent");
+%>
 
 
 <%--<div class="form-group col-md-12">--%>
@@ -191,7 +199,7 @@
                                           data-bs-target="#getting-started-collapse"
                                           aria-expanded="false"
                                         >
-                                          <h6 class="fw-bold">Tài khoản</h6>
+                                          <h6 class="fw-bold <%=isCurrent.equals("profile")?"isCurrent":""%>">Tài khoản</h6>
                                         </a>
                                         <div
                                           class="collapse "
@@ -201,7 +209,7 @@
                                             <li>
                                               <a
                                                 href="profile.jsp"
-                                                class="d-inline-flex align-items-center rounded active"
+                                                class="d-inline-flex align-items-center rounded active <%=isCurrent.equals("profile")?"isCurrent":""%>"
                                               >
                                                 Thông tin cá nhân
                                               </a>
@@ -209,7 +217,7 @@
                                             <li>
                                               <a
                                                 href="ChangePassword.jsp"
-                                                class="d-inline-flex align-items-center rounded"
+                                                class="d-inline-flex align-items-center rounded <%=isCurrent.equals("password")?"isCurrent":""%>"
                                               >
                                                 Đổi mật khẩu
                                               </a>
@@ -217,7 +225,7 @@
                                             <li>
                                               <a
                                                 href="PaymentInfo.jsp"
-                                                class="d-inline-flex align-items-center rounded"
+                                                class="d-inline-flex align-items-center rounded <%=isCurrent.equals("payment")?"isCurrent":""%>"
                                               >
                                                 Thông tin thanh toán
                                               </a>
@@ -250,7 +258,7 @@
                                           class="d-inline-flex align-items-center rounded"
                                           href="/projectWeb_war/user/views/order"
                                         >
-                                          <h6 class="fw-bold">Đơn đặt chỗ</h6>
+                                          <h6 class="fw-bold <%=isCurrent.equals("order")?"isCurrent":""%>">Đơn đặt chỗ</h6>
                                         </a>
                                       </li>
                                         <li class="mb-1">
@@ -258,7 +266,7 @@
                                                     class="d-inline-flex align-items-center rounded"
                                                     href="Cart.jsp"
                                             >
-                                                <h6 class="fw-bold">Giỏ hàng</h6>
+                                                <h6 class="fw-bold <%=isCurrent.equals("cart")?"isCurrent":""%>">Giỏ hàng</h6>
                                             </a>
                                         </li>
                                       <li class="mb-1">
@@ -266,7 +274,7 @@
                                           class="d-inline-flex align-items-center rounded"
                                           href="/projectWeb_war/user/views/SavedCart"
                                         >
-                                          <h6 class="fw-bold">Yêu thích đã lưu</h6>
+                                          <h6 class="fw-bold <%=isCurrent.equals("saved")?"isCurrent":""%>">Yêu thích đã lưu</h6>
                                         </a>
                                       </li>
                                       <li class="mb-1 d-none">

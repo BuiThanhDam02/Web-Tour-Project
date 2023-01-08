@@ -224,7 +224,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-10">
                     <div class="package-card-delta">
                         <div class="package-thumb">
-                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><img src="<%=pt.getImageURL()%>" alt=""></a>
+                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><img src="<%="../.."+pt.getImageURL()%>" alt=""></a>
                             <p class="card-lavel">
                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                             </p>
@@ -271,7 +271,7 @@
                 <div class="<%=i==0||i==5?"col-lg-6 col-md-12 col-sm-10":"col-lg-3 col-md-6 col-sm-10"%>">
                     <div class="destination-item">
                         <div class="destination-img">
-                            <img style="width: 630px; height: 280px;" src="<%=desList.get(i).getImageURL()%>" alt="">
+                            <img style="width: 630px; height: 280px;" src="<%="../.."+desList.get(i).getImageURL()%>" alt="">
                         </div>
                         <div class="destination-overlay">
                             <div class="content">
@@ -327,7 +327,7 @@
                             <div class="swiper-slide">
                                 <div class="package-card-delta">
                                     <div class="package-thumb">
-                                        <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><img src="<%=inct.getImageURL()%>" alt=""></a>
+                                        <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><img src="<%="../.."+inct.getImageURL()%>" alt=""></a>
                                         <p class="card-lavel">
                                             <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                         </p>
@@ -426,7 +426,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="package-card-delta">
                                         <div class="package-thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%=vt.getImageURL()%>" alt=""></a>
+                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
                                             <p class="card-lavel">
                                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                             </p>
@@ -470,7 +470,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="package-card-delta">
                                         <div class="package-thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%=vt.getImageURL()%>" alt=""></a>
+                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
                                             <p class="card-lavel">
                                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                             </p>
@@ -677,7 +677,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="guide-card-gamma">
                         <div class="guide-image">
-                            <img src="<%=guide.getImageURL()%>" alt="">
+                            <img src="<%="../.."+guide.getImageURL()%>" alt="">
                             <ul class="guide-social-links">
                                 <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
                                 <li><a href="#"><i class='bx bxl-facebook'></i></a></li>
@@ -719,7 +719,7 @@
                     <div class="blog-card-gamma">
                         <div class="blog-thumb">
                             <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>">
-                            <img src="<%=b.getImageURL()%>" alt="">
+                            <img src="<%="../.."+b.getImageURL()%>" alt="">
                             </a>
                           
                         </div>

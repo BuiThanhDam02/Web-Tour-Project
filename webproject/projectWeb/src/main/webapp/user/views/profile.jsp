@@ -52,7 +52,9 @@
                   <div class="content" style="display: flex;">
 
 
-                    <%@include file="./components/box-left.jsp"%>
+                    <jsp:include page="./components/box-left.jsp">
+                      <jsp:param name="isCurrent" value="profile"/>
+                    </jsp:include>
       
                     <div class="ps-md-4">
                       <div class="wrapper p-md-4">
@@ -84,7 +86,7 @@
                                   name="profileUserId"
                                   style="display: none"
                                   type="text"
-                                  value="<%=userBox==null?"":userBox.getUser_Id()==""?"":userBox.getUser_Id()%>"
+                                  value="<%=userHeader==null?"":userHeader.getUser_Id()==""?"":userHeader.getUser_Id()%>"
                           />
 
                         </div>
@@ -99,7 +101,7 @@
                                 <div class="row">
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
-                                      <span><%=userBox==null?"":userBox.getFullName()==null?"Chưa có thông tin":userBox.getFullName()%></span>
+                                      <span><%=userHeader==null?"":userHeader.getFullName()==null?"Chưa có thông tin":userHeader.getFullName()%></span>
 <%--                                      <a onclick="btnHidden1()"--%>
 <%--                                        class="fw-bold text-underline toggle-edit-form"--%>
 <%--                                        >Chỉnh sửa</a--%>
@@ -115,7 +117,7 @@
                                             name="profileFullName"
                                             placeholder="Nhập họ và tên"
                                             type="text"
-                                            value="<%=userBox==null?"":userBox.getFullName()==null?"":userBox.getFullName()%>"
+                                            value="<%=userHeader==null?"":userHeader.getFullName()==null?"":userHeader.getFullName()%>"
                                           />
                                         </div>
                                       </div>
@@ -141,7 +143,7 @@
                                 <div class="row">
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
-                                      <span><%=userBox==null?"":userBox.getUser_role()%></span>
+                                      <span><%=userHeader==null?"":userHeader.getUser_role()%></span>
                                     </div>
                                   </div>
                                 </div>
@@ -156,7 +158,7 @@
                                 <div class="row">
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
-                                      <span><%=userBox==null?"":userBox.getBankCard()==null?"Chưa có thông tin":userBox.getBankCard()%></span>
+                                      <span><%=userHeader==null?"":userHeader.getBankCard()==null?"Chưa có thông tin":userHeader.getBankCard()%></span>
                                     </div>
                                   </div>
                                 </div>
@@ -178,7 +180,7 @@
                                             href=""
                                             class="__cf_email__"
                                             data-cfemail="432d24363a262d2b34272237727a727103242e222a2f6d202c2e"
-                                            ><%=userBox==null?"":userBox.getEmail()==null?"[Chưa có&#160;thông tin]":userBox.getEmail()%></a
+                                            ><%=userHeader==null?"":userHeader.getEmail()==null?"[Chưa có&#160;thông tin]":userHeader.getEmail()%></a
                                           >
                                         </p>
                                         <span> </span>
@@ -198,7 +200,7 @@
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
                                       <div class="display-form-content">
-                                        <p><%=userBox==null?"":userBox.getPhone()==null?"Chưa có thông tin":userBox.getPhone()%></p>
+                                        <p><%=userHeader==null?"":userHeader.getPhone()==null?"Chưa có thông tin":userHeader.getPhone()%></p>
                                       </div>
 
                                     </div>
@@ -211,7 +213,7 @@
                                               name="profileTelephone"
                                               placeholder="Số điện thoại"
                                               type="text"
-                                              value="<%=userBox==null?"":userBox.getPhone()==null?"":userBox.getPhone()%>"
+                                              value="<%=userHeader==null?"":userHeader.getPhone()==null?"":userHeader.getPhone()%>"
                                             />
                                           </div>
                                         </div>
@@ -232,7 +234,7 @@
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
                                       <div class="display-form-content">
-                                        <p><%=userBox==null?"":userBox.getBirth()==null?"Chưa có thông tin":userBox.getBirth().toString()%></p>
+                                        <p><%=userHeader==null?"":userHeader.getBirth()==null?"Chưa có thông tin":userHeader.getBirth().toString()%></p>
                                       </div>
 
                                     </div>
@@ -249,7 +251,7 @@
                                                 class="form-control"
                                                 aria-describedby="birthDayBlock"
                                                 name="profileDate"
-                                                value="<%=userBox==null?"":userBox.getBirth()==null?"":userBox.getBirth().toString()%>"
+                                                value="<%=userHeader==null?"":userHeader.getBirth()==null?"":userHeader.getBirth().toString()%>"
                                               />
                                             </div>
 
@@ -271,7 +273,7 @@
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
                                       <div class="display-form-content">
-                                        <p><%=userBox==null?"":userBox.getGioiTinh()==null?"Chưa có thông tin":userBox.getGioiTinh()%></p>
+                                        <p><%=userHeader==null?"":userHeader.getGioiTinh()==null?"Chưa có thông tin":userHeader.getGioiTinh()%></p>
                                       </div>
 
                                     </div>
@@ -305,7 +307,7 @@
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
                                       <div class="display-form-content">
-                                        <p><%=userBox==null?"":userBox.getDiaChi()==null?"Chưa có thông tin":userBox.getDiaChi()%></p>
+                                        <p><%=userHeader==null?"":userHeader.getDiaChi()==null?"Chưa có thông tin":userHeader.getDiaChi()%></p>
                                       </div>
 
                                     </div>
@@ -320,7 +322,7 @@
                                                 id="Address"
                                                 name="profileAddress"
                                                 type="text"
-                                                value="<%=userBox==null?"":userBox.getDiaChi()==null?"":userBox.getDiaChi()%>"
+                                                value="<%=userHeader==null?"":userHeader.getDiaChi()==null?"":userHeader.getDiaChi()%>"
                                               />
                                             </div>
                                           </div>
@@ -753,7 +755,7 @@
                                   <div class="col-12 col-md-12">
                                     <div class="display-form">
                                       <div class="display-form-content">
-                                        <p><%=userBox==null?"":userBox.getCMND()==null?"Chưa có thông tin":userBox.getCMND()%></p>
+                                        <p><%=userHeader==null?"":userHeader.getCMND()==null?"Chưa có thông tin":userHeader.getCMND()%></p>
                                       </div>
 
                                     </div>
@@ -768,7 +770,7 @@
                                                 id="IdCard"
                                                 name="profileCmnd"
                                                 type="text"
-                                                value="<%=userBox==null?"":userBox.getCMND()==null?"":userBox.getCMND()%>"
+                                                value="<%=userHeader==null?"":userHeader.getCMND()==null?"":userHeader.getCMND()%>"
                                               />
                                             </div>
                                           </div>

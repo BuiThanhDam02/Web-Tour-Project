@@ -49,7 +49,9 @@
                     <div class="container_profile">
                         <div class="content">
 
-                            <%@include file="./components/box-left.jsp"%>
+                            <jsp:include page="./components/box-left.jsp">
+                                <jsp:param name="isCurrent" value="saved"/>
+                            </jsp:include>
     
 
                             <%
@@ -84,7 +86,7 @@
                                                          %>
                                                         <div class="tour-item">
                                                             <div class="tour-item-image-side">
-                                                                <img style="width: 55px;height: 55px" src="<%=td.getImageURL()%>">
+                                                                <img style="width: 55px;height: 55px" src="<%="../.."+td.getImageURL()%>">
                                                             </div>
                                                             <div class="tour-item-first-side">
                                                                 <span><%=td.getTourName()%></span>

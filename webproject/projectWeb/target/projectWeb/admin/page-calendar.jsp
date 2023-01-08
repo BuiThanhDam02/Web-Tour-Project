@@ -1,3 +1,5 @@
+<%@ page import="vn.edu.hcmuaf.fit.bean.TourDetail" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -25,7 +27,11 @@
   <%@include file="header.jsp"%>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <%@include file="leftSideBar.jsp"%>
+  <jsp:include page="leftSideBar.jsp">
+    <jsp:param name="isCurrent" value="calendarTable"/>
+  </jsp:include>
+
+  <% List<TourDetail> listTour = (List<TourDetail>) request.getAttribute("listTour");%>
   <main class="app-content">
     <div class="row">
       <div class="col-md-12">
@@ -44,27 +50,75 @@
           <div class="row">
             <div class="col-md-3">
               <div id="external-events">
-                <h4 class="mb-4">Kéo sự kiện thả vào</h4>
+                <h4 class="mb-4">Sự kiện</h4>
                 <div class="fc-event"><b>Họp công ty</b></div>
-                <div class="fc-event"><b>Họp báo</b></div>
-                <div class="fc-event"><b>Mừng sinh nhật</b></div>
+<%--                <div class="fc-event"><b>Họp báo</b></div>--%>
+<%--                <div class="fc-event"><b>Mừng sinh nhật</b></div>--%>
                 <div class="fc-event"><b>Nghĩ lễ</b></div>
-                <div class="fc-event"><b>Đi công tác</b></div>
+<%--                <div class="fc-event"><b>Đi công tác</b></div>--%>
                 <div class="fc-event"><b>Gặp khách hàng</b></div>
                 <div class="fc-event"><b>Tổ chức du lịch</b></div>
-                <p class="animated-checkbox mt-20">
-                  <label>
-                    <input id="drop-remove" type="checkbox"><span class="label-text">Hủy bỏ sau khi thả</span>
-                  </label>
-                </p>
+<%--                <p class="animated-checkbox mt-20">--%>
+<%--                  <label>--%>
+<%--                    <input id="drop-remove" type="checkbox"><span class="label-text">Hủy bỏ sau khi thả</span>--%>
+<%--                  </label>--%>
+<%--                </p>--%>
               </div>
             </div>
             <div class="col-md-9">
-              <div id="calendar"></div>
+<%--              <div id="calendar"></div>--%>
+                <div class="tile">
+                  <div>
+                    <h3 class="tile-title">Lịch công tác</h3>
+                  </div>
+                  <div class="tile-body">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                      <thead>
+                      <tr>
+                        <th>ID tour</th>
+                        <th>Tên tour</th>
+                        <th>Ngày khởi hành</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Nơi khởi hành</th>
+                        <th>Phương tiện di chuyển</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                  <%
+                    for (TourDetail tour:
+                         listTour) {
+                      String[] st = tour.getNgayKhoiHanh().toString().split("-");
+                      String ngayKhoiHanhString = st[2]+" tháng "+st[1]+" năm "+st[0];
+
+                      String[] stt = tour.getNgayKetThuc().toString().split("-");
+                      String ngayKTString = stt[2]+" tháng "+stt[1]+" năm "+stt[0];
+                    %>
+                      <tr>
+                        <td><%=tour.getTOUR_ID()%></td>
+                        <td><%=tour.getTourName()%></td>
+                        <td><%=ngayKhoiHanhString%></td>
+                        <td><%=ngayKTString%></td>
+                        <td><%=tour.getNoiKhoiHanh()%>đ</td>
+                        <td><%=tour.getPhuongTienDiChuyen()%></td>
+                        <td>
+                          <a href="/projectWeb_war/admin/CalendarDetail?tourId=<%=tour.getTOUR_ID()%>"><span style="color: #5454f3;font-size: 1rem">Xem chi tiết</span></a>
+                        </td>
+                      </tr>
+
+                  <%}%>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
       </div>
+      </div>
+    </div>
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="js/jquery-3.2.1.min.js"></script>

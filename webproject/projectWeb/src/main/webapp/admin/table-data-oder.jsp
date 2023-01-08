@@ -57,11 +57,11 @@
                     Tạo mới đơn đặt Tour</a>
                 </div>
                
-               
-                <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                      class="fas fa-trash-alt"></i> Xóa tất cả </a>
-                </div>
+<%--               --%>
+<%--                <div class="col-sm-2">--%>
+<%--                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i--%>
+<%--                      class="fas fa-trash-alt"></i> Xóa tất cả </a>--%>
+<%--                </div>--%>
             </div>
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>

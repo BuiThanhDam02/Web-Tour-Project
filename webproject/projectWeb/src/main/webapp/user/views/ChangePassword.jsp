@@ -47,7 +47,9 @@
                     <div class="container_profile">
                         <div class="content">
 
-                            <%@include file="./components/box-left.jsp"%>
+                            <jsp:include page="./components/box-left.jsp">
+                                <jsp:param name="isCurrent" value="password"/>
+                            </jsp:include>
 
                             <%
                                 String rpt = (String) request.getAttribute("resultPasswordText") ==null?null:(String) request.getAttribute("resultPasswordText");
@@ -62,7 +64,7 @@
                                         </p>
                                     </div>
                                     <form class="row change-password py-4" method="post" action="/projectWeb_war/user/views/changePassword">
-                                        <input style="display: none" class="form-control"  name="userId" type="text" value="<%=userBox.getUser_Id()%>" />
+                                        <input style="display: none" class="form-control"  name="userId" type="text" value="<%=userHeader.getUser_Id()%>" />
 
                                         <div class="col-12">
                                             <div class="mb-3 row">

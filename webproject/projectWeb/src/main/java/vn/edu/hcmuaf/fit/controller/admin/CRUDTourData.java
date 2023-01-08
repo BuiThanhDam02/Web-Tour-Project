@@ -31,8 +31,7 @@ public class CRUDTourData extends HttpServlet {
         request.setAttribute("vouchers",vouchers);
         request.setAttribute("dess",dess);
         request.setAttribute("guideBusys",guideBusys);
-        request.setAttribute("tour",request.getAttribute("tour"));
-        request.setAttribute("error",request.getAttribute("error"));
+request.setAttribute("tour",null);
         request.getRequestDispatcher("form-add-san-pham.jsp").forward(request, response);
     }
 

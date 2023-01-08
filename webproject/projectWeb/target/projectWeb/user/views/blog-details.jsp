@@ -81,8 +81,8 @@
                                 <a href="" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình luận (<%=blogComment.size()%>)</a>
                             </div>
                         </div>
-                        <div class="post-thumb">
-                            <img src="<%=blog.getImageURL()%>" alt="">
+                        <div style="height: 500px" class="post-thumb">
+                            <img style="height: 100%" src="<%="../.."+blog.getImageURL()%>" alt="">
                         </div>
                         <div class="post-body">
 
@@ -94,7 +94,7 @@
                                 %>
 
                             <div class="post-innner-image">
-                                <img style="height: 400px" src="<%=bi.getImageURL()==null?"":bi.getImageURL()%>" alt="">
+                                <img style="height: 400px" src="<%=bi.getImageURL()==null?"":"../.."+bi.getImageURL()%>" alt="">
                             </div>
                             <%}%>
                         </div>
@@ -115,7 +115,7 @@
                             <div class="single-comment" >
                                 <div>
                                     <div class="commmentor">
-                                        <img src="<%=c.getImageURL()%>" alt="">
+                                        <img src="<%="../.."+c.getImageURL()%>" alt="">
                                     </div>
                                     <div class="comment mt-4 mt-sm-0">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -248,9 +248,9 @@
 
                                     %>
                                     <li class="clearfix">
-                                        <div class="wi"><a href="blog-details.jsp"><img src="<%=blogr.getImageURL()%>" alt=""></a></div>
+                                        <div class="wi"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><img src="<%="../.."+blogr.getImageURL()%>" alt=""></a></div>
                                         <div class="wb">
-                                            <h6><a href="blog-details.jsp"><%=blogr.getBLOG_TITLE()%></a></h6>
+                                            <h6><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><%=blogr.getBLOG_TITLE()%></a></h6>
                                             <div class="wb-info">
                                                 <span class="post-date"> <i class="bi bi-person-circle"></i><%=blogr.getFullName()%> </span>
                                                 <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blogr.getNgayVietBai().toString()%></span>

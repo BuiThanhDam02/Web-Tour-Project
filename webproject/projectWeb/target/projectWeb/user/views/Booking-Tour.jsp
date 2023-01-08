@@ -230,7 +230,7 @@ table {
                             <p class="package-title">Tour trọn gói <span> (<%=tour.getSoLuong()%> khách)</span></p>
                             <div class="product" style="margin-top: 1rem;">
                             <div class="product-image">
-                                <img src="<%=tc==null?tour.getImageURL():tc.getImageURL()%>" class="img-fluid" alt="image">
+                                <img src="<%=tc==null?"../.."+tour.getImageURL():"../.."+tc.getImageURL()%>" class="img-fluid" alt="image">
                             </div>
                             <div class="product-content">
                             <p class="title" style="color: #2d4271; font-weight: 600;"><%=tc==null?tour.getTourName():tc.getTourName()%></p>

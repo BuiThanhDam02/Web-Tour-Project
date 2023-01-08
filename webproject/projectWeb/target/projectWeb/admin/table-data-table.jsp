@@ -59,10 +59,10 @@
               </div>
              
              
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
+<%--              <div class="col-sm-2">--%>
+<%--                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i--%>
+<%--                    class="fas fa-trash-alt"></i> Xóa tất cả </a>--%>
+<%--              </div>--%>
           </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
               id="sampleTable">
@@ -92,7 +92,7 @@
                   <td width="10"><input type="checkbox" name="check<%=g.getUser_Id()%>" value="<%=g.getUser_Id()%>"></td>
                   <td><%=g.getUser_Id()%></td>
                   <td><%=g.getFullName()==null?"Chưa có":g.getFullName()%></td>
-                  <td><img class="img-card-person" src="..<%=g.getImageURL()%>" alt=""></td>
+                  <td><img class="img-card-person" src="..<%=g.getImageURL()==null?"":".."+g.getImageURL()%>" alt=""></td>
                   <td><%=g.getDiaChi()==null?"Chưa có":g.getDiaChi()%></td>
                   <td><%=g.getBirth() ==null?"Chưa có":g.getBirth().toString()%></td>
                   <td><%=g.getGioiTinh()==null?"Chưa có":g.getGioiTinh()%></td>

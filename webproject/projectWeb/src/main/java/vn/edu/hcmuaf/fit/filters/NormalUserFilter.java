@@ -14,7 +14,9 @@ import java.io.IOException;
         ,"/user/views/Booking-Tour-card.jsp"
         ,"/user/views/Booking-Tour.jsp",
         "/user/views/Cart.jsp",
-        "/user/views/order"
+        "/user/views/order",
+        "/user/views/review",
+        "/user/views/comment"
 })
 public class NormalUserFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {

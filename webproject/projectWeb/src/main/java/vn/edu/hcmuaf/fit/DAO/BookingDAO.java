@@ -46,6 +46,18 @@ public class BookingDAO {
         return list;
 
     }
+    public List<Booking> getListBookingComplete(){
+        List<Booking> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select  * from booking where TRANGTHAI >=1")
+                        .mapToBean(Booking.class)
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+        list.sort((o1, o2) -> o1.getNgayTao().getTime()>= o2.getNgayTao().getTime()?-1:1);
+        return list;
+
+    }
+
 
     public Booking getBookingById(String id){
         List<Booking> list = JDBIConnector.get().withHandle(handle ->
@@ -262,6 +274,14 @@ public class BookingDAO {
 
         return list;
     }
+    public List<Booking> getListBookingByTourId(String tourId){
+        List<Booking> list = JDBIConnector.get().withHandle(handle -> handle.createQuery(
+                "SELECT * from booking WHERE TOUR_ID = ? and TRANGTHAI = 1"
+        ).bind(0,tourId).mapToBean(Booking.class).stream().collect(Collectors.toList()));
+
+        return list;
+    }
+
 
     public static void main(String[] args) {
 

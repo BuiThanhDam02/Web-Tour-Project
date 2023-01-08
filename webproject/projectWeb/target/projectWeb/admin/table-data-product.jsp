@@ -57,10 +57,10 @@
                         </div>
                        
                        
-                        <div class="col-sm-2">
-                          <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                              class="fas fa-trash-alt"></i> Xóa tất cả </a>
-                        </div>
+<%--                        <div class="col-sm-2">--%>
+<%--                          <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i--%>
+<%--                              class="fas fa-trash-alt"></i> Xóa tất cả </a>--%>
+<%--                        </div>--%>
                     </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
@@ -94,7 +94,7 @@
                                     <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
                                     <td><%=tourList.get(i).getTour_id()%></td>
                                     <td><%=tourList.get(i).getTourName()%></td>
-                                    <td><img src="<%=tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
+                                    <td><img src="<%=tourList.get(i).getImageURL()==null?"":".."+tourList.get(i).getImageURL()%>" alt="" width="100px;"></td>
                                     <td><%=tourList.get(i).getSoLuong()%></td>
                                     <td><span class="badge <%=cltt%>"><%=tt%></span></td>
                                     <td><%=giaVeString%>đ</td>

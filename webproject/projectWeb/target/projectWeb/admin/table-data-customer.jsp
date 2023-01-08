@@ -81,7 +81,7 @@
                   <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
                   <td><%=listKH.get(i).getUser_Id()%></td>
                   <td><%=listKH.get(i).getFullName()==null?"Chưa có":listKH.get(i).getFullName()%></td>
-                  <td><img class="img-card-person" src="<%=listKH.get(i).getImageURL()%>" alt=""></td>
+                  <td><img class="img-card-person" src="<%=listKH.get(i).getImageURL()==null?"":".."+listKH.get(i).getImageURL()%>" alt=""></td>
                   <td><%=listKH.get(i).getDiaChi()==null?"Chưa có":listKH.get(i).getDiaChi()%></td>
                   <td><%=listKH.get(i).getBirth() ==null?"Chưa có":listKH.get(i).getBirth().toString()%></td>
                   <td><%=listKH.get(i).getGioiTinh()==null?"Chưa có":listKH.get(i).getGioiTinh()%></td>
@@ -94,7 +94,7 @@
 <%--                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>--%>
 <%--                    </button>--%>
                     <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
+                      data-toggle="modal" data-target="#ModalUP<%=listKH.get(i).getUser_Id()%>"><i class="fas fa-edit"></i>
                     </button>
                   </td>
                 </tr>
@@ -113,7 +113,12 @@
   <!--
   MODAL
 -->
-  <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  <%
+    for (User u:
+         listKH) {
+
+    %>
+  <div class="modal fade" id="ModalUP<%=u.getUser_Id()%>" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
     data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -157,6 +162,7 @@
       </div>
     </div>
   </div>
+  <%}%>
   <!--
   MODAL
 -->

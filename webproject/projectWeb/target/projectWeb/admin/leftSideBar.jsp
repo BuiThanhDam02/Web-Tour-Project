@@ -14,7 +14,7 @@
 
 <aside class="app-sidebar">
   <div class="app-sidebar__user">
-    <p class="app-sidebar__user-designation">Chào mừng Admin trở lại</p>
+    <p class="app-sidebar__user-designation">Trang quản trị admin</p>
 
   </div>
   <hr>
@@ -47,7 +47,7 @@
     <li><a class="app-menu__item <%=isCurrent.equals("reportTable")?"active":""%>" href="/projectWeb_war/admin/ReportTableData"><i
             class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
     </li>
-    <li><a class="app-menu__item <%=isCurrent.equals("calendarTable")?"active":""%>" href="page-calendar.jsp"><i class='app-menu__icon bx bx-calendar-check'></i><span
+    <li><a class="app-menu__item <%=isCurrent.equals("calendarTable")?"active":""%>" href="/projectWeb_war/admin/Calendar"><i class='app-menu__icon bx bx-calendar-check'></i><span
             class="app-menu__label">Lịch công tác </span></a></li>
     <!-- <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
           đặt hệ thống</span></a></li> -->

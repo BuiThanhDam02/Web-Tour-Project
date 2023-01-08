@@ -56,6 +56,8 @@ public class TourDAO {
         return list ;
     }
 
+
+
     public List<Tour> getSoldOutTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->

@@ -177,108 +177,128 @@
           <form method="post" action="/projectWeb_war/admin/CRUDTourData"  enctype="multipart/form-data">
 <%--            modal--%>
 <%--            modal--%>
-  <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-       data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
 
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
+
+    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
               <span class="thong-tin-thanh-toan">
                 <h5>Thêm mới Voucher</h5>
               </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập ID Voucher mới</label>
+                            <select class="form-control"  name="tourDetailVoucher"  >
+                                <option value="none">Không</option>
+                                <% for (Voucher v:
+                                        vouchers) {
+                                    if (tour !=null ){
+
+                                    if (tour.getVoucherList().size() != 0 &&tour.getVoucherList().get(0).getVOUCHER_ID().equals(v.getVOUCHER_ID())){
+
+
+                                %>
+                                <option selected value="<%=v.getVOUCHER_ID()%>"><%=v.getVOUCHER_ID()%>-<%=v.getVOUCHER_VALUE()%></option>
+                                <%}else {%>
+                                <option value="<%=v.getVOUCHER_ID()%>"><%=v.getVOUCHER_ID()%>-<%=v.getVOUCHER_VALUE()%></option>
+                               <% }
+                                }else{%>
+                                <option value="<%=v.getVOUCHER_ID()%>"><%=v.getVOUCHER_ID()%>-<%=v.getVOUCHER_VALUE()%></option>
+                                <%}
+                                   }%>
+                            </select>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" data-dismiss="modal" type="button">Lưu lại</button>
+
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
             </div>
-            <div class="form-group col-md-12">
-              <label class="control-label">Nhập ID Voucher mới</label>
-              <select class="form-control"  name="tourDetailVoucher" required >
-                <option value="none">Không</option>
-                <% for (Voucher v:
-                        vouchers) {
-                  if (tour !=null&& tour.getVoucherList().size() != 0 &&tour.getVoucherList().get(0).getVOUCHER_ID().equals(v.getVOUCHER_ID())){
-
-
-                 %>
-                <option selected value="<%=v.getVOUCHER_ID()%>"><%=v.getVOUCHER_ID()%>-<%=v.getVOUCHER_VALUE()%></option>
-                <%}else {%>
-                <option value="<%=v.getVOUCHER_ID()%>"><%=v.getVOUCHER_ID()%>-<%=v.getVOUCHER_VALUE()%></option>
-
-                <%}}%>
-              </select>
-            </div>
-          </div>
-          <BR>
-          <button class="btn btn-save" data-dismiss="modal" type="button">Lưu lại</button>
-
-          <BR>
         </div>
-        <div class="modal-footer">
-        </div>
-      </div>
     </div>
-  </div>
 
 
-  <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-       data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
 
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
               <span class="thong-tin-thanh-toan">
                 <h5>Thêm mới hướng dẫn viên </h5>
               </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input style="display: none" class="form-control" name="tourDetailCountGuide" value="<%=guides.size()%>" type="number">
+
+                            <label class="control-label">Chọn hướng dẫn viên</label>
+                            <div class="col-md-10">
+                                <%
+                                    for (int i = 0; i < guides.size(); i++) {
+                                        int j =i +1;
+                                        boolean b = false;
+                                        if (tour !=null )
+                                        {
+                                            for (TourGuide g:
+                                                    tour.getGuideList()) {
+
+                                                if (g.getUser_id().equals(guides.get(i).getUser_Id())){
+
+                                                            b = true;
+                                %>
+                                <input type="checkbox" checked  id="guide<%=j%>" name="tourDetailGuide<%=j%>" value="<%=guides.get(i).getUser_Id()%>">
+                                <label for="guide<%=j%>"><%=guides.get(i).getUser_Id()%>-<%=guides.get(i).getFullName()%></label><br>
+                                <%}%>
+
+
+                                <%
+                                            }
+                                            if (b==false){%>
+                                <input type="checkbox"  id="guide<%=j%>" name="tourDetailGuide<%=j%>" value="<%=guides.get(i).getUser_Id()%>">
+                                <label for="guide<%=j%>"><%=guides.get(i).getUser_Id()%>-<%=guides.get(i).getFullName()%></label><br>
+                                <%
+                                    } }
+                                        else{%>
+                                <input type="checkbox"  id="guide<%=j%>" name="tourDetailGuide<%=j%>" value="<%=guides.get(i).getUser_Id()%>">
+                                <label for="guide<%=j%>"><%=guides.get(i).getUser_Id()%>-<%=guides.get(i).getFullName()%></label><br>
+                                <%}}%>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" data-dismiss="modal" type="button">Lưu lại</button>
+
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
             </div>
-            <div class="form-group col-md-12">
-              <input style="display: none" class="form-control" name="tourDetailCountGuide" value="<%=guides.size()%>" type="number">
-
-              <label class="control-label">Chọn hướng dẫn viên</label>
-              <div class="col-md-10">
-                <%
-                  for (int i = 0; i < guides.size(); i++) {
-                    int j =i +1;
-                    if (tour !=null )
-                    {
-                      for (TourGuide g:
-                           tour.getGuideList()) {
-
-                      if (g.getUser_id().equals(guides.get(i).getUser_Id())){
-
-
-                %>
-                <input type="checkbox" checked  id="guide<%=j%>" name="tourDetailGuide<%=j%>" value="<%=guides.get(i).getUser_Id()%>">
-                <label for="guide<%=j%>"><%=guides.get(i).getUser_Id()%>-<%=guides.get(i).getFullName()%></label><br>
-                <%}}}else{%>
-                <input type="checkbox"  id="guide<%=j%>" name="tourDetailGuide<%=j%>" value="<%=guides.get(i).getUser_Id()%>">
-                <label for="guide<%=j%>"><%=guides.get(i).getUser_Id()%>-<%=guides.get(i).getFullName()%></label><br>
-                <%}}%>
-              </div>
-
-            </div>
-
-          </div>
-          <BR>
-          <button class="btn btn-save" data-dismiss="modal" type="button">Lưu lại</button>
-
-          <BR>
         </div>
-        <div class="modal-footer">
-        </div>
-      </div>
     </div>
-  </div>
+
+
 <%--            end modal--%>
 <%--            --%>
           <h3 class="tile-title"><%=tour==null?"Tạo mới Tour du lịch":"Sửa Tour du lịch"%></h3>
           <div class="tile-body">
 
             <div class="row element-button">
-              <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
-                    class="fas fa-folder-plus"></i> Thêm hình ảnh</a>
-              </div>
+<%--              <div class="col-sm-2">--%>
+<%--                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i--%>
+<%--                    class="fas fa-folder-plus"></i> Thêm hình ảnh</a>--%>
+<%--              </div>--%>
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
                     class="fas fa-folder-plus"></i> Thêm hướng dẫn viên</a>
@@ -297,11 +317,11 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Tên Tour</label>
-                <input class="form-control" name="tourDetailName" required value="<%=tour==null?"":tour.getTourDetail().getTourName()==null?"":tour.getTourDetail().getTourName()%>" type="text">
+                <input class="form-control" name="tourDetailName"  value="<%=tour==null?"":tour.getTourDetail().getTourName()==null?"":tour.getTourDetail().getTourName()%>" type="text">
               </div>
               <div class="form-group col-md-3">
                 <label  class="control-label">Địa điểm</label>
-                <select class="form-control" required name="tourDetailDiaDiem">
+                <select class="form-control"  name="tourDetailDiaDiem">
                   <%
                     for (Destination d:
                          dess) {
@@ -311,18 +331,19 @@
                   <option selected value="<%=d.getDiaDiem_ID()%>"><%=d.getTenDiaDiem()%></option>
                   <%}else{%>
                   <option value="<%=d.getDiaDiem_ID()%>"><%=d.getTenDiaDiem()%></option>
-                  <%}}%>
+                  <%}
+                    }%>
                 </select>
               </div>
 
 
               <div class="form-group  col-md-3">
                 <label class="control-label">Số lượng</label>
-                <input class="form-control" required name="tourDetailSoLuong" value="<%=tour==null?"":tour.getTourDetail().getSoLuong()%>" type="number" >
+                <input class="form-control"  name="tourDetailSoLuong" value="<%=tour==null?"":tour.getTourDetail().getSoLuong()%>" type="number" >
               </div>
               <div class="form-group col-md-3 ">
                 <label class="control-label">Trạng thái</label>
-                <select class="form-control" required name="tourDetailTrangThai">
+                <select class="form-control"  name="tourDetailTrangThai">
 
               <% if (tour != null){%>
                   <%if (tour.getTourDetail().getTrangThai()==1){%>
@@ -351,10 +372,10 @@
               <div class="form-group col-md-12">
                 <label class="control-label">Ảnh sản phẩm</label>
                 <div id="myfileupload">
-                  <input type="file" required accept="image/*" id="uploadfile" name="ImageUpload" value="<%=tour==null?"":".."+tour.getTourDetail().getImageURL()%>" onchange="readURL(this);" />
+                  <input type="file"  accept="image/*" id="uploadfile" name="ImageUpload"  onchange="readURL(this);" />
                 </div>
                 <div id="thumbbox">
-                  <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+                  <img height="450" width="400" alt="Thumb image" src="<%=tour==null?"":tour.getTourDetail().getImageURL()==null?"":".."+tour.getTourDetail().getImageURL()%>" id="thumbimage" style="display: none" />
                   <a class="removeimg" href="javascript:"></a>
                 </div>
                 <div id="boxchoice">
@@ -365,7 +386,7 @@
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" required name="tourDetailDescription"  id="mota"><%=tour ==null?"":tour.getTourDetail().getDescription()==null?"":tour.getTourDetail().getDescription()%></textarea>
+                <textarea class="form-control"  name="tourDetailDescription"  id="mota"><%=tour ==null?"":tour.getTourDetail().getDescription()==null?"":tour.getTourDetail().getDescription()%></textarea>
                 <!-- <script>CKEDITOR.replace('mota');</script> -->
               </div>
               <div class="form-group col-md-12" style="font-weight: bold;font-size: 1rem;">
@@ -377,7 +398,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Giá vé người lớn</label>
-                <input class="form-control" required name="tourDetailSLVNL" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==1?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
+                <input class="form-control"  name="tourDetailSLVNL" value="<%=tour==null?0:tour.getTypeList().get(0).getType()==1?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
               </div>
               <br>
               <br>
@@ -386,7 +407,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Giá vé trẻ em</label>
-                <input class="form-control" required name="tourDetailSLVTE" value="<%=tour==null?"":tour.getTypeList().get(0).getType()==0?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
+                <input class="form-control"  name="tourDetailSLVTE" value="<%=tour==null?0:tour.getTypeList().get(0).getType()==0?tour.getTypeList().get(0).getGiaVe():tour.getTypeList().get(1).getGiaVe()%>" type="number" placeholder="">
               </div>
               <br>
               <br>
@@ -397,17 +418,17 @@
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Ngày khởi hành</label>
-                <input class="form-control" required name="tourDetailStartDate" value="<%=tour==null?"":tour.getTourDetail().getNgayKhoiHanh()%>" type="date">
+                <input class="form-control"  name="tourDetailStartDate" value="<%=tour==null?"":tour.getTourDetail().getNgayKhoiHanh()%>" type="date">
               </div>
             <%Date currentDate = Date.valueOf(LocalDate.now());%>
             <input style="display: none" class="form-control" name="tourDetailCreateDate" value="<%=tour==null?currentDate:tour.getTourDetail().getNgayTao()%>" type="date">
               <div class="form-group col-md-4">
                 <label class="control-label">Ngày kết thúc</label>
-                <input class="form-control" required type="date" value="<%=tour==null?"":tour.getTourDetail().getNgayKetThuc()%>" name="tourDetailEndDate">
+                <input class="form-control"  type="date" value="<%=tour==null?"":tour.getTourDetail().getNgayKetThuc()%>" name="tourDetailEndDate">
               </div>
               <div class="form-group col-md-3">
                 <label  class="control-label">Nơi khởi hành</label>
-                <select class="form-control" required name="tourDetailStartDiaDiem">
+                <select class="form-control"  name="tourDetailStartDiaDiem">
                   <%
                   for (Destination d:
                           dess) {
@@ -418,21 +439,27 @@
                   <option selected value="<%=d.getTenDiaDiem()%>"><%=d.getTenDiaDiem()%></option>
                   <%}else{%>
                   <option value="<%=d.getTenDiaDiem()%>"><%=d.getTenDiaDiem()%></option>
-                  <%}}%>
+                  <%}
+
+
+                  }%>
                 </select>
               </div>
               <div class="form-group col-md-4">
                 <label  class="control-label">Phương tiện di chuyển</label>
-                <select class="form-control" required name="tourDetailVehicle">
+                <select class="form-control"  name="tourDetailVehicle">
 
                   <%if (tour != null && tour.getTourDetail().getPhuongTienDiChuyen().equals("Máy bay")){%><option selected value="Máy bay">Máy bay</option><%}else{%><option  value="Máy bay">Máy bay</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getPhuongTienDiChuyen().equals("Xe khách")){%> <option selected value="Xe khách">Xe khách</option><%}else{%><option  value="Xe khách">Xe khách</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getPhuongTienDiChuyen().equals("Du thuyền")){%><option selected value="Du thuyền">Du thuyền</option><%}else{%><option  value="Du thuyền">Du thuyền</option> <%}%>
+
+
+
                 </select>
               </div>
               <div class="form-group col-md-4">
                 <label  class="control-label">Hạng mục Tour</label>
-                <select class="form-control" required name="tourDetailCategory">
+                <select class="form-control"  name="tourDetailCategory">
 
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Phiêu lưu")){%><option selected value="Phiêu lưu">Phiêu lưu</option><%}else{%><option value="Phiêu lưu">Phiêu lưu</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Du lịch")){%><option selected value="Du lịch">Du lịch</option><%}else{%><option value="Du lịch">Du lịch</option> <%}%>
@@ -441,6 +468,9 @@
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Tuần trăng mật")){%><option selected value="Tuần trăng mật">Tuần trăng mật</option><%}else{%><option value="Tuần trăng mật">Tuần trăng mật</option> <%}%>
                   <%if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Bãi biển")){%><option selected value="Bãi biển">Bãi biển</option><%}else{%><option value="Bãi biển">Bãi biển</option> <%}%>
                   <% if (tour != null && tour.getTourDetail().getTOUR_CATEGORY().equals("Thám hiểm núi")){%><option selected value="Thám hiểm núi">Thám hiểm núi</option><%}else{%><option value="Thám hiểm núi">Thám hiểm núi</option> <%}%>
+
+
+
                 </select>
               </div>
               <br>
@@ -450,7 +480,7 @@
               <div class="form-group col-md-12" style="font-weight: bold;font-size: 1rem;">
                 Kế hoạch chi tiết từng ngày
                 <div class="col-sm-2" style="float: right;">
-                  <input style="display: none" class="form-control" id="tourDetailCountDay" name="tourDetailCountDay" value="<%=tour.getDayList().size()%>" required type="number">
+                  <input style="display: none" class="form-control" id="tourDetailCountDay" name="tourDetailCountDay" value="<%=tour==null?0:tour.getDayList().size()%>"  type="number">
                   <button class="btn btn-primary btn-sm success add_day" type="button" title="Thêm ngày" >
                     <i class="fas fa-plus"></i>
                   </button>
@@ -470,15 +500,15 @@
                     <div class="form-group col-md-1">
                       <label class="control-label">Ngày </label>
                       <input  type="number" name="tourDetailDay<%=tdd.getNgay()%>" style="display: none" value="<%=tdd.getNgay()%>" >
-                      <input class="form-control" id="item_tour_per_day_value" required type="number" value="<%=tdd.getNgay()%>" disabled>
+                      <input class="form-control" id="item_tour_per_day_value"  type="number" value="<%=tdd.getNgay()%>" disabled>
                     </div>
                     <div class="form-group col-md-3">
                       <label class="control-label">Tiêu đề của ngày</label>
-                      <input class="form-control" id="item_tour_per_day_title" required name="tourDetailDayTitle<%=tdd.getNgay()%>"  value="<%=tdd.getTitle()%>" type="text">
+                      <input class="form-control" id="item_tour_per_day_title"  name="tourDetailDayTitle<%=tdd.getNgay()%>"  value="<%=tdd.getTitle()%>" type="text">
                     </div>
                     <div class="form-group col-md-7">
                       <label class="control-label">Mô tả ngày</label>
-                      <textarea class="form-control" name="tourDetailDayMoTa<%=tdd.getNgay()%>" required  id="m"><%=tdd.getDescription()%></textarea>
+                      <textarea class="form-control" name="tourDetailDayMoTa<%=tdd.getNgay()%>"  id="m"><%=tdd.getDescription()%></textarea>
 
                     </div>
                     <div class="form-group col-md-0.5">
@@ -495,7 +525,7 @@
 
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
-          <a class="btn btn-cancel" href="table-data-product.jsp">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="/projectWeb_war/admin/TourTableData">Hủy bỏ</a>
 
           </div>
           </form>
@@ -522,7 +552,7 @@
 <%--            </div>--%>
 <%--            <div class="form-group col-md-12">--%>
 <%--              <label class="control-label">Nhập tên chức vụ mới</label>--%>
-<%--              <input class="form-control" type="text" required>--%>
+<%--              <input class="form-control" type="text" >--%>
 <%--            </div>--%>
 <%--          </div>--%>
 <%--          <BR>--%>
@@ -558,7 +588,7 @@ MODAL
 <%--            </div>--%>
 <%--            <div class="form-group col-md-12">--%>
 <%--              <label class="control-label">Nhập ID hướng dẫn viên</label>--%>
-<%--              <input class="form-control" type="text" required>--%>
+<%--              <input class="form-control" type="text" >--%>
 <%--            </div>--%>
 <%--            <div class="form-group col-md-12">--%>
 <%--              <label class="control-label">Hướng dẫn viên hiện đang có</label>--%>
@@ -660,15 +690,15 @@ console.log(tourDetailCountDay[0].value)
                     <div class="form-group col-md-1">
                       <label class="control-label">Ngày </label>
                       <input type="number" name="tourDetailDay${listChildren.length+1}" style="display: none" value=${listChildren.length+1} >
-                      <input required class="form-control" id="item_tour_per_day_value" type="number" value=${listChildren.length+1} disabled>
+                      <input  class="form-control" id="item_tour_per_day_value" type="number" value=${listChildren.length+1} disabled>
                     </div>
                     <div class="form-group col-md-3">
                       <label class="control-label">Tiêu đề của ngày</label>
-                      <input class="form-control" id="item_tour_per_day_title" required name="tourDetailDayTitle${listChildren.length+1}"  value="" type="text">
+                      <input class="form-control" id="item_tour_per_day_title"  name="tourDetailDayTitle${listChildren.length+1}"  value="" type="text">
                     </div>
                     <div class="form-group col-md-7">
                       <label class="control-label">Mô tả ngày</label>
-                      <textarea class="form-control" required name="tourDetailDayMoTa${listChildren.length+1}" value="" id="mota"></textarea>
+                      <textarea class="form-control"  name="tourDetailDayMoTa${listChildren.length+1}" value="" id="mota"></textarea>
 
                     </div>
                     <div class="form-group col-md-0.5">                     

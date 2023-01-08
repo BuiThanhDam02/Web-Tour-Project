@@ -146,7 +146,7 @@
                   <input  type="file" accept="image/*" id="uploadfile"  name="ImageUpload"  onchange="readURL(this);" />
                 </div>
                 <div id="thumbbox">
-                  <img height="300" width="300" alt="Thumb image" src="<%=blog==null?"":blog.getImageURL()==null?"":blog.getImageURL()%>" id="thumbimage" style="display: none" />
+                  <img height="300" width="300" alt="Thumb image" src="<%=blog==null?"":blog.getImageURL()==null?"":".."+blog.getImageURL()%>" id="thumbimage" style="display: none" />
                   <a class="removeimg" href="javascript:"></a>
                 </div>
                 <div id="boxchoice">

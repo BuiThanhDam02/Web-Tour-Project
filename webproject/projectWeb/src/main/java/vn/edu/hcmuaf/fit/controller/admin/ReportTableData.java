@@ -26,7 +26,7 @@ public class ReportTableData extends HttpServlet {
         List<Tour> listALlTour = TourService.getInstance().getAllTour();
         request.setAttribute("listAllTour", listALlTour);
 
-        List<Booking> listBooking = BookingService.getInstance().getListBooking();
+        List<Booking> listBooking = BookingService.getInstance().getListBookingComplete();
         request.setAttribute("listBooking", listBooking);
 
         List<Tour> listTour = TourService.getInstance().getListTour();

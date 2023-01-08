@@ -17,7 +17,7 @@
                                     aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
-        <li><a class="app-nav__item" style="background-color: var(--primary);color: white;" href="/index.jsp"><i class="fa-solid fa-right-from-bracket"></i></a>
+        <li title="Đăng xuất" ><a class="app-nav__item" style="background-color: var(--primary);color: white;" href="/projectWeb_war/user/views/signout"><i class="fa-solid fa-right-from-bracket"></i></a>
 
         </li>
         <li><a class="app-nav__item" style="background-color: var(--primary);color: white;" ><i class="fa-regular fa-comment"></i> </a></li>
@@ -25,8 +25,8 @@
         <div class="col-divide" style="background-color: rgb(185, 185, 185); width: 0.05rem;height: 100%; margin-right: 1rem;"></div>
         <li>
             <div class="app-header_user">
-                <span class="app-header_user-name"><b>Admin</b></span>
-                <img class="app-header_user-avatar" src="../assets/images/guide/guide-md10.png"
+                <span class="app-header_user-name"><b><%=user==null?"":user.getFullName()==null?"Chưa có thông tin":user.getFullName()%></b></span>
+                <img style="width: 40px; height: 40px" class="app-header_user-avatar" src="<%=user.getImageURL()==null?"./css/userDefaultImage.png":".."+user.getImageURL()%>"
                      alt="User Image">
 
 
