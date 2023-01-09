@@ -118,12 +118,14 @@
                                         <div class="searchbox-input">
                                             <label for="deatination_drop">Điểm Đến</label>
                                             <select data-placeholder="Bạn Muốn Đi Đâu?" name="searchDiaDiem" id="deatination_drop">
-                                                <option value="">Bạn Muốn Đi Đâu?</option>
-                                                <option value="TPHCM" >Tp.Hồ Chí Minh</option>
-                                                <option value="HANOI" >Hà Nội</option>
-                                                <option value="NHATRANG">Nha Trang</option>
-                                                <option value="DANANG" >Đà Nẵng</option>
-                                                <option value="LAMDONG" >Lâm Đồng</option>
+
+                                                <%
+                                                    for (Destination d:
+                                                         desList) {
+                                                        
+                                                    %>
+                                                <option value="<%=d.getDiaDiem_ID()%>" ><%=d.getTenDiaDiem()%></option>
+                                                <%}%>
                                             </select>
                                         </div>
                                     </div>
@@ -271,7 +273,7 @@
                 <div class="<%=i==0||i==5?"col-lg-6 col-md-12 col-sm-10":"col-lg-3 col-md-6 col-sm-10"%>">
                     <div class="destination-item">
                         <div class="destination-img">
-                            <img style="width: 630px; height: 280px;" src="<%="../.."+desList.get(i).getImageURL()%>" alt="">
+                            <img style="width: 630px; height: 280px;" src="<%=desList.get(i).getImageURL()%>" alt="">
                         </div>
                         <div class="destination-overlay">
                             <div class="content">

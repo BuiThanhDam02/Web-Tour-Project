@@ -19,7 +19,7 @@ public class BlogDAO {
 
     public List<Blog> getListBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -29,7 +29,7 @@ public class BlogDAO {
     }
     public List<Blog> getListRecentBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -52,7 +52,7 @@ public class BlogDAO {
 
         String finalTextSearchquery = textSearchquery;
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1 "+
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1 "+
                                 finalTextSearchquery + finalQuery)
                         .mapToBean(Blog.class)
                         .stream()
@@ -63,7 +63,7 @@ public class BlogDAO {
 
     public List<Blog> getListRandomBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -78,7 +78,7 @@ public class BlogDAO {
     }
     public Blog getBlogDetail(String blog_id){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role =1 and blog.BLOG_ID = ?")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1 and blog.BLOG_ID = ?")
                         .bind(0,blog_id)
                         .mapToBean(Blog.class)
                         .stream()
@@ -100,7 +100,7 @@ public class BlogDAO {
 
     public boolean createBlog(Map<String,String> map){
         Random random = new Random();
-        String id ="Blog"+ (random.nextInt(1000));
+        String id ="Blog"+ (random.nextInt(9999000));
         int row =  JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("insert into BLOG values (?,?,?,?,?,?,?,?)")
                         .bind(0,id)

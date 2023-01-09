@@ -67,7 +67,7 @@
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
                                     <th>Mã BLog</th>
-                                    <th>Hướng dẫn viên</th>
+                                    <th>Người viết bài</th>
                                     <th>Tên Blog</th>
                                     <th>Ngày viết bài</th>
                                     <th>Nội dung</th>

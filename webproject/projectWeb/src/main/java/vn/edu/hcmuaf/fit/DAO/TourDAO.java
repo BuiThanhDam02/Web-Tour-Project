@@ -81,7 +81,7 @@ public class TourDAO {
     public TourDetail getTourDetail(String tour_id){
 
         List<TourDetail> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select * from tour where tour.TOUR_ID = ? and tour.TrangThai =1")
+                h.createQuery("select * from tour where tour.TOUR_ID = ? ")
                         .bind(0, tour_id)
                         .mapToBean(TourDetail.class)
                         .stream()

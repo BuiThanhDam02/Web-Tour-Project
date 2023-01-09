@@ -307,12 +307,12 @@
                                             <div class="single-comment " style="width: 700px">
                                                 <div >
                                                     <div class="commmentor"  >
-                                                        <img src="<%="../.."+r.getImageURL()%>" alt="" style="width: 145px;height: 145px">
+                                                        <img src="<%=r.getImageURL()==null?"./assets/images/userDefaultImage.png":"../.."+r.getImageURL()%>" alt="" style="width: 145px;height: 145px">
                                                     </div>
                                                     <div class="comment mt-4 mt-sm-0" style="width: 650px">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div class="info">
-                                                                <h6><%=r.getFullName()%></h6>
+                                                                <h6><%=r.getFullName()==null?r.getUser_id():r.getFullName()%></h6>
                                                                 <span><%=r.getNgayTao()%></span>
                                                             </div>
                                                             <div>

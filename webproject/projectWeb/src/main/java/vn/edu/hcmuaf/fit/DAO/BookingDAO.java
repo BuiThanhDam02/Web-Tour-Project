@@ -73,7 +73,7 @@ public class BookingDAO {
     }
     public boolean createBooking(TourCart tc){
         Random random = new Random();
-        String id ="BOOKING"+ (random.nextInt() +500);
+        String id ="BOOKING"+ (random.nextInt() +999900);
         TourDetail tour = TourDetailService.getInstance().getTourDetail(tc.getTOUR_ID());
         if (tour.getSoLuong() < tc.getSOLUONG()){
             return false;
@@ -103,7 +103,7 @@ public class BookingDAO {
 
     public boolean createBookingAdmin(Booking tc){
         Random random = new Random();
-        String id ="BOOKING"+ (random.nextInt() +500);
+        String id ="BOOKING"+ (random.nextInt() +10000000);
         TourDetail tour = TourDetailService.getInstance().getTourDetail(tc.getTOUR_ID());
         if (tour.getSoLuong() < tc.getSOLUONG()){
             return false;

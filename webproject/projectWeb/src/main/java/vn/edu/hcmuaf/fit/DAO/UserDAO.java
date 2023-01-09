@@ -253,7 +253,7 @@ cập nhật bởi Bùi Thanh Đảm
 
     public boolean createGuide(Map<String,String> map){
         Random random = new Random();
-        String id ="User"+ (random.nextInt(99999));
+        String id ="User"+ (random.nextInt(999999,99999999));
        int row =  JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("insert into user values (?,?,?,?,?,?,?,?,?,?,?,null,1)")
                         .bind(0,id)

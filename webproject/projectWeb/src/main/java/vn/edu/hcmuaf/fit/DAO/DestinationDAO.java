@@ -2,6 +2,8 @@ package vn.edu.hcmuaf.fit.DAO;
 
 import vn.edu.hcmuaf.fit.bean.Destination;
 
+import vn.edu.hcmuaf.fit.bean.Tour;
+import vn.edu.hcmuaf.fit.bean.TourDetail;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 import java.util.List;
@@ -39,14 +41,37 @@ public class DestinationDAO {
    Phương thức lấy dữ liệu tất cả địa điểm có trong cơ sở dữ liệu
     */
     public List<Destination> getDestination(){
+//        List<Destination> des = JDBIConnector.get().withHandle(h ->
+//                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID\n" +
+//                                "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL")
+//                        .mapToBean(Destination.class)
+//                        .stream()
+//                        .collect(Collectors.toList())
+//        );
+
         List<Destination> des = JDBIConnector.get().withHandle(h ->
-                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID\n" +
-                                "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL")
+                h.createQuery("SELECT diadiem.DiaDiem_ID,diadiem.TenDiaDiem,diadiem.ImageURL, 0 as soluong FROM diadiem "
+                                )
                         .mapToBean(Destination.class)
                         .stream()
                         .collect(Collectors.toList())
         );
 
+        for (Destination d:
+             des) {
+            List<TourDetail> t = JDBIConnector.get().withHandle(h ->
+                    h.createQuery("SELECT tour.* FROM tour where tour.DiaDiem_ID= ?"
+                            )
+                            .bind(0,d.getDiaDiem_ID())
+                            .mapToBean(TourDetail.class)
+                            .stream()
+                            .collect(Collectors.toList())
+            );
+            if (t.size() >0) {
+                d.setSoluong(t.size());
+            }
+        }
+        des.sort((o1, o2) -> o1.getSoluong() >= o2.getSoluong()?-1:1);
         return des;
     }
 
@@ -66,6 +91,7 @@ public class DestinationDAO {
 
     public static void main(String[] args) {
 
+        
 
     }
 }

@@ -172,7 +172,7 @@ public class TourDetailDAO {
     }
     public boolean adminCreateTour(Map<String,String > map){
         Random random = new Random();
-        String id ="Tour"+ (random.nextInt(10000000) );
+        String id ="Tour"+ (random.nextInt(90000000) );
         int countGuide = Integer.parseInt(map.get("tourDetailCountGuide"));
         List<String> guidesId = new ArrayList<String>();
         for (int i = 1; i <= countGuide; i++) {

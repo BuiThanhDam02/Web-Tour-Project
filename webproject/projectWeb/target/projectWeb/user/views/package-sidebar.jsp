@@ -101,8 +101,8 @@
                                 int dem = Integer.parseInt(dateString.substring(0,1));
                                 int ngay = dem+1;
                                 %>
-                        <div class="col-md-6 "  >
-                            <div class="package-card-alpha" href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
+                        <div class="col-md-6 " style="height: 450px" >
+                            <div class="package-card-alpha" style="height: 450px" href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                 <div class="package-thumb">
                                     <div class="is-new-tour <%=checkDate?"":"display-hide"%>" id="<%=tour.getNgayTao().toString()%>"><span >Mới</span></div>
                                     <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%="../.."+tour.getImageURL()%>" alt=""></a>
